@@ -29,5 +29,8 @@
     <ClInclude Include="parser.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
+    <ClInclude Include="function.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

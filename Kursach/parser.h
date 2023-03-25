@@ -3,6 +3,7 @@
 #include <string>
 #include <map>
 #include "tstack.h"
+#include<cmath>
 
 int getPrior(char symbol) {
     switch (symbol) {
