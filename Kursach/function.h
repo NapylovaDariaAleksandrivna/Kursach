@@ -38,3 +38,5 @@ double operatoR(int a, std::string op) {
 	}
 	return 0;
 }
+
+

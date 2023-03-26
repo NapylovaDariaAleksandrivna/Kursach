@@ -27,6 +27,42 @@ int getPrior(std::string op) {
     else if (op == " ") {
         return -100;
     }
+    else if (op == "cos") {
+        return 5;
+    }
+    else if (op == "sin") {
+        return 5;
+    }
+    else if (op == "tg") {
+        return 5;
+    }
+    else if (op == "ctg") {
+        return 5;
+    }
+    else if (op == "ln") {
+        return 5;
+    }
+    else if (op == "log2") {
+        return 5;
+    }
+    else if (op == "lg") {
+        return 5;
+    }
+    else if (op == "sqrt") {
+        return 5;
+    }
+    else if (op == "1/") {
+        return 1 / (a);
+    }
+    else if (op == "-1/") {
+        return 5;
+    }
+    else if (op == "|") {
+        return 4;
+    }
+    else if (op == "**") {
+        return 4;
+    }
     return -1;
 }
 
@@ -80,19 +116,24 @@ std::string infx2pstfx(std::string inf) {
     }
     return out;
 }
-int operatoR(int a, int b, char op) {
-    switch (op) {
-    case '+':
+int operatoR(int a, int b, std::string op) {
+    if (op == "+") {
         return a + b;
-    case '-':
+    }
+    else if (op == "-") {
         return a - b;
-    case '*':
+    }
+    else if (op == "*") {
         return a * b;
-    case '/':
+    }
+    else if (op == "/") {
         return a / b;
     }
-    return 0;
+    else if (op == "**") {
+        return pow(a, b);
+    }
 }
+
 int eval(std::string pref) {
     TStack<int, 100> stack1;
     int per = 0;
