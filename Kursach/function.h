@@ -1,4 +1,5 @@
 #pragma once
+#include <cmath>
 
 int operatoR(int a, std::string op) {
     switch (op) {

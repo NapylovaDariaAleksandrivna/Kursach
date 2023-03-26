@@ -5,21 +5,26 @@
 #include "tstack.h"
 #include<cmath>
 
-int getPrior(char symbol) {
-    switch (symbol) {
-    case '(':
+int getPrior(std::string op) {
+    if (op == "(") {
         return 0;
-    case ')':
+    }
+    else if (op == ")") {
         return 1;
-    case '+':
+    }
+    else if (op == "+") {
         return 2;
-    case '-':
+    }
+    else if (op == "-") {
         return 2;
-    case '*':
+    }
+    else if (op == "*") {
         return 3;
-    case '/':
+    }
+    else if (op == "/") {
         return 3;
-    case ' ':
+    }
+    else if (op == " ") {
         return -100;
     }
     return -1;
