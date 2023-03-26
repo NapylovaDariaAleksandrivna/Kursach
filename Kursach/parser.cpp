@@ -1,14 +1,15 @@
 #include "parser.h"
+#include "function.h"
+#include <string>
+#include <map>
+#include "tstack.h"
+#include <cmath>
 
-std::istream& operator>> (std::istream& in, std::string input) {
-
+std::istream& operator>> (std::istream& in, Parser& peremennay) {
+    std::string inf = "";
+    in >> inf;
+    peremennay.SetInput(inf);
+    peremennay.SetOutput(infx2pstfx(inf));
     return in;
 }
 
-void Parser::SetInput()
-{
-}
-
-void Parser::SetOutput()
-{
-}

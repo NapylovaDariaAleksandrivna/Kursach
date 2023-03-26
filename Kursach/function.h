@@ -19,9 +19,6 @@ double operatoR(int a, std::string op) {
 	else if (op == "ln") {
 		return log(a);
 	}
-	else if (op == "log2") {
-		return log2(a);
-	}
 	else if (op == "lg") {
 		return log2(a);
 	}
@@ -77,7 +74,7 @@ int getPrior(std::string op) {
     else if (op == "ln") {
         return 5;
     }
-    else if (op == "log2") {
+    else if (op == "log") {
         return 5;
     }
     else if (op == "lg") {
@@ -95,18 +92,41 @@ int getPrior(std::string op) {
     else if (op == "|") {
         return 4;
     }
-    else if (op == "**") {
+    else if (op == "^") {
         return 4;
     }
     return -1;
 }
 
 std::string infx2pstfx(std::string inf) {
-    TStack<char, 100> stack;
+    TStack<std::string, 100> stack;
     std::string output = "";
     int prior = 0;
     int priorOnHeight = -1;
+    std::string operetor = "";
     for (auto& op : inf) {
+        if (op >= 40 or op <= 47 or op==94 or op==124) {//znaki '^'and'|'
+            operetor = op;
+        }
+        else if (op >= 97 and op <= 122){//bukvi
+            if (op=='s' or op=='c' or op=='t' or op=='l') {
+                operetor = op;
+            } else
+                operetor += op;
+            continue;
+        }
+        else if (op >= 48 and op <= 57) {//tsifri
+            if (operetor[0] >= 48 and operetor[0] <= 57) {
+                operetor += op;
+            } else {
+                operetor = op;
+            }
+        }
+        
+
+
+
+
         prior = getPrior(op);
         priorOnHeight = getPrior(stack.get());
         if (op == '\n') { /* 1. Esli konets stroki*/
@@ -140,6 +160,7 @@ std::string infx2pstfx(std::string inf) {
             }
             stack.push(op);
         }
+        operetor = "";
     }
     while (getPrior(stack.get()) > 1) {
         output += stack.pop();
@@ -164,9 +185,11 @@ int operatoR(int a, int b, std::string op) {
     else if (op == "/") {
         return a / b;
     }
-    else if (op == "**") {
+    else if (op == "^") {
         return pow(a, b);
     }
+    else if (op == "log") {
+        return log2(b)/log2(a);
 }
 
 int eval(std::string pref) {
