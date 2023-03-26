@@ -114,7 +114,9 @@ std::string infx2pstfx(std::string const inf) {
             } else {
                 operetor += inf[op];
             }
-            continue;
+            if (inf[op+1] == 's' or inf[op+1] == 'c' or inf[op+1] == 't' or inf[op+1] == 'l') {
+                continue;
+            }
         }
         else if (inf[op] >= 48 and inf[op] <= 57) {//tsifri
             if (operetor[0] >= 48 and operetor[0] <= 57) {
