@@ -25,12 +25,12 @@ double operatoR(int a, std::string op) {
 	else if (op == "sqrt") {
 		return sqrt(a);
 	}
-	else if (op == "1/") {
+	/*else if (op == "1/") {
 		return 1 / (a);
 	}
 	else if (op == "-1/") {
 		return -1 / (a);
-	}
+	}*/
 	else if (op == "|") {
 		return abs(a);
 	}
@@ -83,12 +83,12 @@ int getPrior(std::string op) {
     else if (op == "sqrt") {
         return 5;
     }
-    else if (op == "1/") {
+    /*else if (op == "1/") {
         return 5;
     }
     else if (op == "-1/") {
         return 5;
-    }
+    }*/
     else if (op == "|") {
         return 4;
     }
@@ -98,38 +98,39 @@ int getPrior(std::string op) {
     return -1;
 }
 
-std::string infx2pstfx(std::string inf) {
-    TStack<std::string, 100> stack;
+std::string infx2pstfx(std::string const inf) {
+    TStack <std::string, 100> stack;
     std::string output = "";
     int prior = 0;
     int priorOnHeight = -1;
     std::string operetor = "";
-    for (auto& op : inf) {
-        if (op >= 40 or op <= 47 or op==94 or op==124) {//znaki '^'and'|'
-            operetor = op;
+    for (int op = 0; op <= inf.length(); ++op) {
+        if (inf[op] >= 40 or inf[op] <= 47 or inf[op]==94 or inf[op]==124) {//znaki '^'and'|'
+            operetor += inf[op];
         }
-        else if (op >= 97 and op <= 122){//bukvi
-            if (op=='s' or op=='c' or op=='t' or op=='l') {
-                operetor = op;
-            } else
-                operetor += op;
+        else if (inf[op] >= 97 and inf[op] <= 122){//bukvi
+            if (inf[op]=='s' or inf[op]=='c' or inf[op]=='t' or inf[op]=='l'){
+                operetor = inf[op];
+            } else {
+                operetor += inf[op];
+            }
             continue;
         }
-        else if (op >= 48 and op <= 57) {//tsifri
+        else if (inf[op] >= 48 and inf[op] <= 57) {//tsifri
             if (operetor[0] >= 48 and operetor[0] <= 57) {
-                operetor += op;
+                operetor += inf[op];
             } else {
-                operetor = op;
+                operetor = inf[op];
             }
+            continue;
+        }
+        else if (inf[op] == '\n') {//konets stroki
+            operetor = "\n";
         }
         
-
-
-
-
-        prior = getPrior(op);
+        prior = getPrior(operetor);
         priorOnHeight = getPrior(stack.get());
-        if (op == '\n') { /* 1. Esli konets stroki*/
+        if (operetor == "\n") { /* 1. Esli konets stroki*/
             while (getPrior(stack.get()) > 1) {
                 output += stack.pop();
                 output += " ";
@@ -137,11 +138,11 @@ std::string infx2pstfx(std::string inf) {
             stack.pop();
         }
         if (prior == -1) { /* 2. Esli chislo*/
-            output += op;
+            output += operetor;
             output += " ";
         }
         else if (prior == 0) { /* 3. Skobka ( */
-            stack.push(op);
+            stack.push(operetor);
         }
         else if (prior == 1) { /* 4. Esli )*/
             while (getPrior(stack.get()) > 0) {
@@ -151,14 +152,14 @@ std::string infx2pstfx(std::string inf) {
             stack.pop();
         }
         else if (prior > priorOnHeight || stack.isEmpty()) {
-            stack.push(op);
+            stack.push(operetor);
         }
         else if (prior <= priorOnHeight && prior > 1) {
             while (getPrior(stack.get()) > 1) {
                 output += stack.pop();
                 output += " ";
             }
-            stack.push(op);
+            stack.push(operetor);
         }
         operetor = "";
     }
@@ -172,23 +173,23 @@ std::string infx2pstfx(std::string inf) {
     }
     return out;
 }
-int operatoR(int a, int b, std::string op) {
-    if (op == "+") {
+int operatoR(int a, int b, std::string inf[op]) {
+    if (inf[op] == "+") {
         return a + b;
     }
-    else if (op == "-") {
+    else if (inf[op] == "-") {
         return a - b;
     }
-    else if (op == "*") {
+    else if (inf[op] == "*") {
         return a * b;
     }
-    else if (op == "/") {
+    else if (inf[op] == "/") {
         return a / b;
     }
-    else if (op == "^") {
+    else if (inf[op] == "^") {
         return pow(a, b);
     }
-    else if (op == "log") {
+    else if (inf[op] == "log") {
         return log2(b)/log2(a);
 }
 
@@ -196,13 +197,13 @@ int eval(std::string pref) {
     TStack<int, 100> stack1;
     int per = 0;
     int prior = 0;
-    for (auto& op : pref) {
-        prior = getPrior(op);
+    for (auto& inf[op] : pref) {
+        prior = getPrior(inf[op]);
         if (prior == -100) { //space
             continue;
         }
         if (prior == -1) { //number
-            stack1.push(op - 48);
+            stack1.push(inf[op] - 48);
         }
         else {
             int hz = 0;
@@ -210,7 +211,7 @@ int eval(std::string pref) {
                 hz += 1;
                 int a = stack1.pop();
                 int b = stack1.pop();
-                per = operatoR(b, a, op);
+                per = operatoR(b, a, inf[op]);
                 stack1.push(per);
             }
         }

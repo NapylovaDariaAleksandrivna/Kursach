@@ -3,7 +3,7 @@
 #include <string>
 #include <map>
 #include "tstack.h"
-#include <cmath>
+#include <iostream>
 
 std::istream& operator>> (std::istream& in, Parser& peremennay) {
     std::string inf = "";
