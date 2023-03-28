@@ -50,7 +50,7 @@ std::string infx2pstfx(std::string inf) {
         }
         else if ((inf[i] >= 48 and inf[i] <= 57) or inf[i] == 'x') {//tsifri
             output += inf[i];
-            if ((inf[i + 1] >= 48 and inf[i + 1] <= 57) and (inf.length() <= i + 1)) {
+            if ((inf[i + 1] >= 48 and inf[i + 1] <= 57) and (i + 1<=inf.length()  )) {
                 continue;
             }
             output += " ";
@@ -151,10 +151,12 @@ int getPrior(char operetor) {
         return 5;
     }
     else if (operetor == '|') {
-        return 4;
+        return 5;
     }
     else if (operetor == '^') {
-        return 4;
+        return 5;
     }
     return -1;
 }
+
+

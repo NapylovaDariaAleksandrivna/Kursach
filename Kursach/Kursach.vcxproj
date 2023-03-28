@@ -136,7 +136,8 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="func.h" />
+    <ClInclude Include="eval.h" />
+    <ClInclude Include="pstfx.h" />
     <ClInclude Include="Tstack.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
