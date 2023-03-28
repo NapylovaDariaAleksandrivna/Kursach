@@ -5,9 +5,9 @@
 #include <string>
 using namespace std;
 int main() {
-	string str="(2 + 2) * 2";
+	std::string inf = "8*(3+7)/2-(3+7)*9";
 	//parser object;
-	//object.SetInput(str);
+	//object.SetInput(inf);
 	//cout << object.GetInput() << endl;
-	cout << infx2pstfx(str) << endl;
+	cout << infx2pstfx(inf) << endl;
 }

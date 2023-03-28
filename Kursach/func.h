@@ -1,32 +1,60 @@
 #include"Tstack.h"
 #include <string>
-double getPrior(std::string operetor);
+int getPrior(char operetor);
 
 std::string infx2pstfx(std::string inf) {
-    TStack<std::string, 100> stack;
-    stack.push(" ");
+    TStack<char, 100> stack;
     std::string output = "";
     int prior = 0;
     int priorOnHeight = -1;
-    std::string operetor = "";
+    char operetor;
 
     for (int i = 0; i < inf.length();++i) {
-        if (inf[i] = ' ')
-            continue;
-        else if ((inf[i] >= 40 and inf[i]) <= 47 or inf[i] == 94 or inf[i] == 124) {//znaki '^'and'|'
-            operetor += inf[i];
+        if ((inf[i] >= 40 and inf[i] <= 47) or inf[i] == 94 or inf[i] == 124) {//znaki '^'and'|'
+            operetor = inf[i];
         }
-        else if (inf[i] >= 97 and inf[i] <= 122) {//bukvi
-            operetor += inf[i];
-            if ((inf[i + 1] == 's' or inf[i + 1] == 'c' or inf[i + 1] == 't' or inf[i + 1] == 'l') and (inf.length() <= i + 1)) {
-                continue;
-            }
+        else if (inf[i] >= 97 and inf[i] <= 122 and inf[i] != 'x') {//bukvi
+            if (inf[i] == 'c') {
+                if (inf[i + 1] == 'o') {
+                    operetor = 'c';
+                    i += 2;
+                } else {
+                    operetor = 'w';
+                    i += 2;
+                }
+            } else if (inf[i] == 's') {
+                if (inf[i + 1] == 'i') {
+                    operetor = 's';
+                    i += 2;
+                } else {
+                    i += 3;
+                    operetor = 'q';
+                }
+            } else if (inf[i] == 't') {
+                operetor = 't';
+                i += 1;
+            } else if (inf[i] == 'l') {
+                if (inf[i + 1] == 'o') {
+                    i += 2;
+                    operetor = 'l';
+                }
+                else if (inf[i + 1] == 'g') {
+                    i += 1;
+                    operetor = 'g';
+                }
+                else {
+                    operetor = 'n';
+                    i += 1;
+                }
+            } //"cos"=c "sin"=s "tg"= t "ctg"=w "ln"= n "log2"=l "lg"= g "sqrt"=q
         }
-        else if (inf[i] >= 48 and inf[i] <= 57) {//tsifri
-            operetor += inf[i];
+        else if ((inf[i] >= 48 and inf[i] <= 57) or inf[i] == 'x') {//tsifri
+            output += inf[i];
             if ((inf[i + 1] >= 48 and inf[i + 1] <= 57) and (inf.length() <= i + 1)) {
                 continue;
             }
+            output += " ";
+            continue;
         }
         else if (inf[i] == '\n') {//konets stroki
             while (getPrior(stack.get()) > 1) {
@@ -34,18 +62,19 @@ std::string infx2pstfx(std::string inf) {
                 output += " ";
             }
             stack.pop();
+            std::string out = "";
+            for (int i = 0; i < output.length() - 1; ++i) {
+                out += output[i];
+            }
+            return out;
         }
 
         prior = getPrior(operetor);
         priorOnHeight = getPrior(stack.get());
-        if (prior == -1) { /* 2. Esli chislo*/
-            output += operetor;
-            output += " ";
-        }
-        else if (prior == 0) { /* 3. Skobka ( */
+        if (prior == 0) { // 3. Skobka ( 
             stack.push(operetor);
         }
-        else if (prior == 1) { /* 4. Esli )*/
+        else if (prior == 1) { // 4. Esli )
             while (getPrior(stack.get()) > 0) {
                 output += stack.pop();
                 output += " ";
@@ -62,7 +91,7 @@ std::string infx2pstfx(std::string inf) {
             }
             stack.push(operetor);
         }
-        operetor = inf[i];
+        operetor = ' ';
     }
     while (getPrior(stack.get()) > 1) {
         output += stack.pop();
@@ -74,57 +103,57 @@ std::string infx2pstfx(std::string inf) {
     }
     return out;
 }
-
-double getPrior(std::string operetor) {
-    if (operetor == "(") {
+//"cos"=c "sin"=s "tg"= t "ctg"=w "ln"= n "log2"=l "lg"= g "sqrt"=q
+int getPrior(char operetor) {
+    if (operetor == '(') {
         return 0;
     }
-    else if (operetor == ")") {
+    else if (operetor == ')') {
         return 1;
     }
-    else if (operetor == "+") {
+    else if (operetor == '+') {
         return 2;
     }
-    else if (operetor == "-") {
+    else if (operetor == '-') {
         return 2;
     }
-    else if (operetor == "*") {
+    else if (operetor == '*') {
         return 3;
     }
-    else if (operetor == "/") {
+    else if (operetor == '/') {
         return 3;
     }
-    else if (operetor == " ") {
+    else if (operetor == ' ') {
         return -100;
     }
-    else if (operetor == "cos") {
+    else if (operetor == 'c') {
         return 5;
     }
-    else if (operetor == "sin") {
+    else if (operetor == 's') {
         return 5;
     }
-    else if (operetor == "tg") {
+    else if (operetor == 't') {
         return 5;
     }
-    else if (operetor == "ctg") {
+    else if (operetor == 'w') {
         return 5;
     }
-    else if (operetor == "ln") {
+    else if (operetor == 'n') {
         return 5;
     }
-    else if (operetor == "log") {
+    else if (operetor == 'l') {
         return 5;
     }
-    else if (operetor == "lg") {
+    else if (operetor == 'g') {
         return 5;
     }
-    else if (operetor == "sqrt") {
+    else if (operetor == 'q') {
         return 5;
     }
-    else if (operetor == "|") {
+    else if (operetor == '|') {
         return 4;
     }
-    else if (operetor == "^") {
+    else if (operetor == '^') {
         return 4;
     }
     return -1;
