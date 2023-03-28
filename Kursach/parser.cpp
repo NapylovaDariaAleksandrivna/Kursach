@@ -1,15 +1,25 @@
 #include "parser.h"
-#include "function.h"
-#include <string>
-#include <map>
-#include "tstack.h"
-#include <iostream>
-
-std::istream& operator>> (std::istream& in, Parser& peremennay) {
-    std::string inf = "";
-    in >> inf;
-    peremennay.SetInput(inf);
-    peremennay.SetOutput(infx2pstfx(inf));
-    return in;
+#include "func.h"
+#include<iostream>
+parser::parser(std::string in, std::string out)
+{
+	input = in;
+	output = out;
 }
 
+std::istream& operator>>(std::istream& cin, parser& peremennay)
+{
+    std::string inf = "";
+    cin >> inf;
+    peremennay.SetInput(inf);
+    inf = infx2pstfx(inf);
+    //peremennay.SetOutput();
+    return cin;
+}
+
+std::istream& operator<<(std::istream& out, parser& peremennay)
+{
+    std::cout << peremennay.GetInput() << '/n';
+    std::cout << peremennay.GetOutput() << '/n';
+    return out;
+}

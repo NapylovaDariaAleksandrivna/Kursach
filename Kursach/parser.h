@@ -1,11 +1,6 @@
 #pragma once
-//DN
 #include <string>
-#include <map>
-#include "tstack.h"
-#include <cmath>
-
-class Parser {
+class parser {
 private:
 	std::string input;
 	std::string output;
@@ -14,5 +9,8 @@ public:
 	void SetOutput(std::string output) { this->output = output; };
 	std::string GetInput()const { return input; }
 	std::string GetOutput()const { return output; }
+	parser():input(""), output("") {}
+	parser(std::string in, std::string out = "");
 };
-std::istream& operator>> (std::istream& in, std::string input);
+std::istream& operator>> (std::istream& cin, parser& peremennay);
+std::istream& operator<< (std::istream& out, parser& peremennay);
