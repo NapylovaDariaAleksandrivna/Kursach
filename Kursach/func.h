@@ -11,46 +11,49 @@ int getPrior(char operetor) {
         return 1;
     }
     else if (operetor == '+') {
-        return 2;
+        return 3;
     }
     else if (operetor == '-') {
-        return 2;
+        return 3;
     }
     else if (operetor == '*') {
-        return 3;
+        return 4;
     }
     else if (operetor == '/') {
-        return 3;
+        return 4;
     }
     else if (operetor == ' ') {
         return -100;
     }
     else if (operetor == 'c') {
-        return 5;
+        return 6;
     }
     else if (operetor == 's') {
-        return 5;
+        return 6;
     }
     else if (operetor == 't') {
-        return 5;
+        return 6;
     }
     else if (operetor == 'w') {
-        return 5;
+        return 6;
+    }
+    else if (operetor == 'p') {
+        return 6;
     }
     else if (operetor == 'n') {
-        return 5;
+        return 6;
     }
     else if (operetor == 'l') {
-        return 5;
+        return 6;
     }
     else if (operetor == 'g') {
-        return 5;
+        return 6;
     }
     else if (operetor == 'q') {
-        return 5;
+        return 6;
     }
     else if (operetor == '|') {
-        return 4;
+        return 2;
     }
     else if (operetor == '^') {
         return 4;
@@ -70,11 +73,15 @@ double operatoR(char pref, double a, double b) {
     case '*':
         return a * b;
     case '/':
-        return a / b;
+        if (b == 0) {
+            return a;
+        }
+        else
+            return a / b; //не существует при b=0
     case '^':
         return pow(a, b);
     case 'p':
-        return log2(b) / log2(a);
+        return log2(b) / log2(a);//не существует при а<=0 Пока не реализована
     }
     return 0.0;
 }
@@ -92,19 +99,44 @@ double Operator(char pref, double a) {
     case 's':
         return sin(DegToRad(a));
     case 't':
-        return tan(DegToRad(a));
+        if (int(cos(DegToRad(a)))==0){
+            throw std::string("tg dosen't be");
+        }
+        else {
+            return tan(DegToRad(a));//не существует при а=90 и 270
+        }
     case 'w':
-        return 1 / tan(DegToRad(a));
+        if (int(sin(DegToRad(a))) == 0) {
+            throw std::string("ctg dosen't be");
+        }
+        else {
+            return 1 / tan(DegToRad(a));//не существует при а=0 и 180
+        }   
     case 'n':
-        return log(a);
+        if (a <= 0) {
+            throw std::string("ln dosen't be");
+        }else
+            return log(a);//не существует при а<=0
     case 'l':
-        return log2(a);
+        if (a <= 0) {
+            throw std::string("log2 dosen't be");
+        }
+        else
+            return log2(a);//не существует при а<=0
     case 'g':
-        return log10(a);
+        if (a <= 0) {
+            throw std::string("lg dosen't be");
+        }
+        else
+            return log10(a);//не существует при а<=0
     case 'q':
-        return sqrt(a);
+        if (a < 0) {
+            throw std::string("sqrt dosen't be");
+        }
+        else
+            return sqrt(a);//не существует при а<0
     case '|':
-        return abs(a);
+        return abs(a);//не работает с модулем в модуле, типо |x+3*x|
     }
     return 0;
 }

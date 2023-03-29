@@ -7,7 +7,7 @@ std::string toPstfx(std::string inf) {
     int prior = 0;
     int priorOnHeight = -1;
     char operetor;
-
+    int modul = 0;
     for (int i = 0; i < inf.length();++i) {
         if ((inf[i] >= 40 and inf[i] <= 47) or inf[i] == 94 or inf[i] == 124) {//znaki '^'and'|'
             operetor = inf[i];
@@ -80,6 +80,24 @@ std::string toPstfx(std::string inf) {
             }
             stack.pop();
         }
+
+
+        else if (prior == 2 and modul==0) { // 5. Esli | v nachale
+            stack.push(operetor);
+            modul += 1;
+        }
+        else if (prior == 2 and modul == 1) { // 6. Esli | v kontse
+            while (getPrior(stack.get()) > 2) {
+                output += stack.pop();
+                output += " ";
+            }
+            output += "| ";
+            stack.pop();
+            modul -= 1;
+        }
+
+
+
         else if (prior > priorOnHeight || stack.isEmpty()) {
             stack.push(operetor);
         }

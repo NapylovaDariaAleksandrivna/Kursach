@@ -8,6 +8,7 @@ double eval(std::string pref, double x){
     double per = 0;
     int prior = 0;
     std::string chislo = "";
+    int modul = 0;
     for (int i = 0; i < pref.length(); ++i) {
         prior = getPrior(pref[i]);
         if (prior == -100) { //space
@@ -25,7 +26,12 @@ double eval(std::string pref, double x){
                 continue;
             }
             stack1.push(stoi(chislo));
-        }else { 
+        }
+        else if (getPrior(pref[i])==2 && modul==0) {
+            modul+=1;
+
+        }
+        else {
             if (!(stack1.isEmpty()) ){ 
                 if (getPrior(pref[i]) < 5) {
                     double const a = stack1.pop();
