@@ -1,4 +1,5 @@
 #include "parser.h"
+#include"pstfx.h"
 #include "func.h"
 #include<iostream>
 parser::parser(std::string in, std::string out)
@@ -12,7 +13,7 @@ std::istream& operator>>(std::istream& cin, parser& peremennay)
     std::string inf = "";
     cin >> inf;
     peremennay.SetInput(inf);
-    inf = infx2pstfx(inf);
+    inf = toPstfx(inf);
     //peremennay.SetOutput();
     return cin;
 }

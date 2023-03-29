@@ -50,7 +50,7 @@ double eval(std::string pref, double x){
                 else {
                     double const b = stack1.pop();
 
-                    per = Operator(pref[i], b);
+                    per = Operator(pref[i], b, i, pref);
                     stack1.push(per);
                 }
 

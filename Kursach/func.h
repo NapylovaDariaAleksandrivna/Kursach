@@ -92,46 +92,52 @@ double DegToRad(double D)
     return D * M;
 };
 
-double Operator(char pref, double a) {
+double Operator(char pref, double a, int& cur, std::string str) { 
     switch (pref) {
     case 'c':
         return cos(DegToRad(a));
     case 's':
         return sin(DegToRad(a));
-    case 't':
-        if (int(cos(DegToRad(a)))==0){
-            throw std::string("tg dosen't be");
+    case 't': 
+        if (int(cos(DegToRad(a)) * 100) == 0) {
+            cur = str.length() + 100;
+            return 0;
         }
         else {
             return tan(DegToRad(a));//не существует при а=90 и 270
         }
     case 'w':
-        if (int(sin(DegToRad(a))) == 0) {
-            throw std::string("ctg dosen't be");
+        if (int(sin(DegToRad(a))*100) == 0) {
+            cur = str.length() + 100;
+            return 0;
         }
         else {
             return 1 / tan(DegToRad(a));//не существует при а=0 и 180
         }   
     case 'n':
         if (a <= 0) {
-            throw std::string("ln dosen't be");
+            cur = str.length() + 100;
+            return 0;
         }else
             return log(a);//не существует при а<=0
     case 'l':
         if (a <= 0) {
-            throw std::string("log2 dosen't be");
+            cur = str.length() + 100;
+            return 0;
         }
         else
             return log2(a);//не существует при а<=0
     case 'g':
         if (a <= 0) {
-            throw std::string("lg dosen't be");
+            cur = str.length() + 100;
+            return 0;
         }
         else
             return log10(a);//не существует при а<=0
     case 'q':
         if (a < 0) {
-            throw std::string("sqrt dosen't be");
+            cur = str.length() + 100;
+            return 0;
         }
         else
             return sqrt(a);//не существует при а<0

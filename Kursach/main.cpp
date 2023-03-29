@@ -6,11 +6,15 @@
 #include <string>
 using namespace std;
 int main() {
-	std::string inf = "pi*1";
+	std::string inf = "tg(x)";
 	std::string pref = toPstfx(inf);
 	cout <<  inf << endl;
 	cout << pref << endl;	
-	for (double i = -1; i <= 1; i += 0.5) {
+	for (double i = -360; i <= 360; i += 90) {
 		cout << eval(pref, i) <<  " "<< i << std::endl;
 	}
 }
+/*
+int main() {
+	parser obj("2+2");
+}*/

@@ -12,5 +12,3 @@ public:
 	parser():input(""), output("") {}
 	parser(std::string in, std::string out = "");
 };
-std::istream& operator>> (std::istream& cin, parser& peremennay);
-std::istream& operator<< (std::istream& out, parser& peremennay);
