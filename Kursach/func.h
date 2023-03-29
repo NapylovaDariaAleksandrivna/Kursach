@@ -50,10 +50,10 @@ int getPrior(char operetor) {
         return 5;
     }
     else if (operetor == '|') {
-        return 5;
+        return 4;
     }
     else if (operetor == '^') {
-        return 5;
+        return 4;
     }
     else {
         return -1;
@@ -78,17 +78,23 @@ double operatoR(char pref, double a, double b) {
     }
     return 0.0;
 }
-/*
-double operatoR(char pref, double a) {
+
+double DegToRad(double D)
+{
+    double M = 3.14 / 180;
+    return D * M;
+};
+
+double Operator(char pref, double a) {
     switch (pref) {
     case 'c':
-        return cos(a);
+        return cos(DegToRad(a));
     case 's':
-        return sin(a);
+        return sin(DegToRad(a));
     case 't':
-        return tan(a);
+        return tan(DegToRad(a));
     case 'w':
-        return 1 / tan(a);
+        return 1 / tan(DegToRad(a));
     case 'n':
         return log(a);
     case 'l':
@@ -102,4 +108,4 @@ double operatoR(char pref, double a) {
     }
     return 0;
 }
-*/
+
