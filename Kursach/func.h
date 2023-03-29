@@ -37,7 +37,7 @@ int getPrior(char operetor) {
     else if (operetor == 'w') {
         return 6;
     }
-    else if (operetor == 'p') {
+    else if (operetor == 'h') {
         return 6;
     }
     else if (operetor == 'n') {
@@ -80,7 +80,7 @@ double operatoR(char pref, double a, double b) {
             return a / b; //не существует при b=0
     case '^':
         return pow(a, b);
-    case 'p':
+    case 'h':
         return log2(b) / log2(a);//не существует при а<=0 Пока не реализована
     }
     return 0.0;

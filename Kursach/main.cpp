@@ -6,7 +6,7 @@
 #include <string>
 using namespace std;
 int main() {
-	std::string inf = "ln(x)";
+	std::string inf = "pi*1";
 	std::string pref = toPstfx(inf);
 	cout <<  inf << endl;
 	cout << pref << endl;	

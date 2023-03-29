@@ -18,6 +18,13 @@ double eval(std::string pref, double x){
             if (pref[i]=='x') {
                 stack1.push(x);
                 continue;
+            } else if (pref[i] == 'e') {
+                stack1.push(2.71828182845904523);
+                continue;
+            }
+            else if (pref[i] == 'p') {
+                stack1.push(3.142857142857143);
+                continue;
             }
             else {
                 chislo += pref[i];

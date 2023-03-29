@@ -12,7 +12,7 @@ std::string toPstfx(std::string inf) {
         if ((inf[i] >= 40 and inf[i] <= 47) or inf[i] == 94 or inf[i] == 124) {//znaki '^'and'|'
             operetor = inf[i];
         }
-        else if (inf[i] >= 97 and inf[i] <= 122 and inf[i] != 'x') {//bukvi
+        else if (inf[i] >= 97 and inf[i] <= 122 and inf[i] != 'x' and inf[i] != 'e' and inf[i] != 'p') {//bukvi
             if (inf[i] == 'c') {
                 if (inf[i + 1] == 'o') {
                     operetor = 'c';
@@ -47,8 +47,10 @@ std::string toPstfx(std::string inf) {
                 }
             } //"cos"=c "sin"=s "tg"= t "ctg"=w "ln"= n "log2"=l "lg"= g "sqrt"=q
         }
-        else if ((inf[i] >= 48 and inf[i] <= 57) or inf[i] == 'x') {//tsifri
+        else if ((inf[i] >= 48 and inf[i] <= 57) or inf[i] == 'x' or inf[i] == 'e' or inf[i] == 'p') {//tsifri
             output += inf[i];
+            if (inf[i] == 'p')
+                i += 1;
             if ((inf[i + 1] >= 48 and inf[i + 1] <= 57) and (i + 1<=inf.length()  )) {
                 continue;
             }
