@@ -32,5 +32,8 @@
     <ClInclude Include="eval.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="func.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

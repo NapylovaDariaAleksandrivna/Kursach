@@ -137,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="eval.h" />
+    <ClInclude Include="func.h" />
     <ClInclude Include="pstfx.h" />
     <ClInclude Include="Tstack.h" />
   </ItemGroup>

@@ -7,7 +7,7 @@
 using namespace std;
 int main() {
 	std::string inf = "89+41";
-	std::string pref = infx2pstfx(inf);
+	std::string pref = toPstfx(inf);
 	cout <<  inf << endl;
 	cout << pref << endl;
 	cout << eval(pref) << endl;
