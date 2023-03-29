@@ -6,11 +6,11 @@
 #include <string>
 using namespace std;
 int main() {
-	std::string inf = "tg(x)";
+	std::string inf = "x^2";
 	std::string pref = toPstfx(inf);
 	cout <<  inf << endl;
 	cout << pref << endl;	
-	for (double i = -360; i <= 360; i += 90) {
+	for (double i = 1; i <= 10; i += 1) {
 		cout << eval(pref, i) <<  " "<< i << std::endl;
 	}
 }
