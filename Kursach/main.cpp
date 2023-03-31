@@ -1,11 +1,11 @@
 #include"pstfx.h"
 #include"eval.h"
-//#include"parser.h"
+#include"parser.h"
 
 #include <iostream>
 #include <string>
 using namespace std;
-int main() {
+/*int main() {
 	std::string inf = "x^2";
 	std::string pref = toPstfx(inf);
 	cout <<  inf << endl;
@@ -14,7 +14,9 @@ int main() {
 		cout << eval(pref, i) <<  " "<< i << std::endl;
 	}
 }
-/*
+*/
 int main() {
-	parser obj("2+2");
-}*/
+	std::string a = "2+2";
+	parser obj();
+	cout << obj;
+}
