@@ -1,6 +1,6 @@
 #include"Tstack.h"
 #include <string>
-#include"func.h"
+
 #pragma once
 
 class calculate

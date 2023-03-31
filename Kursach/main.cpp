@@ -1,7 +1,6 @@
-#include"pstfx.h"
-#include"eval.h"
-#include"parser.h"
 
+#include"parser.h"
+#include "calculate.h"
 #include <iostream>
 #include <string>
 using namespace std;
@@ -17,6 +16,7 @@ using namespace std;
 */
 int main() {
 	std::string a = "2+2";
-	parser obj();
+	parser obj(a, "");
+	cin >> obj;
 	cout << obj;
 }

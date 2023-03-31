@@ -1,10 +1,11 @@
 #include <iostream>
 #include <string>
-#include"pstfx.h"
-#include"eval.h"
+
 #pragma once
-class parser
-{
+
+
+
+class parser : public calculate {
 private:
 	std::string input;
 	std::string output;

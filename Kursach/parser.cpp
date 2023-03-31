@@ -1,14 +1,15 @@
 #include "parser.h"
+#include "calculate.h"
 #include <iostream>
 #include<string>	
-#include"pstfx.h"
-#include"eval.h"
+
 std::istream& operator>>(std::istream& in, parser& obj)
 {
 	std::string a;
+	calculate m;
 	in >> a;
 	obj.setIn(a);
-	std::string b = toPstfx(a);
+	std::string b = m.toPstfx(a);
 	obj.setOut(b);
 	return in;
 }
