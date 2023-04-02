@@ -73,11 +73,11 @@ double calculate::operatoR(char pref, double a, double b) {
     case '*':
         return a * b;
     case '/':
-        if (b == 0) {
-            return a;
+        if (a == 0) {
+            return b;
         }
         else
-            return a / b; //не существует при b=0
+            return b / a; //не существует при b=0
     case '^':
         return pow(a, b);
     case 'h':
@@ -313,18 +313,21 @@ double calculate::eval(std::string pref, double x) {
         }
         else {
             if (!(stack1.isEmpty())) {
-                if (getPrior(pref[i]) < 5) {
+                if (getPrior(pref[i]) < 5 and getPrior(pref[i]) > 0) {
                     double const a = stack1.pop();
                     double const b = stack1.pop();
 
                     per = operatoR(pref[i], b, a);
                     stack1.push(per);
                 }
-                else {
+                else if (getPrior(pref[i]) == 6){
                     double const b = stack1.pop();
 
                     per = Operator(pref[i], b, i, pref);
                     stack1.push(per);
+                }
+                else {
+                    return stack1.pop();
                 }
 
             }

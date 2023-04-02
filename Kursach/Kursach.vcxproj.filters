@@ -21,10 +21,10 @@
     <ClCompile Include="main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="parser.cpp">
+    <ClCompile Include="calculate.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="calculate.cpp">
+    <ClCompile Include="parser.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -32,10 +32,10 @@
     <ClInclude Include="Tstack.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="parser.h">
+    <ClInclude Include="calculate.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="calculate.h">
+    <ClInclude Include="parser.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
