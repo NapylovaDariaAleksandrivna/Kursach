@@ -1,0 +1,11 @@
+﻿  parser.cpp
+D:\PROGRAMMIROVANIE\Kursach\Kursach\func.h(104,37): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\func.h(112,37): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\func.h(120,37): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\func.h(127,37): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\func.h(134,37): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\func.h(141,37): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\parser.cpp(24,13): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\parser.cpp(24,31): warning C4244: +=: преобразование "double" в "int", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\parser.cpp(25,14): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+  Kursach.vcxproj -> D:\PROGRAMMIROVANIE\Kursach\x64\Debug\Kursach.exe
