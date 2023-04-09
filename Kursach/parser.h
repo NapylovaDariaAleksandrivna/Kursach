@@ -1,11 +1,10 @@
 #include <iostream>
 #include <string>
-#include "calculate.h"
 #pragma once
 
 
 
-class parser : public calculate {
+class parser {
 private:
 	std::string input;
 	std::string output;

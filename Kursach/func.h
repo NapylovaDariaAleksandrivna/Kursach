@@ -1,9 +1,10 @@
-#include "calculate.h"
+#pragma once
+
 #include"Tstack.h"
 #include <string>
 
 
-int calculate::getPrior(char operetor) {
+int getPrior(const char  operetor) {
     if (operetor == '(') {
         return 0;
     }
@@ -64,7 +65,7 @@ int calculate::getPrior(char operetor) {
 }
 
 //"cos"=c "sin"=s "tg"= t "ctg"=w "ln"= n "log2"=l "lg"= g "sqrt"=q
-double calculate::operatoR(char pref, double a, double b) {
+double operatoR(char pref, double a, double b) {
     switch (pref) {
     case '+':
         return a + b;
@@ -86,13 +87,13 @@ double calculate::operatoR(char pref, double a, double b) {
     return 0.0;
 }
 
-double calculate::DegToRad(double D)
+double DegToRad(double D)
 {
     double M = 3.14 / 180;
     return D * M;
 };
 
-double calculate::Operator(char pref, double a, int& cur, std::string str) {
+double Operator(char pref, double a, int& cur, std::string str) {
     switch (pref) {
     case 'c':
         return cos(DegToRad(a));
@@ -148,7 +149,7 @@ double calculate::Operator(char pref, double a, int& cur, std::string str) {
     return 0;
 }
 
-std::string calculate::toPstfx(std::string inf) {
+std::string toPstfx(std::string inf) {
     TStack<char, 100> stack;
     std::string output = "";
     int prior = 0;
@@ -275,7 +276,7 @@ std::string calculate::toPstfx(std::string inf) {
     return out;
 }
 
-double calculate::eval(std::string pref, double x) {
+double eval(std::string pref, double x) {
     TStack<double, 100> stack1;
     double per = 0;
     int prior = 0;
@@ -320,7 +321,7 @@ double calculate::eval(std::string pref, double x) {
                     per = operatoR(pref[i], b, a);
                     stack1.push(per);
                 }
-                else if (getPrior(pref[i]) == 6){
+                else if (getPrior(pref[i]) == 6) {
                     double const b = stack1.pop();
 
                     per = Operator(pref[i], b, i, pref);
