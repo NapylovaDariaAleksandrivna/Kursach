@@ -23,7 +23,7 @@ int main() {
 	std::string a = "2+2";
 	parser obj;
 	cin >> obj;
-	//cout << obj;
+	cout << obj;
 	obj.print(obj.getOut());
 }
 #endif // Task2
