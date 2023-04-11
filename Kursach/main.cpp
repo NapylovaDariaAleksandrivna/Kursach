@@ -1,4 +1,4 @@
-
+#include"calculator.h"
 #include"parser.h"
 
 #include <iostream>
@@ -24,7 +24,6 @@ int main() {
 	parser obj;
 	cin >> obj;
 	cout << obj;
-	obj.print(obj.getOut());
 }
 #endif // Task2
 
