@@ -2,6 +2,12 @@
 #include"func.h"
 #include"function.h"
 #include"tstack.h"
+#include"vector.h"
+
+//************************************************
+int max_size = 100;
+
+//***********************************************
 double calculator::eval(std::string pref, double x)
 {
     TStack<double, 100> stack1;
@@ -41,9 +47,7 @@ double calculator::eval(std::string pref, double x)
         }
         else {
             if (!(stack1.isEmpty())) {
-
-                operetor();
-
+                operation(pref[i], stack1);
             }
         }
         chislo = "";
@@ -51,16 +55,16 @@ double calculator::eval(std::string pref, double x)
     return stack1.pop();
 }
 
-void calculator::toGive(std::string pref, double x1, double x2, double y1, double y2, double dep)
-{  
-    for (int x = x1; x <= x2; x+=dep) {
-    	for (int y = y1; y <= y2; y += dep) {
-    		if(eval(pref, x)==y)
-    			std::cout << "y= " << eval(pref, x) << ", x= " << x << std::endl;
-    	}
+void calculator::toGive(std::string pref, MyVector &arrY, MyVector &arrX, double x1, double x2, double y1, double y2, double dep)
+{
+    for (double x = x1; x <= x2; x += dep) {
+        for (double y = y1; y <= y2; y += dep) {
+            if (eval(pref, x) == y) {
+                arrY.AddElemToMyVector(500+y*50);
+                arrX.AddElemToMyVector(500+x*50);
+            }
+        }
     }
-    
-
 }
 
 double calculator::operation(char pref, TStack<double, 100>& stack)

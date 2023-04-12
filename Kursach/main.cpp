@@ -1,8 +1,6 @@
 #include"calculator.h"
-#include"parser.h"
 
 #include <iostream>
-#include <string>
 using namespace std;
 #define Task2
 #ifdef Task1
@@ -20,10 +18,14 @@ int main() {
 
 #ifdef Task2
 int main() {
-	std::string a = "2+2";
 	parser obj;
 	cin >> obj;
 	cout << obj;
+	calculator g;
+	MyVector arrX(100), arrY(100);
+	g.toGive(obj.getOut(),arrY,arrX,-5,5,-5,5,1);
+	cout << arrX<<'\n';
+	cout << arrY;
 }
 #endif // Task2
 

@@ -1,9 +1,6 @@
 #pragma once
 
-#include <string>
-
-
-int getPrior(const char  operetor) {
+inline int getPrior(const char  operetor) {
     if (operetor == '(') {
         return 0;
     }

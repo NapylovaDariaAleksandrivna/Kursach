@@ -8,7 +8,9 @@ class parser {
 private:
 	std::string input;
 	std::string output;
+	
 public:
+	
 	std::string toPstfx(std::string inf);
 	void setIn(std::string& input) { this->input = input; }
 	void setOut(std::string& output) { this->output = output; }
