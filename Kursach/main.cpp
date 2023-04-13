@@ -18,7 +18,7 @@ int main() {
 
 #ifdef Task2
 int main() {
-	double x1 = -5, x2 = 5, y1 = -5, y2 = 5, dep = 1;
+	double x1 = -20, x2 = 20, y1 = -20, y2 = 20, dep = 0.20;
 	parser obj;
 	cin >> obj;
 	cout << obj;
