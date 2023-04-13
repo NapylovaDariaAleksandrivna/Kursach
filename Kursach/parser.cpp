@@ -7,7 +7,7 @@
 std::istream& operator>>(std::istream& in, parser& obj)
 {
 	std::string a;
-	in >> a;
+    getline(in, a);
 	obj.setIn(a);
 	std::string b = obj.toPstfx(a);
 	obj.setOut(b);

@@ -6,8 +6,8 @@
 
 //************************************************
 int max_size = 100;
-int sizeDisplay = 0;
-int step = 1;
+int sizeDisplay = 500;
+int step = 50;
 
 //***********************************************
 double calculator::eval(std::string pref, double x)
@@ -65,9 +65,11 @@ void calculator::toGive(std::string pref, MyVector &arrY, MyVector &arrX, double
 {
     for (double x = x1; x <= x2; x += dep) {
         for (double y = y1; y <= y2; y += dep) {
-            if (eval(pref, x) == y) {
-                arrY.AddElemToMyVector(sizeDisplay+y*step);
+            double per = eval(pref, x);
+            if (per<=y2 and per>=y1) {
+                arrY.AddElemToMyVector(sizeDisplay+per*step);
                 arrX.AddElemToMyVector(sizeDisplay+x*step);
+                break;
             }
         }
     }

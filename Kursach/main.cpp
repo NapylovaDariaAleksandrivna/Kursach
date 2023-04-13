@@ -18,12 +18,13 @@ int main() {
 
 #ifdef Task2
 int main() {
+	double x1 = -5, x2 = 5, y1 = -5, y2 = 5, dep = 1;
 	parser obj;
 	cin >> obj;
 	cout << obj;
 	calculator g;
 	MyVector arrX(100), arrY(100);
-	g.toGive(obj.getOut(),arrY,arrX,-5,5,-5,5,1);
+	g.toGive(obj.getOut(),arrY,arrX,x1,x2,y1,y2,dep);
 	cout << "x " << arrX << '\n';
 	cout << "y " << arrY;
 }
