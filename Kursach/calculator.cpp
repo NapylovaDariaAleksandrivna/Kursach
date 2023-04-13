@@ -6,6 +6,8 @@
 
 //************************************************
 int max_size = 100;
+int sizeDisplay = 0;
+int step = 1;
 
 //***********************************************
 double calculator::eval(std::string pref, double x)
@@ -18,6 +20,10 @@ double calculator::eval(std::string pref, double x)
     for (int i = 0; i < pref.length(); ++i) {
         prior = getPrior(pref[i]);
         if (prior == -100) { //space
+            continue;
+        }
+        else if (pref[i] == '-') {
+            chislo += pref[i];
             continue;
         }
         if (prior == -1) { //number
@@ -60,8 +66,8 @@ void calculator::toGive(std::string pref, MyVector &arrY, MyVector &arrX, double
     for (double x = x1; x <= x2; x += dep) {
         for (double y = y1; y <= y2; y += dep) {
             if (eval(pref, x) == y) {
-                arrY.AddElemToMyVector(500+y*50);
-                arrX.AddElemToMyVector(500+x*50);
+                arrY.AddElemToMyVector(sizeDisplay+y*step);
+                arrX.AddElemToMyVector(sizeDisplay+x*step);
             }
         }
     }

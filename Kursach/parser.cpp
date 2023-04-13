@@ -20,7 +20,7 @@ std::ostream& operator<<(std::ostream& out, const parser& obj)
 	return out;
 }
 
-std::string parser::toPstfx(std::string inf) {
+std::string parser::toPstfx(std::string inf) {//хреново воспринимает пробелы/ не считет нормально
     TStack<char, 100> stack;
     std::string output = "";
     int prior = 0;
@@ -28,7 +28,20 @@ std::string parser::toPstfx(std::string inf) {
     char operetor;
     int modul = 0;
     for (int i = 0; i < inf.length(); ++i) {
+        if (inf[i] == ' ')
+            i += 1;
         if ((inf[i] >= 40 and inf[i] <= 47) or inf[i] == 94 or inf[i] == 124) {//znaki '^'and'|'
+            if (inf[i] == '-') {
+
+                if (i == 0) {
+                    output += inf[i];
+                    continue;
+                }
+                else if (getPrior(inf[i - 1]) <= 1) {
+                    output += inf[i];
+                    continue;
+                }
+            }
             operetor = inf[i];
         }
         else if (inf[i] >= 97 and inf[i] <= 122 and inf[i] != 'x' and inf[i] != 'e' and inf[i] != 'p') {//bukvi
@@ -121,8 +134,6 @@ std::string parser::toPstfx(std::string inf) {
             stack.pop();
             modul -= 1;
         }
-
-
 
         else if (prior > priorOnHeight || stack.isEmpty()) {
             stack.push(operetor);

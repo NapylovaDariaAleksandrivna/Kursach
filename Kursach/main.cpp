@@ -24,8 +24,8 @@ int main() {
 	calculator g;
 	MyVector arrX(100), arrY(100);
 	g.toGive(obj.getOut(),arrY,arrX,-5,5,-5,5,1);
-	cout << arrX<<'\n';
-	cout << arrY;
+	cout << "x " << arrX << '\n';
+	cout << "y " << arrY;
 }
 #endif // Task2
 
