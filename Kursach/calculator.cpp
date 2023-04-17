@@ -5,7 +5,7 @@
 #include"vector.h"
 
 //************************************************
-int max_size = 100;
+int max_size = 1000;
 int sizeDisplay = 500;
 int step = 50;
 
@@ -61,14 +61,16 @@ double calculator::eval(std::string pref, double x)
     return stack1.pop();
 }
 
-void calculator::toGive(std::string pref, MyVector &arrY, MyVector &arrX, double x1, double x2, double y1, double y2, double dep)
+void calculator::toGive(std::string pref, MyVector &arrY, MyVector &arrX, double x1, double x2, double dep)
 {
+    double y1 = x1;
+    double y2 = x2;
     for (double x = x1; x <= x2; x += dep) {
         for (double y = y1; y <= y2; y += dep) {
             double per = eval(pref, x);
             if (per<=y2 and per>=y1) {
-                arrY.AddElemToMyVector(sizeDisplay+per*step);
-                arrX.AddElemToMyVector(sizeDisplay+x*step);
+                arrY.AddElemToMyVector(sizeDisplay-per*step);//Pochemy minus - hz
+                arrX.AddElemToMyVector(sizeDisplay-x*step);
                 break;
             }
         }
