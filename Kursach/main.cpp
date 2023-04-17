@@ -56,22 +56,38 @@ int main() {
 	//График параболы
 
 	
-
-	
 	parser obj;
 	std::cin >> obj;
 	std::cout << obj;
 	calculator g;
 	MyVector arrX(1000), arrY(1000); 
 	g.toGive(obj.getOut(), arrY, arrX);
-	VertexArray pointGraficLeft(Points, arrX.GetSize());//Что за функция?
+	VertexArray pointGraficLeft(Points, arrX.GetSize());
+	VertexArray lineL(Lines);
 	for (int i = 0; i < arrX.GetSize(); i++) {
 		int x = arrX[i];
 		int y = arrY[i];
 		std::cout << "X: " << x << " Y: " << y << std::endl;
-		pointGraficLeft[i].position = Vector2f(x, y);//Что за функция?
+		pointGraficLeft[i].position = Vector2f(x, y);
 		pointGraficLeft[i].color = Color::Black;
+		if (i != 0) {
+			Vertex line[] =
+			{
+			 Vertex(Vector2f(arrX[i], arrY[i])),
+			 Vertex(Vector2f(arrX[i - 1], arrY[i - 1]))
+			};
+		}
 	}
+
+
+	
+
+	
+
+
+
+
+
 
 
 
@@ -89,6 +105,7 @@ int main() {
 		win.draw(lineY);
 		win.draw(lineX);
 		win.draw(pointGraficLeft);
+		win.draw(lineL);//
 		//win.draw(pointGraficRight);
 		//win.draw(pointGraficS);
 		//win.draw(pointGraficSR);
