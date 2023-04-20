@@ -6,8 +6,8 @@
 
 //************************************************
 int max_size = 1000;
-int sizeDisplay = 500;
-int step = 50;
+int sizeDisplay = max_size/2;
+int step = max_size/20;
 
 //***********************************************
 double calculator::eval(std::string pref, double x)
@@ -16,13 +16,13 @@ double calculator::eval(std::string pref, double x)
     double per = 0;
     int prior = 0;
     std::string chislo = "";
-    int modul = 0;
+    //int modul = 0;
     for (int i = 0; i < pref.length(); ++i) {
         prior = getPrior(pref[i]);
         if (prior == -100) { //space
             continue;
         }
-        if (pref[i] == '-' && getPrior(pref[i - 1]) <= 1) {///
+        if (pref[i] == '-' && getPrior(pref[i - 1]) == 0) {///
             chislo += pref[i];
             continue;
         } else if (prior == -1) { //number
@@ -47,17 +47,17 @@ double calculator::eval(std::string pref, double x)
                 }
             }
             stack1.push(stoi(chislo));
+            chislo = "";
+            continue;
         }
-        else if (getPrior(pref[i]) == 2 && modul == 0) {
-            modul += 1;
-
+        else if (getPrior(pref[i]) == 2) {
+            operation(pref[i], stack1);
         }
         else {
             if (!(stack1.isEmpty())) {
                 operation(pref[i], stack1);
             }
         }
-        chislo = "";
     }
     return stack1.pop();
 }
@@ -69,7 +69,7 @@ void calculator::toGive(std::string pref, MyVector &arrY, MyVector &arrX, double
     for (double x = x1; x <= x2; x += dep) {
         double per = eval(pref, x);
         if (per<=y2 && per>=y1) {
-            arrY.AddElemToMyVector(sizeDisplay-per*step);//Pochemy minus - hz
+            arrY.AddElemToMyVector(sizeDisplay-per * step);
             arrX.AddElemToMyVector(sizeDisplay+x*step);
         }
     }
@@ -77,14 +77,14 @@ void calculator::toGive(std::string pref, MyVector &arrY, MyVector &arrX, double
 
 double calculator::operation(char pref, TStack<double, 100>& stack)
 {
-    if (getPrior(pref) <= 5 && getPrior(pref) > 0) {
+    if (getPrior(pref) <= 9 && getPrior(pref) > 2) {
         double const a = stack.pop();
         double const b = stack.pop();
 
         double per = this->ukb->operetor(pref, b, a);
         stack.push(per);
     }
-    else if (getPrior(pref) == 6) {
+    else if (getPrior(pref) == 10 or getPrior(pref)==2) {
         double const b = stack.pop();
         double per = this->uku->operetor(pref, b);
         stack.push(per);

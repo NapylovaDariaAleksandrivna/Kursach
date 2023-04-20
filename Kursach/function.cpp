@@ -29,26 +29,31 @@ double DegToRad(double D)
 };
 double functionUn::operetor(char pref, double a)
 {
+    double t = 180 / 3.14;
     switch (pref) {
     case 'c':
-        return cos(DegToRad(a));
+        return cos(DegToRad(a * t));
     case 's':
-        return sin(DegToRad(a));
+        return sin(DegToRad(a * t));
     case 't':
-        if (int(cos(DegToRad(a)) * 100) == 0) {
-            //cur = ukp->getOut().length() + 100;
-            return 0;
+        if (int(cos(DegToRad(a * t)) * 100) == 0) {
+            int r = a;
+            while (r > 1)
+                --r;
+            while (r < -1)
+                ++r;
+            tan(DegToRad(a * t - 1*r));
         }
         else {
-            return tan(DegToRad(a));
+            return tan(DegToRad(a * t));
         }
     case 'w':
-        if (int(sin(DegToRad(a)) * 100) == 0) {
+        if (int(sin(DegToRad(a * t)) * 100) == 0) {
             //cur = str.length() + 100;
             return 0;
         }
         else {
-            return 1 / tan(DegToRad(a));
+            return 1 / tan(DegToRad(a * t));
         }
     case 'n':
         if (a <= 0) {

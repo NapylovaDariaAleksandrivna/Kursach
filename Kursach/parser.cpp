@@ -37,7 +37,7 @@ std::string parser::toPstfx(std::string inf) {//хреново воспринимает пробелы/ не
                     output += inf[i];
                     continue;
                 }
-                else if (getPrior(inf[i - 1]) <= 1) {
+                else if (getPrior(inf[i - 1]) == 0 ) {
                     output += inf[i];
                     continue;
                 }
