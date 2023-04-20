@@ -4,13 +4,12 @@
 #include <iostream>
 using namespace std;
 int main() {
-	double x1 = -20, x2 = 20, y1 = -20, y2 = 20, dep = 0.20;
 	parser obj;
 	cin >> obj;
 	cout << obj;
 	calculator g;
 	MyVector arrX(100), arrY(100);
-	g.toGive(obj.getOut(),arrY,arrX,x1,x2,y1,y2,dep);
+	g.toGive(obj.getOut(),arrY,arrX);
 	cout << "x " << arrX << '\n';
 	cout << "y " << arrY;
 }
@@ -62,33 +61,22 @@ int main() {
 	calculator g;
 	MyVector arrX(1000), arrY(1000); 
 	g.toGive(obj.getOut(), arrY, arrX);
-	VertexArray pointGraficLeft(Points, arrX.GetSize());
-	VertexArray lineL(Lines);
-	for (int i = 0; i < arrX.GetSize(); i++) {
+
+	//VertexArray pointGraficLeft(Points);
+	VertexArray myLines1(Lines, arrX.GetSize());
+	VertexArray myLines2(Lines, arrX.GetSize());
+	for (int i = 0; i < arrX.GetSize(); i+=1) {
 		int x = arrX[i];
 		int y = arrY[i];
 		std::cout << "X: " << x << " Y: " << y << std::endl;
-		pointGraficLeft[i].position = Vector2f(x, y);
-		pointGraficLeft[i].color = Color::Black;
-		if (i != 0) {
-			Vertex line[] =
-			{
-			 Vertex(Vector2f(arrX[i], arrY[i])),
-			 Vertex(Vector2f(arrX[i - 1], arrY[i - 1]))
-			};
-		}
+		myLines1[i].position = Vector2f(x, y);
+		myLines1[i].color = Color::Black;
+		x = arrX[i+1];
+		y = arrY[i+1];
+		std::cout << "X: " << x << " Y: " << y << std::endl;
+		myLines2[i].position = Vector2f(x, y);
+		myLines2[i].color = Color::Black;
 	}
-
-
-	
-
-	
-
-
-
-
-
-
 
 
 	while (win.isOpen()) {//работает когда окно открыто 
@@ -104,8 +92,9 @@ int main() {
 		win.draw(horizontalGrib);
 		win.draw(lineY);
 		win.draw(lineX);
-		win.draw(pointGraficLeft);
-		win.draw(lineL);//
+		win.draw(myLines1);
+		win.draw(myLines2);
+		//win.draw(pointGraficLeft);
 		//win.draw(pointGraficRight);
 		//win.draw(pointGraficS);
 		//win.draw(pointGraficSR);

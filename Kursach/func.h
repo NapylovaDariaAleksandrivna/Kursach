@@ -8,16 +8,16 @@ inline int getPrior(const char  operetor) {
         return 1;
     }
     else if (operetor == '+') {
-        return 3;
+        return 4;
     }
     else if (operetor == '-') {
-        return 3;
+        return 4;
     }
     else if (operetor == '*') {
-        return 4;
+        return 5;
     }
     else if (operetor == '/') {
-        return 4;
+        return 5;
     }
     else if (operetor == ' ') {
         return -100;
@@ -53,7 +53,7 @@ inline int getPrior(const char  operetor) {
         return 2;
     }
     else if (operetor == '^') {
-        return 4;
+        return 3;
     }
     else {
         return -1;

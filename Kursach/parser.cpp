@@ -30,7 +30,7 @@ std::string parser::toPstfx(std::string inf) {//хреново воспринимает пробелы/ не
     for (int i = 0; i < inf.length(); ++i) {
         if (inf[i] == ' ')
             i += 1;
-        if ((inf[i] >= 40 and inf[i] <= 47) or inf[i] == 94 or inf[i] == 124) {//znaki '^'and'|'
+        if ((inf[i] >= 40 && inf[i] <= 47) || inf[i] == 94 || inf[i] == 124) {//znaki '^'&&'|'
             if (inf[i] == '-') {
 
                 if (i == 0) {
@@ -44,7 +44,7 @@ std::string parser::toPstfx(std::string inf) {//хреново воспринимает пробелы/ не
             }
             operetor = inf[i];
         }
-        else if (inf[i] >= 97 and inf[i] <= 122 and inf[i] != 'x' and inf[i] != 'e' and inf[i] != 'p') {//bukvi
+        else if (inf[i] >= 97 && inf[i] <= 122 && inf[i] != 'x' && inf[i] != 'e' && inf[i] != 'p') {//bukvi
             if (inf[i] == 'c') {
                 if (inf[i + 1] == 'o') {
                     operetor = 'c';
@@ -84,11 +84,11 @@ std::string parser::toPstfx(std::string inf) {//хреново воспринимает пробелы/ не
                 }
             } //"cos"=c "sin"=s "tg"= t "ctg"=w "ln"= n "log2"=l "lg"= g "sqrt"=q
         }
-        else if ((inf[i] >= 48 and inf[i] <= 57) or inf[i] == 'x' or inf[i] == 'e' or inf[i] == 'p') {//tsifri
+        else if ((inf[i] >= 48 && inf[i] <= 57) || inf[i] == 'x' || inf[i] == 'e' || inf[i] == 'p') {//tsifri
             output += inf[i];
             if (inf[i] == 'p')
                 i += 1;
-            if ((inf[i + 1] >= 48 and inf[i + 1] <= 57) and (i + 1 <= inf.length())) {
+            if ((inf[i + 1] >= 48 && inf[i + 1] <= 57) && (i + 1 <= inf.length())) {
                 continue;
             }
             output += " ";
@@ -121,11 +121,11 @@ std::string parser::toPstfx(std::string inf) {//хреново воспринимает пробелы/ не
         }
 
 
-        else if (prior == 2 and modul == 0) { // 5. Esli | v nachale
+        else if (prior == 2 && modul == 0) { // 5. Esli | v nachale
             stack.push(operetor);
             modul += 1;
         }
-        else if (prior == 2 and modul == 1) { // 6. Esli | v kontse
+        else if (prior == 2 && modul == 1) { // 6. Esli | v kontse
             while (getPrior(stack.get()) > 2) {
                 output += stack.pop();
                 output += " ";

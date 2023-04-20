@@ -22,11 +22,10 @@ double calculator::eval(std::string pref, double x)
         if (prior == -100) { //space
             continue;
         }
-        else if (pref[i] == '-') {
+        if (pref[i] == '-' && getPrior(pref[i - 1]) <= 1) {///
             chislo += pref[i];
             continue;
-        }
-        if (prior == -1) { //number
+        } else if (prior == -1) { //number
             if (pref[i] == 'x') {
                 stack1.push(x);
                 continue;
@@ -42,8 +41,10 @@ double calculator::eval(std::string pref, double x)
             else {
                 chislo += pref[i];
             }
-            if (getPrior(pref[i + 1]) == -1) {
-                continue;
+            if (i + 1 != pref.length()) {
+                if (getPrior(pref[i + 1]) == -1) {
+                    continue;
+                }
             }
             stack1.push(stoi(chislo));
         }
@@ -66,20 +67,17 @@ void calculator::toGive(std::string pref, MyVector &arrY, MyVector &arrX, double
     double y1 = x1;
     double y2 = x2;
     for (double x = x1; x <= x2; x += dep) {
-        for (double y = y1; y <= y2; y += dep) {
-            double per = eval(pref, x);
-            if (per<=y2 and per>=y1) {
-                arrY.AddElemToMyVector(sizeDisplay-per*step);//Pochemy minus - hz
-                arrX.AddElemToMyVector(sizeDisplay-x*step);
-                break;
-            }
+        double per = eval(pref, x);
+        if (per<=y2 && per>=y1) {
+            arrY.AddElemToMyVector(sizeDisplay-per*step);//Pochemy minus - hz
+            arrX.AddElemToMyVector(sizeDisplay+x*step);
         }
     }
 }
 
 double calculator::operation(char pref, TStack<double, 100>& stack)
 {
-    if (getPrior(pref) < 5 and getPrior(pref) > 0) {
+    if (getPrior(pref) <= 5 && getPrior(pref) > 0) {
         double const a = stack.pop();
         double const b = stack.pop();
 
