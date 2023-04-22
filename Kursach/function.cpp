@@ -20,7 +20,7 @@ double functionBin::operetor(char pref, double a, double b)
     case 'h':
         return log2(b) / log2(a);
     }
-    return 0;
+    return -10;
 }
 double DegToRad(double D)
 {
@@ -30,49 +30,37 @@ double DegToRad(double D)
 double functionUn::operetor(char pref, double a)
 {
     double t = 180 / 3.14;
+    double hz = 0;
     switch (pref) {
     case 'c':
         return cos(DegToRad(a * t));
     case 's':
         return sin(DegToRad(a * t));
     case 't':
-        if (int(cos(DegToRad(a * t)) * 100) == 0) {
-            int r = a;
-            while (r > 1)
-                --r;
-            while (r < -1)
-                ++r;
-            tan(DegToRad(a * t - 1*r));
-        }
-        else {
-            return tan(DegToRad(a * t));
-        }
+        hz = tan(DegToRad(a * t));
+        
+        return hz;
     case 'w':
-        if (int(sin(DegToRad(a * t)) * 100) == 0) {
-            //cur = str.length() + 100;
-            return 0;
-        }
-        else {
-            return 1 / tan(DegToRad(a * t));
-        }
+        return 1 / tan(DegToRad(a * t));
+        
     case 'n':
         if (a <= 0) {
             //cur = str.length() + 100;
-            return 0;
+            return -10;
         }
         else
             return log(a);
     case 'l':
         if (a <= 0) {
             //cur = str.length() + 100;
-            return 0;
+            return -10;
         }
         else
             return log2(a);
     case 'g':
         if (a <= 0) {
             //cur = str.length() + 100;
-            return 0;
+            return -10;
         }
         else
             return log10(a);

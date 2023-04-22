@@ -68,10 +68,8 @@ void calculator::toGive(std::string pref, MyVector &arrY, MyVector &arrX, double
     double y2 = x2;
     for (double x = x1; x <= x2; x += dep) {
         double per = eval(pref, x);
-        if (per<=y2 && per>=y1) {
-            arrY.AddElemToMyVector(sizeDisplay-per * step);
-            arrX.AddElemToMyVector(sizeDisplay+x*step);
-        }
+        arrY.AddElemToMyVector(sizeDisplay - per * step);
+        arrX.AddElemToMyVector(sizeDisplay + x * step);
     }
 }
 

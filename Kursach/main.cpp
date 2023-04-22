@@ -28,10 +28,6 @@ int main() {
 	srand(time(NULL));
 	int Xsize = 1000;
 	int Ysize = 1000;
-
-
-	
-
 	RenderWindow win(VideoMode(Xsize, Ysize), "SFML Window");
 
 	VertexArray verticalGrib(Lines, 50);
@@ -53,6 +49,9 @@ int main() {
 	RectangleShape lineX(Vector2f(1000, 4));
 	lineX.setPosition(0, 498);
 	lineX.setFillColor(Color::Black);
+
+
+
 
 
 	parser obj;
