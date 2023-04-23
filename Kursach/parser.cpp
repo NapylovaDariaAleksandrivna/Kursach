@@ -24,6 +24,10 @@ std::ostream& operator<<(std::ostream& out, const parser& obj)
 
 std::string parser::toPstfx(std::string inf) {
     bool flag=true;
+    if (inf == " ") {
+        flag = false;
+        return"Error";
+    }
     TStack<char, 100> stack;
     std::string output = "";
     int prior = 0;
@@ -31,10 +35,7 @@ std::string parser::toPstfx(std::string inf) {
     char operetor;
     int modul = 0;
     for (int i = 0; i < inf.length(); ++i) {
-        if (inf == " ") {
-            flag = false;
-            break;
-        }
+        
         if (inf[i] == ' ')
             continue;
         if ((inf[i] >= 40 && inf[i] <= 47) || inf[i] == 94 || inf[i] == 124) {//znaki '^'&&'|'
@@ -50,12 +51,12 @@ std::string parser::toPstfx(std::string inf) {
                 }
             }
             operetor = inf[i];
-            if (i == inf.length() - 1 
-                or ((inf[i + 1] < 48 && inf[i + 1] > 57) || inf[i + 1] != 'x' || inf[i + 1] != 'e' || inf[i + 1] != 'p')
-                or ((inf[i - 1] < 48 && inf[i - 1] > 57) || inf[i - 1] != 'x' || inf[i - 1] != 'e' || inf[i - 1] != 'p')
-                or (inf[i + 1] != 'c' || inf[i + 1] != 's' || inf[i + 1] != 't' || inf[i + 1] != 'l' || inf[i + 1] != 'c')
-                or (inf[i - 1] != 's' || inf[i - 1] != 'n' || inf[i - 1] != 'g' || inf[i - 1] != 't' )
-               ) {
+            if (   (i == inf.length()-1 && inf[i] != ')')
+                || (inf[i + 1] < '0' && inf[i + 1] > '9' && inf[i + 1] != 'x' && inf[i + 1] != 'e' && inf[i + 1] != 'p' 
+                && inf[i - 1] < 48 && inf[i - 1] > 57 && inf[i - 1] != 'x' && inf[i - 1] != 'e' && inf[i - 1] != 'p'
+                && inf[i + 1] != 'c' && inf[i + 1] != 's' && inf[i + 1] != 't' && inf[i + 1] != 'l' && inf[i + 1] != 'c'
+                && inf[i - 1] != 's' && inf[i - 1] != 'n' && inf[i - 1] != 'g' && inf[i - 1] != 't' 
+               )) {
                 flag = false;
                 break;
             }
@@ -180,15 +181,23 @@ std::string parser::toPstfx(std::string inf) {
         }
         operetor = ' ';
     }
-    if (flag == false or inf == "")
+    if (flag == false || inf == "")
         return "Error";
     while (getPrior(stack.get()) > 1) {
         output += stack.pop();
         output += " ";
     }
-    std::string out = "";
-    for (int i = 0; i < output.length() - 1; ++i) {
-        out += output[i];
-    }
-    return out;
+    
+    return output;
+}
+
+void parser::setIn(std::string& input)
+{
+    this->input = input;
+    std::string b = this->toPstfx(input);
+    if (b != "Error")
+        this->output = b;
+    else
+        this->output = "Error";
+
 }

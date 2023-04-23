@@ -71,7 +71,7 @@ void calculator::toGive(std::string pref, MyVector &arrY, MyVector &arrX, double
     double y2 = x2;
     for (double x = x1; x <= x2; x += dep) {
         double per = eval(pref, x);
-        if (per<=x2+2 && per>=x1-2) {
+        if (per<=x2+5 && per>=x1-5) {
             arrY.AddElemToMyVector(sizeDisplay - per * step);
             arrX.AddElemToMyVector(sizeDisplay + x * step);
         }
@@ -87,7 +87,7 @@ double calculator::operation(char pref, TStack<double, 100>& stack)
         double per = this->ukb->operetor(pref, b, a);
         stack.push(per);
     }
-    else if (getPrior(pref) == 10 or getPrior(pref)==2) {
+    else if (getPrior(pref) == 10 || getPrior(pref)==2) {
         double const b = stack.pop();
         double per = this->uku->operetor(pref, b);
         stack.push(per);

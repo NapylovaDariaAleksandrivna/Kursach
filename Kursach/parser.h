@@ -12,7 +12,7 @@ private:
 public:
 	
 	std::string toPstfx(std::string inf);
-	void setIn(std::string& input) { this->input = input; this->output = toPstfx(input); }
+	void setIn(std::string& input);
 	void setOut(std::string& output) { this->output = output; }
 	std::string getIn()const { return input; }
 	std::string getOut()const { return output; }
