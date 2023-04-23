@@ -18,6 +18,7 @@ public:
 	void RemoveElemFromMyVector(int val);
 	void RemoveElemFromBack();
 	int GetSize()const { return cur; }	
+	void Clean();
 	MyVector& operator= (const MyVector& right);
 	int& operator[](int index);
 	int operator[](int index)const;

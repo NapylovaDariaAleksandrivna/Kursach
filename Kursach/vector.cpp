@@ -114,6 +114,12 @@ void MyVector::RemoveElemFromBack()
 		--cur;
 }
 
+void MyVector::Clean()
+{
+	for (int i = 0; i < this->GetSize(); i++)
+		this->arr[i] = 0;
+}
+
 MyVector& MyVector::operator=(const MyVector& right)
 {
 	if (this != &right)
