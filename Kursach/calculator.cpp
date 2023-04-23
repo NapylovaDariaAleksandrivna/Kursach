@@ -64,6 +64,9 @@ double calculator::eval(std::string pref, double x)
 
 void calculator::toGive(std::string pref, MyVector &arrY, MyVector &arrX, double x1, double x2, double dep)
 {
+    if (pref == "Error") {
+        return;
+    }
     double y1 = x1;
     double y2 = x2;
     for (double x = x1; x <= x2; x += dep) {

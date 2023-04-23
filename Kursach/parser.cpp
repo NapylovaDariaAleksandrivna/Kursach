@@ -10,7 +10,9 @@ std::istream& operator>>(std::istream& in, parser& obj)
     getline(in, a);
 	obj.setIn(a);
 	std::string b = obj.toPstfx(a);
-	obj.setOut(b);
+    a = "";
+    if (b!="Error")
+        obj.setOut(b);
 	return in;
 }
 
@@ -20,7 +22,8 @@ std::ostream& operator<<(std::ostream& out, const parser& obj)
 	return out;
 }
 
-std::string parser::toPstfx(std::string inf) {//хреново воспринимает пробелы/ не считет нормально
+std::string parser::toPstfx(std::string inf) {
+    bool flag=true;
     TStack<char, 100> stack;
     std::string output = "";
     int prior = 0;
@@ -28,8 +31,12 @@ std::string parser::toPstfx(std::string inf) {//хреново воспринимает пробелы/ не
     char operetor;
     int modul = 0;
     for (int i = 0; i < inf.length(); ++i) {
+        if (inf == " ") {
+            flag = false;
+            break;
+        }
         if (inf[i] == ' ')
-            i += 1;
+            continue;
         if ((inf[i] >= 40 && inf[i] <= 47) || inf[i] == 94 || inf[i] == 124) {//znaki '^'&&'|'
             if (inf[i] == '-') {
 
@@ -43,6 +50,16 @@ std::string parser::toPstfx(std::string inf) {//хреново воспринимает пробелы/ не
                 }
             }
             operetor = inf[i];
+            if (i == inf.length() - 1 
+                or ((inf[i + 1] < 48 && inf[i + 1] > 57) || inf[i + 1] != 'x' || inf[i + 1] != 'e' || inf[i + 1] != 'p')
+                or ((inf[i - 1] < 48 && inf[i - 1] > 57) || inf[i - 1] != 'x' || inf[i - 1] != 'e' || inf[i - 1] != 'p')
+                or (inf[i + 1] != 'c' || inf[i + 1] != 's' || inf[i + 1] != 't' || inf[i + 1] != 'l' || inf[i + 1] != 'c')
+                or (inf[i - 1] != 's' || inf[i - 1] != 'n' || inf[i - 1] != 'g' || inf[i - 1] != 't' )
+               ) {
+                flag = false;
+                break;
+            }
+
         }
         else if (inf[i] >= 97 && inf[i] <= 122 && inf[i] != 'x' && inf[i] != 'e' && inf[i] != 'p') {//bukvi
             if (inf[i] == 'c') {
@@ -50,9 +67,13 @@ std::string parser::toPstfx(std::string inf) {//хреново воспринимает пробелы/ не
                     operetor = 'c';
                     i += 2;
                 }
-                else {
+                else if (inf[i + 1] == 't'){
                     operetor = 'w';
                     i += 2;
+                }
+                else {
+                    flag = false;
+                    break;
                 }
             }
             else if (inf[i] == 's') {
@@ -60,9 +81,13 @@ std::string parser::toPstfx(std::string inf) {//хреново воспринимает пробелы/ не
                     operetor = 's';
                     i += 2;
                 }
-                else {
+                else if (inf[i + 1] == 'q') {
                     i += 3;
                     operetor = 'q';
+                }
+            else {
+                flag = false;
+                break;
                 }
             }
             else if (inf[i] == 't') {
@@ -78,11 +103,19 @@ std::string parser::toPstfx(std::string inf) {//хреново воспринимает пробелы/ не
                     i += 1;
                     operetor = 'g';
                 }
-                else {
+                else if (inf[i + 1] == 'n') {
                     operetor = 'n';
                     i += 1;
                 }
-            } //"cos"=c "sin"=s "tg"= t "ctg"=w "ln"= n "log2"=l "lg"= g "sqrt"=q
+                else {
+                    flag = false;
+                    break;
+                }
+            }
+            else {
+                flag = false;
+                break;
+            }//"cos"=c "sin"=s "tg"= t "ctg"=w "ln"= n "log2"=l "lg"= g "sqrt"=q
         }
         else if ((inf[i] >= 48 && inf[i] <= 57) || inf[i] == 'x' || inf[i] == 'e' || inf[i] == 'p') {//tsifri
             output += inf[i];
@@ -147,6 +180,8 @@ std::string parser::toPstfx(std::string inf) {//хреново воспринимает пробелы/ не
         }
         operetor = ' ';
     }
+    if (flag == false or inf == "")
+        return "Error";
     while (getPrior(stack.get()) > 1) {
         output += stack.pop();
         output += " ";

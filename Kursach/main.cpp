@@ -1,4 +1,4 @@
-#define Task3
+#define Task2
 #ifdef Task2
 #include"calculator.h"
 #include <iostream>
