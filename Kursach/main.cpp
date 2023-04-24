@@ -76,8 +76,8 @@ int main() {
 	tError.setPosition(Xsize / 2 + 25, 125);
 
 
-	VertexArray myLines1(Lines, 1000);
-	VertexArray myLines2(Lines, 1000);
+	VertexArray l1(Lines, 1000);
+	VertexArray l2(Lines, 1000);
 	
 	while (win.isOpen()) {//работает когда окно открыто 
 		Event ev;//обработка событий
@@ -94,6 +94,10 @@ int main() {
 				}
 			}
 			if (Keyboard::isKeyPressed(Keyboard::Return) ) {
+				l1.clear();
+				l2.clear();
+				VertexArray myLines1(Lines, 1000);
+				VertexArray myLines2(Lines, 1000);
 				parser obj;
 				calculator object;
 				MyVector arrX(1000), arrY(1000);
@@ -102,25 +106,34 @@ int main() {
 				std::cout << obj;
 				if (obj.getOut() == "Error") {
 					error = "Error";
+					l1.clear();
+					l2.clear();
 					break;
 				}
 				object.toGive(obj.getOut(), arrY, arrX);
 				if (arrY.GetSize() == 0) {
 					error = "Error";
+					l1.clear();
+					l2.clear();
 					break;
 				}
-				for (int i = 0; i < arrX.GetSize()-1; i++) {
+				for (int i = 0; i <= arrX.GetSize()-2; i++) {
 					std::cout << "X: " << arrX[i] << " Y: " << arrY[i] << "*" << std::endl;
 					myLines1[i].position = Vector2f(arrX[i], arrY[i]);
 					myLines1[i].color = Color::Red;
 				}
-				for (int i = 1; i < arrX.GetSize(); i++) {
+				for (int i = 1; i <= arrX.GetSize(); i++) {
 					
 					std::cout << "X: " << arrX[i] << " Y: " << arrY[i] << std::endl;
 					myLines2[i-1].position = Vector2f(arrX[i], arrY[i]);
 					myLines2[i-1].color = Color::Red;
 				}
 				error = "";
+				l1 = myLines1;
+				l2 = myLines2;
+				/*while (arrX[arrX.GetSize()]) {
+
+				}*/
 			}
 		}
 		win.clear(Color(255, 192, 203));
@@ -138,8 +151,8 @@ int main() {
 		tError.setString(error);
 		win.draw(tError);
 
-		win.draw(myLines1);
-		win.draw(myLines2);
+		win.draw(l1);
+		win.draw(l2);
 		win.display();
 	}
 }
