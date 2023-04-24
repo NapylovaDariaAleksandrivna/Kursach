@@ -51,8 +51,11 @@ std::string parser::toPstfx(std::string inf) {
                 }
             }
             operetor = inf[i];
-            if (   (i == inf.length()-1 && inf[i] != ')')
-                || (inf[i + 1] < '0' && inf[i + 1] > '9' && inf[i + 1] != 'x' && inf[i + 1] != 'e' && inf[i + 1] != 'p' 
+            if ((i == inf.length() - 1 && inf[i] != ')') ||
+                (
+                    i == 0
+                )||
+                 ( inf[i + 1] < '0' && inf[i + 1] > '9' && inf[i + 1] != 'x' && inf[i + 1] != 'e' && inf[i + 1] != 'p' 
                 && inf[i - 1] < 48 && inf[i - 1] > 57 && inf[i - 1] != 'x' && inf[i - 1] != 'e' && inf[i - 1] != 'p'
                 && inf[i + 1] != 'c' && inf[i + 1] != 's' && inf[i + 1] != 't' && inf[i + 1] != 'l' && inf[i + 1] != 'c'
                 && inf[i - 1] != 's' && inf[i - 1] != 'n' && inf[i - 1] != 'g' && inf[i - 1] != 't' 
