@@ -5,9 +5,6 @@
 #include <iostream>
 #include<string>	
 #include"vector.h"
-//****************
-
-//****************
 class calculator
 {
 public:
@@ -17,17 +14,7 @@ public:
 	functionBin* ukb=nullptr;
 	functionUn* uku= nullptr;
 	parser* ukp;//????????
-
-	void setPrior(int &prior);
-	void setSimbyl(char& input);
-	calculator() {};
-	~calculator() { delete arr; }//
-	calculator();
 private:
-	struct stroka {
-		char simbyl;
-		int prior;
-	};
-	stroka arr[100];
+	
 };
 

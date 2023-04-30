@@ -19,15 +19,12 @@ double calculator::eval(std::string pref, double x)
     //int modul = 0;
     for (int i = 0; i < pref.length(); ++i) {
         prior = getPrior(pref[i]);
-
         if (prior == -100) { //space
             continue;
         }
-
-        if (pref[i] == '-' && (getPrior(pref[i - 1]) == 0 || i==0)) {///unary minus
+        if (pref[i] == '-' && getPrior(pref[i - 1]) == 0) {///
             chislo += pref[i];
             continue;
-
         } else if (prior == -1) { //number
             if (pref[i] == 'x') {
                 stack1.push(x);
@@ -40,25 +37,24 @@ double calculator::eval(std::string pref, double x)
             else if (pref[i] == 'p') {
                 stack1.push(3.142857142857143);
                 continue;
-            } else {
+            }
+            else {
                 chislo += pref[i];
             }
-
             if (i + 1 != pref.length()) {
                 if (getPrior(pref[i + 1]) == -1) {
                     continue;
                 }
             }
-
             stack1.push(stoi(chislo));
             chislo = "";
             continue;
-
-        //} else if (getPrior(pref[i]) == 2) {//
-        //    operation(pref[i], stack1);
-
-        } else {
-            if (!(stack1.isEmpty())) { //operation
+        }
+        else if (getPrior(pref[i]) == 2) {
+            operation(pref[i], stack1);
+        }
+        else {
+            if (!(stack1.isEmpty())) {
                 operation(pref[i], stack1);
             }
         }
@@ -84,12 +80,6 @@ void calculator::toGive(std::string pref, MyVector &arrY, MyVector &arrX, double
 
 double calculator::operation(char pref, TStack<double, 100>& stack)
 {
-
-
-
-
-
-    //****************************
     if (getPrior(pref) <= 9 && getPrior(pref) > 2) {
         double const a = stack.pop();
         double const b = stack.pop();
@@ -105,9 +95,4 @@ double calculator::operation(char pref, TStack<double, 100>& stack)
     else {
         return stack.pop();
     }
-}
-
-calculator::calculator()
-{
-    this->ukp->
 }

@@ -101,23 +101,30 @@ int main() {
 				parser obj;
 				calculator object;
 				MyVector arrX(1000), arrY(1000);
+				std::cout << stringValue << std::endl;
 				obj.setIn(stringValue);
 				std::cout << obj;
-				object.toGive(obj.getOut(), arrY, arrX);
-				if (arrY.GetSize() == 0 or obj.getOut() == "Error") {
+				if (obj.getOut() == "Error") {
 					error = "Error";
 					l1.clear();
 					l2.clear();
 					break;
 				}
-				for (int i = 0; i <= arrX.GetSize()-1; i++) {
-					//std::cout << "X: " << arrX[i] << " Y: " << arrY[i] << "*" << std::endl;
+				object.toGive(obj.getOut(), arrY, arrX);
+				if (arrY.GetSize() == 0) {
+					error = "Error";
+					l1.clear();
+					l2.clear();
+					break;
+				}
+				for (int i = 0; i <= arrX.GetSize()-2; i++) {
+					std::cout << "X: " << arrX[i] << " Y: " << arrY[i] << "*" << std::endl;
 					myLines1[i].position = Vector2f(arrX[i], arrY[i]);
 					myLines1[i].color = Color::Red;
 				}
-				for (int i = 1; i <= arrX.GetSize()-1; i++) {
+				for (int i = 1; i <= arrX.GetSize(); i++) {
 					
-					//std::cout << "X: " << arrX[i] << " Y: " << arrY[i] << std::endl;
+					std::cout << "X: " << arrX[i] << " Y: " << arrY[i] << std::endl;
 					myLines2[i-1].position = Vector2f(arrX[i], arrY[i]);
 					myLines2[i-1].color = Color::Red;
 				}

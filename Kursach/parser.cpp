@@ -10,6 +10,7 @@ std::istream& operator>>(std::istream& in, parser& obj)
     getline(in, a);
 	obj.setIn(a);
 	std::string b = obj.toPstfx(a);
+    a = "";
     if (b!="Error")
         obj.setOut(b);
 	return in;
@@ -197,7 +198,7 @@ void parser::setIn(std::string& input)
 {
     this->input = input;
     std::string b = this->toPstfx(input);
-    if (b != "Error" or input.length()>100)
+    if (b != "Error")
         this->output = b;
     else
         this->output = "Error";
