@@ -26,37 +26,37 @@ inline bool isOperation(char& right, Operations left) {
 
 inline int getPrior(const char  operetor) {
     switch (operetor) {
-    case '(':
+    case braceOpen:
         return 0;
-    case ')':
+    case braceClose:
         return 1;
-    case '|':
+    case modul:
         return 2;
-    case '+':
+    case plus:
         return 3;
-    case '-':
+    case minus:
         return 3;
-    case '*':
+    case multiply:
         return 4;
-    case '/':
+    case share:
         return 4;
-    case '^':
+    case degree:
         return 5;
-    case 'c':
+    case cos_:
         return 6;
-    case 's':
+    case sin_:
         return 6;
-    case 't':
+    case tg_:
         return 6;
-    case 'w':
+    case ctg_:
         return 6;
-    case 'n':
+    case ln_:
         return 6;
-    case 'l':
+    case log_2:
         return 6;
-    case 'g':
+    case lg_:
         return 6;
-    case 'q':
+    case sqrt_:
         return 6;
     default:
         return -1;

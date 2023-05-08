@@ -16,7 +16,11 @@ public:
 	double operation(char op, double a, double b);
 	double DegToRad(double D);
 	int GetSize()const { return arrX.GetSize(); }
-
+	calculator(parser obj)
+	{
+		toGive(obj.getOut());
+	};
+	calculator() {};
 	parser* ukp;//????????
 
 	void getArr()const { 

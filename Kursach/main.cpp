@@ -23,8 +23,8 @@ int main() {
 
 int main() {
 	srand(time(NULL));
-	int Xsize = 2000;
-	int Ysize = 1000;
+	int const Xsize = 2000;
+	int const Ysize = 1000;
 	RenderWindow win(VideoMode(Xsize, Ysize), "Graphics");
 	//Gribs&rigth pole
 	VertexArray verticalGrib(Lines, 50);
@@ -48,12 +48,12 @@ int main() {
 	//Text
 	Font arial;
 	arial.loadFromFile("Century Gothic Regular.ttf");
-	Text t;
-	t.setFillColor(Color::White);
-	t.setFont(arial);
+	Text textY;
+	textY.setFillColor(Color::White);
+	textY.setFont(arial);
 	std::string s = "y= ";
-	t.setString(s);//
-	t.setPosition(Xsize/2+165, 75);
+	textY.setString(s);//
+	textY.setPosition(Xsize/2+165, 75);
 	Text text;
 	text.setFillColor(Color::White);
 	text.setFont(arial);
@@ -69,18 +69,15 @@ int main() {
 
 	//Create lines graphic
 
-
-
-
-	VertexArray l1(Lines, 1000);
-	VertexArray l2(Lines, 1000);
+	VertexArray lineOne(Lines, 1000);
+	VertexArray lineTwo(Lines, 1000);
 	
 	//*****************************
 	//this made for thick line
-	VertexArray l3(Lines, 1000);
-	VertexArray l4(Lines, 1000);
-	VertexArray l5(Lines, 1000);
-	VertexArray l6(Lines, 1000);
+	VertexArray lineThree(Lines, 1000);
+	VertexArray lineFour(Lines, 1000);
+	VertexArray lineFive(Lines, 1000);
+	VertexArray lineSix(Lines, 1000);
 	//*****************************
 
 	while (win.isOpen()) {
@@ -98,62 +95,53 @@ int main() {
 				}
 			}
 			if (Keyboard::isKeyPressed(Keyboard::Return) ) {
-				l1.clear();
-				l2.clear();
+				
 				VertexArray myLines1(Lines, 1000);
 				VertexArray myLines2(Lines, 1000);
 
 				//*****************************
-				l3.clear();
-				l4.clear();
-				l5.clear();
-				l6.clear();
+				
 				VertexArray myLines3(Lines, 1000);
 				VertexArray myLines4(Lines, 1000);
 				VertexArray myLines5(Lines, 1000);
 				VertexArray myLines6(Lines, 1000);
 				//*****************************
 
-				parser obj;
-				calculator t;
-				obj.setIn(stringValue);
+				parser obj(stringValue);
+				calculator objC(obj);
 				std::cout << obj;
-				t.toGive(obj.getOut());
-				//std::cout << t;
-				if (t.GetSize() == 0 or obj.getOut() == "Error") {
+				if (objC.GetSize() == 0 or obj.getOut() == "Error") {
 					error = "Error";
-					l1.clear();
-					l2.clear();
+					lineOne.clear();
+					lineTwo.clear();
 
 					//*****************************
-					l3.clear();
-					l4.clear();
-					l5.clear();
-					l6.clear();
+					lineThree.clear();
+					lineFour.clear();
+					lineFive.clear();
+					lineSix.clear();
 					//*****************************
 
 					break;
 				}
 
 				int const hz = 50;
-				draw(myLines1, myLines1, hz, t.arrX, t.arrY);
+				draw(myLines1, myLines1, hz, objC.arrX, objC.arrY);
 
 				//*****************************
-				
-				draw(myLines3, myLines4, hz, t.arrX, t.arrY);
-				draw(myLines5, myLines6, hz, t.arrX, t.arrY);
-				
+				draw(myLines3, myLines4, hz, objC.arrX, objC.arrY);
+				draw(myLines5, myLines6, hz, objC.arrX, objC.arrY);
 				//*****************************
 
 				error = "";
-				l1 = myLines1;
-				l2 = myLines2;
+				lineOne = myLines1;
+				lineTwo = myLines2;
 				
 				//*****************************
-				l3 = myLines3;
-				l4 = myLines4;
-				l5 = myLines5;
-				l6 = myLines6;
+				lineThree = myLines3;
+				lineFour = myLines4;
+				lineFive = myLines5;
+				lineSix = myLines6;
 				//*****************************
 				
 			}
@@ -163,28 +151,25 @@ int main() {
 		win.draw(verticalGrib);
 		win.draw(horizontalGrib);
 
-		
-
-		
 		win.draw(lineY);
 		win.draw(lineX);
-
 		win.draw(poleRigth);
+
 		text.setString(stringValue);
 		win.draw(text);
 
-		win.draw(t);
+		win.draw(textY);
 
 		tError.setString(error);
 		win.draw(tError);
 
-		win.draw(l1);
-		win.draw(l2);
+		win.draw(lineOne);
+		win.draw(lineTwo);
 
-		win.draw(l3);
-		win.draw(l4);
-		win.draw(l5);
-		win.draw(l6);
+		win.draw(lineThree);
+		win.draw(lineFour);
+		win.draw(lineFive);
+		win.draw(lineSix);
 		
 		win.draw(buttonMinus);
 		win.draw(buttonPlus);
@@ -202,11 +187,11 @@ int main() {
 		Style::Titlebar | Style::Close);
 	Font arial;
 	arial.loadFromFile("Century Gothic Regular.ttf");
-	Text t;
-	t.setFillColor(Color::White);
-	t.setFont(arial);
+	Text textY;
+	textY.setFillColor(Color::White);
+	textY.setFont(arial);
 	std::string s = "Math task: ";
-	t.setString(s);
+	textY.setString(s);
 	Text g;
 	g.setFillColor(Color::White);
 	g.setFont(arial);
@@ -240,7 +225,7 @@ int main() {
 		g.setString(stringValue);
 		window.clear(Color::Black);
 		window.draw(g);
-		window.draw(t);
+		window.draw(textY);
 		window.display();
 	}
 }
@@ -286,12 +271,12 @@ int main() {
 
 	Font arial;
 	arial.loadFromFile("Century Gothic Regular.ttf");
-	Text t;
-	t.setFillColor(Color::White);
-	t.setFont(arial);
+	Text textY;
+	textY.setFillColor(Color::White);
+	textY.setFont(arial);
 	std::string s = "Math task: ";
-	t.setString(s);//
-	t.setPosition(Xsize / 2 + 25, 75);
+	textY.setString(s);//
+	textY.setPosition(Xsize / 2 + 25, 75);
 	Text text;
 	text.setFillColor(Color::White);
 	text.setFont(arial);
@@ -305,7 +290,7 @@ int main() {
 	tError.setString(error);//
 	tError.setPosition(Xsize / 2 + 25, 125);
 
-	VertexArray l1(Lines, 2000);
+	VertexArray lineOne(Lines, 2000);
 
 	VertexArray pointGraficT1(Points, 2000);
 	VertexArray pointGraficT2(Points, 2000);
@@ -405,7 +390,7 @@ int main() {
 		text.setString(stringValue);
 		win.draw(text);
 
-		win.draw(t);
+		win.draw(textY);
 
 		tError.setString(error);
 		win.draw(tError);
