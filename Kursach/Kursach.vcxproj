@@ -134,7 +134,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="calculator.cpp" />
-    <ClCompile Include="function.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="parser.cpp" />
     <ClCompile Include="vector.cpp" />
@@ -142,7 +141,7 @@
   <ItemGroup>
     <ClInclude Include="calculator.h" />
     <ClInclude Include="func.h" />
-    <ClInclude Include="function.h" />
+    <ClInclude Include="GraphicsNeed.h" />
     <ClInclude Include="parser.h" />
     <ClInclude Include="Tstack.h" />
     <ClInclude Include="vector.h" />

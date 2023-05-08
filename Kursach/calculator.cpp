@@ -1,73 +1,85 @@
 #include "calculator.h"
-#include"func.h"
-#include"function.h"
-#include"tstack.h"
-#include"vector.h"
 
 //************************************************
 int max_size = 1000;
 int sizeDisplay = max_size/2;
-int step = max_size/20;
+int step = 50;
 
 //***********************************************
 double calculator::eval(std::string pref, double x)
 {
-    TStack<double, 100> stack1;
-    double per = 0;
-    int prior = 0;
+    std::string znaki = "+-*/^|()";
+    std::string tsifri = "0123456789xep.,";
+    std::string operUn = "cstl";
+    TStack<double, 1000> stack1;
     std::string chislo = "";
-    //int modul = 0;
     for (int i = 0; i < pref.length(); ++i) {
-        prior = getPrior(pref[i]);
 
-        if (prior == -100) { //space
+        if (pref[i]== ' ') { //space
             continue;
         }
 
-        if (pref[i] == '-' && (getPrior(pref[i - 1]) == 0 || i==0)) {///unary minus
+        if (isOperation(pref[i], minus) && (tsifri.find(pref[i+1]) != std::string::npos || i==0)) {
             chislo += pref[i];
             continue;
-
-        } else if (prior == -1) { //number
+        } else if (tsifri.find(pref[i]) != std::string::npos) {
             if (pref[i] == 'x') {
-                stack1.push(x);
+                if (chislo == "-") {
+                    stack1.push(x * (-1));
+                }
+                else {
+                    stack1.push(x);
+                }
                 continue;
             }
-            else if (pref[i] == 'e') {
-                stack1.push(2.71828182845904523);
+            else if (pref[i] == 'e') { 
+                if (chislo == "-") {
+                    stack1.push(2.71828182845904523*(-1));
+                } else {
+                    stack1.push(2.71828182845904523);
+                }
                 continue;
             }
             else if (pref[i] == 'p') {
-                stack1.push(3.142857142857143);
+                if (chislo == "-") {
+                    stack1.push(3.142857142857143 * (-1));
+                }
+                else {
+                    stack1.push(3.142857142857143);
+                }
                 continue;
-            } else {
-                chislo += pref[i];
             }
-
-            if (i + 1 != pref.length()) {
-                if (getPrior(pref[i + 1]) == -1) {
+            else {
+                chislo += pref[i];
+                if (tsifri.find(pref[i + 1]) != std::string::npos) {
                     continue;
                 }
-            }
-
-            stack1.push(stoi(chislo));
+            }           
+            double b = stod(chislo);
+            stack1.push(b);
             chislo = "";
             continue;
 
-        //} else if (getPrior(pref[i]) == 2) {//
-        //    operation(pref[i], stack1);
-
         } else {
             if (!(stack1.isEmpty())) { //operation
-                operation(pref[i], stack1);
+
+                double const a = stack1.pop();
+                double b = 0;
+                if (!stack1.isEmpty())
+                    b = stack1.pop();
+                stack1.push(operation(pref[i], a, b));
+            }
+            else
+            {
+                return stack1.pop();
             }
         }
     }
     return stack1.pop();
 }
 
-void calculator::toGive(std::string pref, MyVector &arrY, MyVector &arrX, double x1, double x2, double dep)
-{
+void calculator::toGive(std::string pref, double x1, double x2, double dep)
+{   
     if (pref == "Error") {
         return;
     }
@@ -75,39 +87,75 @@ void calculator::toGive(std::string pref, MyVector &arrY, MyVector &arrX, double
     double y2 = x2;
     for (double x = x1; x <= x2; x += dep) {
         double per = eval(pref, x);
-        if (per<=x2+5 && per>=x1-5) {
-            arrY.AddElemToMyVector(sizeDisplay - per * step);
-            arrX.AddElemToMyVector(sizeDisplay + x * step);
+
+        this->arrY.AddElemToMyVector(sizeDisplay - per * step);
+        this->arrX.AddElemToMyVector(sizeDisplay + x * step);
+    }
+}//////////////////////
+
+double calculator::DegToRad(double D)
+{
+    double M = 3.14 / 180;
+    return D * M;
+};
+double calculator::operation(char op, double b, double a)
+{
+    switch (op) {
+    case plus:
+        return a + b;
+    case minus:
+        return a - b;
+    case multiply:
+        return a * b;
+    case share:
+        if (a == 0) {
+            return 0;
         }
+        else
+            return a / b;
+    case degree:
+        return pow(a, b);
+    case cos_:
+        return cos(DegToRad( 180 / 3.14 * b));
+    case sin_:
+        return sin(DegToRad(180 / 3.14 * b));
+    case tg_:
+        return tan(DegToRad(180 / 3.14 * b));
+    case ctg_:
+        return 1 / tan(DegToRad(180 / 3.14 * b));
+
+    case ln_:
+        if (b <= 0) {
+            return -10;
+        }
+        else
+            return log(b);
+    case log_2:
+        if (b <= 0) {
+            return -10;
+        }
+        else
+            return log2(b);
+    case lg_:
+        if (b <= 0) {
+            return -10;
+        }
+        else
+            return log10(b);
+    case sqrt_:
+        if (b < 0) {
+            return 0;
+        }
+        else
+            return sqrt(b);
+    case modul:
+        return abs(b);
     }
+    return 0;
 }
 
-double calculator::operation(char pref, TStack<double, 100>& stack)
+std::ostream& operator<<(std::ostream& out, const calculator& obj)
 {
-
-
-
-
-
-    //****************************
-    if (getPrior(pref) <= 9 && getPrior(pref) > 2) {
-        double const a = stack.pop();
-        double const b = stack.pop();
-
-        double per = this->ukb->operetor(pref, b, a);
-        stack.push(per);
-    }
-    else if (getPrior(pref) == 10 || getPrior(pref)==2) {
-        double const b = stack.pop();
-        double per = this->uku->operetor(pref, b);
-        stack.push(per);
-    }
-    else {
-        return stack.pop();
-    }
-}
-
-calculator::calculator()
-{
-    this->ukp->
+    obj.getArr();
+    return out;
 }

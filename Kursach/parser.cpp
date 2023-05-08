@@ -3,6 +3,8 @@
 #include "func.h"
 #include <iostream>
 #include<string>	
+    
+
 
 std::istream& operator>>(std::istream& in, parser& obj)
 {
@@ -22,49 +24,51 @@ std::ostream& operator<<(std::ostream& out, const parser& obj)
 }
 
 std::string parser::toPstfx(std::string inf) {
-    bool flag=true;
-    if (inf == " ") {
-        flag = false;
+    if (inf == " " or inf=="") {
         return"Error";
     }
     TStack<char, 100> stack;
     std::string output = "";
     int prior = 0;
     int priorOnHeight = -1;
+
     char operetor;
-    int modul = 0;
+    int modulC = 0;
+
+    std::string znaki = "+-*/^|()";
+    std::string tsifri = "0123456789xep.,";
+    std::string operUn = "cstl";
+
     for (int i = 0; i < inf.length(); ++i) {
-        
+
         if (inf[i] == ' ')
             continue;
-        if ((inf[i] >= 40 && inf[i] <= 47) || inf[i] == 94 || inf[i] == 124) {//znaki '^'&&'|'
-            if (inf[i] == '-') {
+
+        if (znaki.find((inf[i])) != std::string::npos) {
+            
+            if (isOperation(inf[i], minus)) {
 
                 if (i == 0) {
                     output += inf[i];
                     continue;
                 }
-                else if (getPrior(inf[i - 1]) == 0 ) {
+                else if (isOperation(inf[i-1], braceOpen)) {
                     output += inf[i];
                     continue;
                 }
             }
             operetor = inf[i];
-            if ((i == inf.length() - 1 && inf[i] != ')') ||
-                (
-                    i == 0
-                )||
-                 ( inf[i + 1] < '0' && inf[i + 1] > '9' && inf[i + 1] != 'x' && inf[i + 1] != 'e' && inf[i + 1] != 'p' 
-                && inf[i - 1] < 48 && inf[i - 1] > 57 && inf[i - 1] != 'x' && inf[i - 1] != 'e' && inf[i - 1] != 'p'
-                && inf[i + 1] != 'c' && inf[i + 1] != 's' && inf[i + 1] != 't' && inf[i + 1] != 'l' && inf[i + 1] != 'c'
-                && inf[i - 1] != 's' && inf[i - 1] != 'n' && inf[i - 1] != 'g' && inf[i - 1] != 't' 
-               )) {
-                flag = false;
-                break;
+            std::string strPosle = "0123456789xepcstl(";
+            std::string strDo  =   "0123456789xepsngt)";
+            if ((!isOperation(inf[i], braceOpen)) && (!isOperation(inf[i], braceClose)) &&
+                (!isOperation(inf[i], modul)) &&
+                ((i == 0) || (i == inf.length() - 1) || (strPosle.find((inf[i + 1])) == std::string::npos) ||
+                                                           (strDo.find((inf[i - 1])) == std::string::npos))) {
+                return "Error";
             }
-
+            //Обработака исключений
         }
-        else if (inf[i] >= 97 && inf[i] <= 122 && inf[i] != 'x' && inf[i] != 'e' && inf[i] != 'p') {//bukvi
+        else if (operUn.find((inf[i])) != std::string::npos) {
             if (inf[i] == 'c') {
                 if (inf[i + 1] == 'o') {
                     operetor = 'c';
@@ -75,8 +79,7 @@ std::string parser::toPstfx(std::string inf) {
                     i += 2;
                 }
                 else {
-                    flag = false;
-                    break;
+                    return "Error";
                 }
             }
             else if (inf[i] == 's') {
@@ -88,9 +91,8 @@ std::string parser::toPstfx(std::string inf) {
                     i += 3;
                     operetor = 'q';
                 }
-            else {
-                flag = false;
-                break;
+                else {
+                    return "Error";
                 }
             }
             else if (inf[i] == 't') {
@@ -111,20 +113,25 @@ std::string parser::toPstfx(std::string inf) {
                     i += 1;
                 }
                 else {
-                    flag = false;
-                    break;
+                    return "Error";
                 }
             }
             else {
-                flag = false;
-                break;
-            }//"cos"=c "sin"=s "tg"= t "ctg"=w "ln"= n "log2"=l "lg"= g "sqrt"=q
+                return "Error";
+            }
         }
-        else if ((inf[i] >= 48 && inf[i] <= 57) || inf[i] == 'x' || inf[i] == 'e' || inf[i] == 'p') {//tsifri
+        else if (tsifri.find((inf[i])) != std::string::npos) {
             output += inf[i];
-            if (inf[i] == 'p')
+            if (inf[i] == 'p' and inf[i+1] == 'i') {
                 i += 1;
-            if ((inf[i + 1] >= 48 && inf[i + 1] <= 57) && (i + 1 <= inf.length())) {
+                output += " ";
+                continue;
+            } else if ((inf[i] == 'p' and inf[i + 1] != 'i') or ((inf[i] == '.' || inf[i] == ',') && 
+                (tsifri.find((inf[i + 1])) == std::string::npos || tsifri.find((inf[i - 1])) == std::string::npos))) {
+                return "Error";
+            } 
+
+            if ((tsifri.find((inf[i+1])) != std::string::npos) && (i + 1 <= inf.length())) {
                 continue;
             }
             output += " ";
@@ -142,39 +149,43 @@ std::string parser::toPstfx(std::string inf) {
             }
             return out;
         }
+        else {
+            return "Error";
+        }
 
         prior = getPrior(operetor);
         priorOnHeight = getPrior(stack.get());
-        if (prior == 0) { // 3. Skobka ( 
-            stack.push(operetor);
+
+        if (isOperation(operetor, braceOpen)) { // 3. Skobka ( 
+            stack.push(operetor); 
         }
-        else if (prior == 1) { // 4. Esli )
+        else if (isOperation(operetor, braceClose)) { // 4. Esli )
             while (getPrior(stack.get()) > 0) {
                 output += stack.pop();
                 output += " ";
             }
             stack.pop();
         }
-
-
-        else if (prior == 2 && modul == 0) { // 5. Esli | v nachale
+        else if (isOperation(operetor, modul) && modulC == 0) { // 5. Esli | v nachale
             stack.push(operetor);
-            modul += 1;
+            modulC += 1;
         }
-        else if (prior == 2 && modul == 1) { // 6. Esli | v kontse
+        else if (isOperation(operetor, modul) && modulC == 1) { // 6. Esli | v kontse
             while (getPrior(stack.get()) > 2) {
                 output += stack.pop();
                 output += " ";
+                modulC -= 1;
             }
             output += "| ";
             stack.pop();
-            modul -= 1;
+            modulC -= 1;
         }
+
 
         else if (prior > priorOnHeight || stack.isEmpty()) {
             stack.push(operetor);
         }
-        else if (prior <= priorOnHeight && prior > 1) {
+        else if (prior <= priorOnHeight && !isOperation(operetor, braceClose) && !isOperation(operetor, braceOpen)) {
             while (getPrior(stack.get()) > 1) {
                 output += stack.pop();
                 output += " ";
@@ -183,13 +194,13 @@ std::string parser::toPstfx(std::string inf) {
         }
         operetor = ' ';
     }
-    if (flag == false || inf == "")
-        return "Error";
     while (getPrior(stack.get()) > 1) {
         output += stack.pop();
         output += " ";
     }
-    
+    if (output==" " or output == "") {
+        return"Error";
+    }
     return output;
 }
 
