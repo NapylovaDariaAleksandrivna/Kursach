@@ -139,8 +139,10 @@ int main() {
 				draw(myLines1, myLines1, hz, t.arrX, t.arrY);
 
 				//*****************************
-				draw(myLines3, myLines4, hz, (t.arrX), t.arrY);
-				draw(myLines5, myLines6, hz, (t.arrX), t.arrY);
+				
+				draw(myLines3, myLines4, hz, t.arrX, t.arrY);
+				draw(myLines5, myLines6, hz, t.arrX, t.arrY);
+				
 				//*****************************
 
 				error = "";
@@ -153,7 +155,7 @@ int main() {
 				l5 = myLines5;
 				l6 = myLines6;
 				//*****************************
-
+				
 			}
 		}
 		win.clear(Color(197, 208, 230));

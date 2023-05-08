@@ -8,7 +8,7 @@ MyVector<T, max_size>::MyVector() : cur(0) {
 }
 
 template<typename T, int max_size>
-MyVector<T, max_size>::~MyVector() { delete[] arr; }
+MyVector<T, max_size>::~MyVector() {  }
 
 template<typename T, int max_size>
 T& MyVector<T, max_size>::operator[](int index)

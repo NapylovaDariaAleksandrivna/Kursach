@@ -26,8 +26,8 @@ public:
 		arrY.PrintMyVector();
 		std::cout << "\n";
 	}
-	MyVector<double, 1000> arrX;
-	MyVector<double, 1000> arrY;
+	MyVector<double, 2000> arrX;
+	MyVector<double, 2000> arrY;
 private:
 	
 };

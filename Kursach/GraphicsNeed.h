@@ -3,16 +3,16 @@
 #include "vector.h"
 using namespace sf;
 template<typename T, int max_size>
-inline void draw(VertexArray &myLines1, VertexArray &myLines2, int hz, MyVector<T, max_size> arrX, MyVector<T, max_size> arrY) {
+inline void draw(VertexArray &myLines1, VertexArray &myLines2, int hz, MyVector<T, max_size>& arrX, MyVector<T, max_size>& arrY) {
 	for (int i = 0; i < arrX.GetSize() - 1; i++) {
 		myLines1[i].position = Vector2f(arrX[i], arrY[i]);
-		if (abs(arrY[i] - arrY[i + 1]) > hz || abs(arrY[i - 1] - arrY[i]) > hz) {
+		if (abs(arrY[i] - arrY[i + 1]) > hz) {
 			myLines1[i].color = Color(255, 192, 203, 0);
 		}
 		else myLines1[i].color = Color::Red;
 	} for (int i = 1; i < arrX.GetSize() - 2; i++) {
 		myLines2[i + 1].position = Vector2f(arrX[i], arrY[i]);
-		if (abs(arrY[i] - arrY[i + 1]) > hz || abs(arrY[i - 1] - arrY[i]) > hz) {
+		if (abs(arrY[i] - arrY[i + 1]) > hz) {
 			myLines2[i + 1].color = Color(255, 192, 203, 0);
 		}
 		else myLines2[i + 1].color = Color::Red;
