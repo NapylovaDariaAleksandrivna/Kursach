@@ -54,6 +54,9 @@ public:
 	T& operator[](int index);
 	T operator[](int index)const;
 	MyVector& operator += (int);
+	/*MyVector& operator -= (int);
+	MyVector& operator + (int);
+	MyVector& operator - (int);*/
 private:
 	T* arr;
 	int cur;

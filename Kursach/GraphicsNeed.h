@@ -20,20 +20,37 @@ inline void draw(VertexArray &myLines1, VertexArray &myLines2, int hz, MyVector<
 }
 
 void GribPole(VertexArray &verticalGrib, VertexArray &horizontalGrib, RectangleShape &lineY, RectangleShape &lineX, RectangleShape &pole, int Xsize, int Ysize) {
-	for (int i = 0, y = 0, x = 0; i < 50; i += 2, y += 50, x += 50)
+	for (int i = 0, y = 0, x = 0; i < 43; i += 2, y += Ysize / 20, x += Ysize / 20)
 	{
-		verticalGrib[i].position = Vector2f(0, 50 + y);
-		verticalGrib[i + 1].position = Vector2f(Xsize / 2, 50 + y);
+		verticalGrib[i].position = Vector2f(0, Ysize/20 + y);
+		verticalGrib[i + 1].position = Vector2f(Ysize , Ysize / 20 + y);
 
-		horizontalGrib[i].position = Vector2f(50 + x, 0);
-		horizontalGrib[i + 1].position = Vector2f(50 + x, Ysize);
+		horizontalGrib[i].position = Vector2f(Ysize / 20 + x, 0);
+		horizontalGrib[i + 1].position = Vector2f(Ysize / 20 + x, Ysize);
+		if (i == 18) {
+			verticalGrib[i].color = Color::Black;
+			horizontalGrib[i].color = Color::Black;
+			verticalGrib[i+1].color = Color::Black;
+			horizontalGrib[i+1].color = Color::Black;
+			i += 2;
+			verticalGrib[i].position = Vector2f(0, Ysize / 20 + y-1);
+			verticalGrib[i + 1].position = Vector2f(Ysize , Ysize / 20 + y-1);
+
+			horizontalGrib[i].position = Vector2f(Ysize / 20 + x+1, 0+1);
+			horizontalGrib[i + 1].position = Vector2f(Ysize / 20 + x+1, Ysize+1);
+
+			verticalGrib[i].color = Color::Black;
+			horizontalGrib[i].color = Color::Black;
+			verticalGrib[i + 1].color = Color::Black;
+			horizontalGrib[i + 1].color = Color::Black;
+		}
 	}
-	lineX.setPosition(0, 498);
+	/*lineX.setPosition(0, Ysize / 2);
 	lineX.setFillColor(Color::Black);
 
-	lineY.setPosition(498, 0);
-	lineY.setFillColor(Color::Black);
+	lineY.setPosition(Ysize / 2, 0);
+	lineY.setFillColor(Color::Black);*/
 
-	pole.setPosition(Xsize / 2, 0);
+	pole.setPosition(Ysize, 0);
 	pole.setFillColor(Color::Black);
 }

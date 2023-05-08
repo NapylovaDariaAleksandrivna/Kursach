@@ -24,7 +24,7 @@ std::ostream& operator<<(std::ostream& out, const parser& obj)
 }
 
 std::string parser::toPstfx(std::string inf) {
-    if (inf == " " or inf=="") {
+    if (inf == " " || inf=="") {
         return"Error";
     }
     TStack<char, 100> stack;
@@ -122,12 +122,15 @@ std::string parser::toPstfx(std::string inf) {
         }
         else if (tsifri.find((inf[i])) != std::string::npos) {
             output += inf[i];
-            if (inf[i] == 'p' and inf[i+1] == 'i') {
+            if (inf[i] == 'p' && inf[i+1] == 'i') {
                 i += 1;
                 output += " ";
                 continue;
-            } else if ((inf[i] == 'p' and inf[i + 1] != 'i') or ((inf[i] == '.' || inf[i] == ',') && 
-                (tsifri.find((inf[i + 1])) == std::string::npos || tsifri.find((inf[i - 1])) == std::string::npos))) {
+            } else if ((inf[i] == 'p' && inf[i + 1] != 'i') 
+                || ((inf[i] == '.' || inf[i] == ',') && 
+                (tsifri.find((inf[i + 1])) == std::string::npos 
+                    || tsifri.find((inf[i - 1])) == std::string::npos))
+                || (inf[i]=='x' && tsifri.find((inf[i+1]))!= std::string::npos)) {
                 return "Error";
             } 
 
@@ -198,7 +201,7 @@ std::string parser::toPstfx(std::string inf) {
         output += stack.pop();
         output += " ";
     }
-    if (output==" " or output == "") {
+    if (output==" " || output == "") {
         return"Error";
     }
     return output;
@@ -208,7 +211,7 @@ void parser::setIn(std::string& input)
 {
     this->input = input;
     std::string b = this->toPstfx(input);
-    if (b != "Error" or input.length()>100)
+    if (b != "Error" || input.length()>100)
         this->output = b;
     else
         this->output = "Error";
