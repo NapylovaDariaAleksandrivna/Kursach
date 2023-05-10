@@ -23,31 +23,33 @@ int main() {
 
 #include<Windows.h>
 int main() {
+	
+	//**********
 	srand(time(NULL));
-	RenderWindow win(VideoMode::getDesktopMode(), "Graphics");
-	sf::View view = win.getDefaultView();
-	sf::Vector2u winSize = win.getSize();
-	unsigned int Xsize = winSize.x;
-	unsigned int Ysize = winSize.y;
+	RenderWindow win(VideoMode::getDesktopMode(), "Graphics", sf::Style::Fullscreen);//VideoMode::getDesktopMode() VideoMode(1000, 500)
+	View view = win.getDefaultView();
+	Vector2u winSize = win.getSize();
+	double Xsize = winSize.x;
+	double Ysize = winSize.y;
+	double X = -10, Y = 10;
+
 	//Gribs&rigth pole
-	VertexArray verticalGrib(Lines, Ysize /20);
-	VertexArray horizontalGrib(Lines, Ysize/20);
-	RectangleShape lineY(Vector2f(Ysize/250, Ysize));
-	RectangleShape lineX(Vector2f(Xsize/2, Ysize / 250));
+	VertexArray verticalGrib(Lines, 50);
+	VertexArray horizontalGrib(Lines, 50);
 	RectangleShape poleRigth(Vector2f(Xsize, Ysize));
-	GribPole(verticalGrib, horizontalGrib, lineY, lineX, poleRigth, Xsize, Ysize);
+	GribPole(verticalGrib, horizontalGrib, poleRigth, Xsize, Ysize);
+	
 	//Zoom Buttons 
 	Texture plusBotton;
 	plusBotton.loadFromFile("materials/plus.png");
 	Sprite buttonPlus;
 	buttonPlus.setTexture(plusBotton);
-	buttonPlus.setPosition(955, 905);
-
+	buttonPlus.setPosition(905, 955);
 	Texture minusBotton;
 	minusBotton.loadFromFile("materials/minus.png");
 	Sprite buttonMinus;
 	buttonMinus.setTexture(minusBotton);
-	buttonMinus.setPosition(955, 955);
+	buttonMinus.setPosition(955,955);
 	//Text
 	Font arial;
 	arial.loadFromFile("Century Gothic Regular.ttf");
@@ -56,11 +58,11 @@ int main() {
 	textY.setFont(arial);
 	std::string s = "y= ";
 	textY.setString(s);//
-	textY.setPosition(Xsize/2+165, 75);
+	textY.setPosition(1000+100, 75);
 	Text text;
 	text.setFillColor(Color::White);
 	text.setFont(arial);
-	text.setPosition(Xsize/2+200, 75);
+	text.setPosition(1000 + 135, 75);
 	std::string stringValue = "";
 	text.setString(stringValue);
 	Text tError;
@@ -82,14 +84,15 @@ int main() {
 	VertexArray lineFive(Lines, 1000);
 	VertexArray lineSix(Lines, 1000);
 	//*****************************
-
+	
 	while (win.isOpen()) {
 		Vector2i mousePos = Mouse::getPosition(win);
 		Event ev;
 		while (win.pollEvent(ev)) {
-			if (ev.type == Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+			if (ev.type == Event::Closed || Keyboard::isKeyPressed(Keyboard::Escape)) {
 				win.close();
 			}
+			
 			if (ev.type == Event::TextEntered) {
 				if (ev.text.unicode == 8 && stringValue!="") {
 					stringValue.pop_back();
@@ -100,116 +103,53 @@ int main() {
 			}
 			if (Keyboard::isKeyPressed(Keyboard::Return) ) {
 				
-				lineOne.clear();
-				lineTwo.clear();
-				lineOne.resize(2000);
-				lineTwo.resize(2000);
-				//*****************************
-				lineThree.clear();
-				lineFour.clear();
-				lineFive.clear();
-				lineSix.clear();
-
-				lineThree.resize(2000);
-				lineFour.resize(2000);
-				lineFive.resize(2000);
-				lineSix.resize(2000);
-				//*****************************
-
-				parser obj(stringValue);
-				calculator objC(obj);
-				std::cout << obj;
-				if (objC.GetSize() == 0 || obj.getOut() == "Error") {
-					error = "Error";
-					lineOne.clear();
-					lineTwo.clear();
-
-					//*****************************
-					lineThree.clear();
-					lineFour.clear();
-					lineFive.clear();
-					lineSix.clear();
-					//*****************************
-
-					break;
-				}
-
-				int const hz = 50;//It is necessary that the tangent does not have sticks
-				draw(lineOne, lineTwo, hz, objC.arrX, objC.arrY);
-
-				//*****************************
-				draw(lineThree, lineFour, hz, objC.arrX += 1, objC.arrY);
-				draw(lineFive, lineSix, hz, objC.arrX, objC.arrY+=-1);
-				//*****************************
-
-				error = "";
+				pressed(lineOne, lineTwo, lineThree, lineFour, lineFive, lineSix, stringValue, X, Y, error);
+				
+			}
+			
+			if (ev.type == Event::Resized)
+			{
+				win.setSize(Vector2u(Xsize, Ysize));
 			}
 			if (ev.type == Event::MouseButtonPressed) {
 				if (ev.key.code == Mouse::Left) {
-					if (buttonMinus.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-						std::cout << "Min";
+					
+					if (buttonMinus.getGlobalBounds().contains(mousePos.x, mousePos.y )&& Y!=3) {
+						X -= 1;
+						Y += 1;
+						std::cout << "-\n";
+						pressed(lineOne, lineTwo, lineThree, lineFour, lineFive, lineSix, stringValue, X, Y, error);
 					}
-					else if (buttonPlus.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-						std::cout << "Plus";
+					else if (buttonPlus.getGlobalBounds().contains(mousePos.x, mousePos.y) && Y != 10) {
+						X += 1;
+						Y -= 1;
+						std::cout << "+\n";
+						pressed(lineOne, lineTwo, lineThree, lineFour, lineFive, lineSix, stringValue, X, Y, error);
 					}
+
 				}
-			}
-			/*
-			if (event.type == sf::Event::MouseWheelScrolled)
-			{
-				if (event.mouseWheelScroll.delta < 0)
-					camera.zoom(1.1f); // нужный фактор масштабирования сам подберёшь
-				else if (event.mouseWheelScroll.delta > 0)
-					camera.zoom(0.9f);
-			}
-			*/
-			if (ev.type == sf::Event::Resized)
-			{
-				// update the view to the new size of the window
-				double koef;
-				sf::Vector2u windowSize = win.getSize();
-				unsigned int windowWidth = windowSize.x;
-				unsigned int windowHeight = windowSize.y;
-				if (Xsize != windowWidth && Ysize == windowHeight) {
-					koef = windowWidth*1.0/Xsize*1.0 ;
-					Xsize = windowWidth;
-					Ysize = koef * Ysize;
-				} else if (Xsize == windowWidth && Ysize != windowHeight) {
-					koef =  windowHeight*1.0/ Ysize*1.0 ;
-					Ysize = windowHeight;
-					Xsize = koef * Xsize;
-				} else {
-					koef = windowHeight * 1.0 / Ysize * 1.0;
-					Ysize = windowHeight;
-					Xsize = koef * Xsize;
-				}
-				
-
-				std::cout << Xsize << " " << Ysize << '\n';//
-				std::cout << windowWidth << " " << windowHeight << '\n';//
-				lineY.setSize(Vector2f(Ysize / 250, Ysize));
-				lineX.setSize(Vector2f(Xsize / 2, Ysize / 250));
-				poleRigth.setSize(Vector2f(Xsize, Ysize));
-
-
-
-				GribPole(verticalGrib, horizontalGrib, lineY, lineX, poleRigth, Xsize, Ysize);
-				win.setSize(Vector2u(Xsize, Ysize));
-				
-
 
 			}
-			
 		}
 		
-
+		
 		win.clear(Color(197, 208, 230));
 		
 		win.draw(verticalGrib);
 		win.draw(horizontalGrib);
+		
 
-		win.draw(lineY);
-		win.draw(lineX);
+		win.draw(lineOne);
+		win.draw(lineTwo);
+
+		win.draw(lineThree);
+		win.draw(lineFour);
+		win.draw(lineFive);
+		win.draw(lineSix);
+
+		win.draw(buttonMinus);
+		win.draw(buttonPlus);
+
 		win.draw(poleRigth);
 
 		text.setString(stringValue);
@@ -220,74 +160,67 @@ int main() {
 		tError.setString(error);
 		win.draw(tError);
 
-		win.draw(lineOne);
-		win.draw(lineTwo);
-
-		win.draw(lineThree);
-		win.draw(lineFour);
-		win.draw(lineFive);
-		win.draw(lineSix);
-		
-		win.draw(buttonMinus);
-		win.draw(buttonPlus);
-		
 		win.display();
-	}
-
-
-	
+	}	
 }
+
 #endif // Task3
 #ifdef Task4
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <string>
 
+using namespace sf;
 int main() {
-	RenderWindow window(VideoMode(800, 600), "Window",
+	double Ysize = 500;
+	double Xsize = 1000;
+	RenderWindow win(VideoMode(Xsize, Ysize), "Window",
 		Style::Titlebar | Style::Close);
-	Font arial;
-	arial.loadFromFile("Century Gothic Regular.ttf");
-	Text textY;
-	textY.setFillColor(Color::White);
-	textY.setFont(arial);
-	std::string s = "Math task: ";
-	textY.setString(s);
-	Text g;
-	g.setFillColor(Color::White);
-	g.setFont(arial);
-	g.setPosition(200, 0);
-	std::string stringValue = "";
-	g.setString(stringValue);
+	RectangleShape poleRigth(Vector2f(Xsize, Ysize));
 
-	while (window.isOpen()) {
-		Event event;
+	while (win.isOpen()) {
+		Event ev;
 
-		while (window.pollEvent(event)) {
-			if (event.type == Event::Closed) {
-				window.close();
+		while (win.pollEvent(ev)) {
+			if (ev.type == Event::Closed) {
+				win.close();
 			}
-			if (event.type == Event::TextEntered) {
-				if (event.text.unicode == 13) {
-					std::cout << stringValue;
+			if (ev.type == Event::Resized)
+			{
+				// update the view to the new size of the win
+				std::cout << win.getSize().x << ' ' << win.getSize().y << '\n';
+				Vector2u windowSize = win.getSize();
+				unsigned int windowWidth = windowSize.x;
+				unsigned int windowHeight = windowSize.y;
+				double koef = 1;
+				if (windowHeight < 501 or windowWidth < 1001) {
+					win.setSize(Vector2u(Xsize,Ysize));
+					continue;
 				}
-				else if (event.text.unicode == 8) {
-					stringValue.pop_back();
-				}
-				else if (event.text.unicode < 128) {
-					stringValue += static_cast<char>(event.text.unicode);
+				else if (Xsize != windowWidth && Ysize == windowHeight) {
+					koef = windowWidth * 1.0 / Xsize * 1.0;
+					Xsize = windowWidth;
+					Ysize = koef * Ysize;
 				}
 				else {
-
+					koef = windowHeight * 1.0 / Ysize * 1.0;
+					Ysize = windowHeight;
+					Xsize = koef * Xsize;
 				}
+
+				std::cout << win.getSize().x << ' ' << win.getSize().y << '\n';
+				poleRigth.setPosition(Xsize/2,0)
+				((Xsize * 1.0 / 2, 0));
+				poleRigth.setFillColor(Color::Black);
+				win.setSize(Vector2u(Xsize, Ysize));
 			}
 		}
 
-		g.setString(stringValue);
-		window.clear(Color::Black);
-		window.draw(g);
-		window.draw(textY);
-		window.display();
+
+		poleRigth.setPosition({ Ysize / 2,0 });
+		win.clear(Color::Black);
+		win.draw(poleRigth);
+		win.display();
 	}
 }
 #endif // Task4
