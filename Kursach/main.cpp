@@ -26,7 +26,7 @@ int main() {
 	
 	//**********
 	srand(time(NULL));
-	RenderWindow win(VideoMode::getDesktopMode(), "Graphics", sf::Style::Fullscreen);//VideoMode::getDesktopMode() VideoMode(1000, 500)
+	RenderWindow win(VideoMode::getDesktopMode(), "Graphics"/*, sf::Style::Fullscreen*/);//VideoMode::getDesktopMode() VideoMode(1000, 500)
 	View view = win.getDefaultView();
 	Vector2u winSize = win.getSize();
 	double Xsize = winSize.x;
@@ -107,10 +107,10 @@ int main() {
 				
 			}
 			
-			if (ev.type == Event::Resized)
+			/*if (ev.type == Event::Resized)
 			{
 				win.setSize(Vector2u(Xsize, Ysize));
-			}
+			}*/
 			if (ev.type == Event::MouseButtonPressed) {
 				if (ev.key.code == Mouse::Left) {
 					
