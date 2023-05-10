@@ -19,25 +19,25 @@ inline void draw(VertexArray &myLines1, VertexArray &myLines2, int hz, MyVector<
 	}
 }
 
-void GribPole(VertexArray &verticalGrib, VertexArray &horizontalGrib, RectangleShape &lineY, RectangleShape &lineX, RectangleShape &pole, int Xsize, int Ysize) {
-	for (int i = 0, y = 0, x = 0; i < 43; i += 2, y += Ysize / 20, x += Ysize / 20)
+void GribPole(VertexArray &verticalGrib, VertexArray &horizontalGrib, RectangleShape &pole, float Ysize){
+	for (int i = 0, y = 0, x = 0; i < 43; i += 2, y += Ysize/20, x += Ysize/20)
 	{
 		verticalGrib[i].position = Vector2f(0, Ysize/20 + y);
-		verticalGrib[i + 1].position = Vector2f(Ysize , Ysize / 20 + y);
+		verticalGrib[i + 1].position = Vector2f(Ysize , Ysize/20 + y);
 
-		horizontalGrib[i].position = Vector2f(Ysize / 20 + x, 0);
-		horizontalGrib[i + 1].position = Vector2f(Ysize / 20 + x, Ysize);
+		horizontalGrib[i].position = Vector2f(Ysize/20 + x, 0);
+		horizontalGrib[i + 1].position = Vector2f(Ysize/20 + x, Ysize);
 		if (i == 18) {
 			verticalGrib[i].color = Color::Black;
 			horizontalGrib[i].color = Color::Black;
 			verticalGrib[i+1].color = Color::Black;
 			horizontalGrib[i+1].color = Color::Black;
 			i += 2;
-			verticalGrib[i].position = Vector2f(0, Ysize / 20 + y-1);
-			verticalGrib[i + 1].position = Vector2f(Ysize , Ysize / 20 + y-1);
+			verticalGrib[i].position = Vector2f(0, Ysize/20 + y-1);
+			verticalGrib[i + 1].position = Vector2f(Ysize , Ysize/20 + y-1);
 
-			horizontalGrib[i].position = Vector2f(Ysize / 20 + x+1, 0+1);
-			horizontalGrib[i + 1].position = Vector2f(Ysize / 20 + x+1, Ysize+1);
+			horizontalGrib[i].position = Vector2f(Ysize/20 + x+1, 0+1);
+			horizontalGrib[i + 1].position = Vector2f(Ysize/20 + x+1, Ysize+1);
 
 			verticalGrib[i].color = Color::Black;
 			horizontalGrib[i].color = Color::Black;
@@ -45,12 +45,53 @@ void GribPole(VertexArray &verticalGrib, VertexArray &horizontalGrib, RectangleS
 			horizontalGrib[i + 1].color = Color::Black;
 		}
 	}
-	/*lineX.setPosition(0, Ysize / 2);
-	lineX.setFillColor(Color::Black);
-
-	lineY.setPosition(Ysize / 2, 0);
-	lineY.setFillColor(Color::Black);*/
 
 	pole.setPosition(Ysize, 0);
 	pole.setFillColor(Color::Black);
+}
+void pressEnter
+(VertexArray& lineOne, VertexArray& lineTwo, VertexArray& lineThree, VertexArray& lineFour, VertexArray& lineFive, VertexArray& lineSix, std::string stringValue, std::string error, double Ysize, double X, double Y) {
+	lineOne.clear();
+	lineTwo.clear();
+	lineOne.resize(2000);
+	lineTwo.resize(2000);
+	//*****************************
+	lineThree.clear();
+	lineFour.clear();
+	lineFive.clear();
+	lineSix.clear();
+
+	lineThree.resize(2000);
+	lineFour.resize(2000);
+	lineFive.resize(2000);
+	lineSix.resize(2000);
+	//*****************************
+
+	parser obj(stringValue);
+	calculator objC(obj,Ysize, X, Y);
+	std::cout << obj;
+	if (objC.GetSize() == 0 || obj.getOut() == "Error") {
+		error = "Error";
+		lineOne.clear();
+		lineTwo.clear();
+
+		//*****************************
+		lineThree.clear();
+		lineFour.clear();
+		lineFive.clear();
+		lineSix.clear();
+		//*****************************
+
+		return;
+	}
+
+	int const hz = 50;//It is necessary that the tangent does not have sticks
+	draw(lineOne, lineTwo, hz, objC.arrX, objC.arrY);
+
+	//*****************************
+	draw(lineThree, lineFour, hz, objC.arrX += 1, objC.arrY);
+	draw(lineFive, lineSix, hz, objC.arrX, objC.arrY += -1);
+	//*****************************
+
+	error = "";
 }

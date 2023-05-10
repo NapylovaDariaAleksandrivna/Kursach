@@ -23,19 +23,20 @@ int main() {
 
 #include<Windows.h>
 int main() {
+	double X = -10, Y = 10;
+	//*******************
 	srand(time(NULL));
-	RenderWindow win(VideoMode::getDesktopMode(), "Graphics");
-	sf::View view = win.getDefaultView();
+	RenderWindow win(VideoMode(1500, 750), "Graphics");
+	
 	sf::Vector2u winSize = win.getSize();
-	unsigned int Xsize = winSize.x;
-	unsigned int Ysize = winSize.y;
+	float Xsize = winSize.x;
+	float Ysize = winSize.y;
 	//Gribs&rigth pole
-	VertexArray verticalGrib(Lines, Ysize /20);
-	VertexArray horizontalGrib(Lines, Ysize/20);
-	RectangleShape lineY(Vector2f(Ysize/250, Ysize));
-	RectangleShape lineX(Vector2f(Xsize/2, Ysize / 250));
+	VertexArray verticalGrib(Lines, 50);
+	VertexArray horizontalGrib(Lines, 50);
 	RectangleShape poleRigth(Vector2f(Xsize, Ysize));
-	GribPole(verticalGrib, horizontalGrib, lineY, lineX, poleRigth, Xsize, Ysize);
+
+	GribPole(verticalGrib, horizontalGrib, poleRigth, Ysize);
 	//Zoom Buttons 
 	Texture plusBotton;
 	plusBotton.loadFromFile("materials/plus.png");
@@ -99,50 +100,7 @@ int main() {
 				}
 			}
 			if (Keyboard::isKeyPressed(Keyboard::Return) ) {
-				
-				lineOne.clear();
-				lineTwo.clear();
-				lineOne.resize(2000);
-				lineTwo.resize(2000);
-				//*****************************
-				lineThree.clear();
-				lineFour.clear();
-				lineFive.clear();
-				lineSix.clear();
-
-				lineThree.resize(2000);
-				lineFour.resize(2000);
-				lineFive.resize(2000);
-				lineSix.resize(2000);
-				//*****************************
-
-				parser obj(stringValue);
-				calculator objC(obj);
-				std::cout << obj;
-				if (objC.GetSize() == 0 || obj.getOut() == "Error") {
-					error = "Error";
-					lineOne.clear();
-					lineTwo.clear();
-
-					//*****************************
-					lineThree.clear();
-					lineFour.clear();
-					lineFive.clear();
-					lineSix.clear();
-					//*****************************
-
-					break;
-				}
-
-				int const hz = 50;//It is necessary that the tangent does not have sticks
-				draw(lineOne, lineTwo, hz, objC.arrX, objC.arrY);
-
-				//*****************************
-				draw(lineThree, lineFour, hz, objC.arrX += 1, objC.arrY);
-				draw(lineFive, lineSix, hz, objC.arrX, objC.arrY+=-1);
-				//*****************************
-
-				error = "";
+				pressEnter ( lineOne,  lineTwo,  lineThree,  lineFour,  lineFive,  lineSix, stringValue, error, Ysize, X, Y);
 			}
 			if (ev.type == Event::MouseButtonPressed) {
 				if (ev.key.code == Mouse::Left) {
@@ -154,47 +112,30 @@ int main() {
 					}
 				}
 			}
-			/*
-			if (event.type == sf::Event::MouseWheelScrolled)
-			{
-				if (event.mouseWheelScroll.delta < 0)
-					camera.zoom(1.1f); // нужный фактор масштабирования сам подберёшь
-				else if (event.mouseWheelScroll.delta > 0)
-					camera.zoom(0.9f);
-			}
-			*/
+			
 			if (ev.type == sf::Event::Resized)
 			{
 				// update the view to the new size of the window
-				double koef;
+				double koef=1;
 				sf::Vector2u windowSize = win.getSize();
-				unsigned int windowWidth = windowSize.x;
-				unsigned int windowHeight = windowSize.y;
-				if (Xsize != windowWidth && Ysize == windowHeight) {
-					koef = windowWidth*1.0/Xsize*1.0 ;
-					Xsize = windowWidth;
-					Ysize = koef * Ysize;
-				} else if (Xsize == windowWidth && Ysize != windowHeight) {
-					koef =  windowHeight*1.0/ Ysize*1.0 ;
-					Ysize = windowHeight;
-					Xsize = koef * Xsize;
+				
+				if (Xsize != windowSize.x && Ysize == windowSize.y) {
+					koef = windowSize.x*1.0/Xsize*1.0 ;
+					
+				} else if (Xsize == windowSize.x && Ysize != windowSize.y) {
+					koef =  windowSize.y*1.0/ Ysize*1.0 ;
+					
 				} else {
-					koef = windowHeight * 1.0 / Ysize * 1.0;
-					Ysize = windowHeight;
-					Xsize = koef * Xsize;
+					koef = windowSize.y * 1.0 / Ysize * 1.0;
+					
 				}
 				
-
-				std::cout << Xsize << " " << Ysize << '\n';//
-				std::cout << windowWidth << " " << windowHeight << '\n';//
-				lineY.setSize(Vector2f(Ysize / 250, Ysize));
-				lineX.setSize(Vector2f(Xsize / 2, Ysize / 250));
-				poleRigth.setSize(Vector2f(Xsize, Ysize));
+				poleRigth.setSize(Vector2f(Xsize, Ysize ));
 
 
 
-				GribPole(verticalGrib, horizontalGrib, lineY, lineX, poleRigth, Xsize, Ysize);
-				win.setSize(Vector2u(Xsize, Ysize));
+				GribPole(verticalGrib, horizontalGrib, poleRigth, Ysize);
+				win.setSize(Vector2u(Xsize * koef, Ysize * koef));
 				
 
 
@@ -208,8 +149,6 @@ int main() {
 		win.draw(verticalGrib);
 		win.draw(horizontalGrib);
 
-		win.draw(lineY);
-		win.draw(lineX);
 		win.draw(poleRigth);
 
 		text.setString(stringValue);
