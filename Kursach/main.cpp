@@ -21,22 +21,20 @@ int main() {
 #include<string>
 #include "GraphicsNeed.h"
 
-#include<Windows.h>
 int main() {
-	double X = -10, Y = 10;
-	//*******************
 	srand(time(NULL));
-	RenderWindow win(VideoMode(1500, 750), "Graphics");
-	
-	sf::Vector2u winSize = win.getSize();
-	float Xsize = winSize.x;
-	float Ysize = winSize.y;
+	double Xsize = 2000;
+	double Ysize = 1000;
+	double copyX, copyY;
+	//************************
+	RenderWindow win(VideoMode(Xsize, Ysize), "Graphics");
 	//Gribs&rigth pole
 	VertexArray verticalGrib(Lines, 50);
 	VertexArray horizontalGrib(Lines, 50);
-	RectangleShape poleRigth(Vector2f(Xsize, Ysize));
-
-	GribPole(verticalGrib, horizontalGrib, poleRigth, Ysize);
+	RectangleShape lineY(Vector2f(4, Ysize));
+	RectangleShape lineX(Vector2f(Xsize/2, 4));
+	RectangleShape poleRigth(Vector2f(Xsize/2, Ysize));
+	GribPole(verticalGrib, horizontalGrib, lineY, lineX, poleRigth, Xsize, Ysize);
 	//Zoom Buttons 
 	Texture plusBotton;
 	plusBotton.loadFromFile("materials/plus.png");
@@ -84,11 +82,13 @@ int main() {
 	VertexArray lineSix(Lines, 1000);
 	//*****************************
 
+	int og = 0;
+	double X = -10.0;
+
 	while (win.isOpen()) {
-		Vector2i mousePos = Mouse::getPosition(win);
 		Event ev;
 		while (win.pollEvent(ev)) {
-			if (ev.type == Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+			if (ev.type == Event::Closed) {
 				win.close();
 			}
 			if (ev.type == Event::TextEntered) {
@@ -100,55 +100,55 @@ int main() {
 				}
 			}
 			if (Keyboard::isKeyPressed(Keyboard::Return) ) {
-				pressEnter ( lineOne,  lineTwo,  lineThree,  lineFour,  lineFive,  lineSix, stringValue, error, Ysize, X, Y);
+				
+				isPressed(lineOne, lineTwo, lineThree, lineFour, lineFive, lineSix, stringValue, error, Ysize, X);
+				
 			}
 			if (ev.type == Event::MouseButtonPressed) {
 				if (ev.key.code == Mouse::Left) {
-					if (buttonMinus.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-						std::cout << "Min";
+					Vector2f mousePos = win.mapPixelToCoords(Mouse::getPosition(win));
+					if (buttonMinus.getGlobalBounds().contains(mousePos.x, mousePos.y) && X > -10) { 
+						X -= 2.0;
+						std::cout << "Min X:"<< X<<"\n";
+						isPressed(lineOne, lineTwo, lineThree, lineFour, lineFive, lineSix, stringValue, error, Ysize, X);
 					}
-					else if (buttonPlus.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-						std::cout << "Plus";
+					else if (buttonPlus.getGlobalBounds().contains(mousePos.x, mousePos.y) && X < -4) {
+						X += 2.0;
+						std::cout << "Plus X:" << X << "\n";
+						isPressed(lineOne, lineTwo, lineThree, lineFour, lineFive, lineSix, stringValue, error, Ysize, X);
 					}
 				}
 			}
-			
 			if (ev.type == sf::Event::Resized)
 			{
-				// update the view to the new size of the window
-				double koef=1;
-				sf::Vector2u windowSize = win.getSize();
-				
-				if (Xsize != windowSize.x && Ysize == windowSize.y) {
-					koef = windowSize.x*1.0/Xsize*1.0 ;
-					
-				} else if (Xsize == windowSize.x && Ysize != windowSize.y) {
-					koef =  windowSize.y*1.0/ Ysize*1.0 ;
-					
-				} else {
-					koef = windowSize.y * 1.0 / Ysize * 1.0;
-					
+				if (og > 0) {
+					og -= 1;
+					break;
 				}
-				
-				poleRigth.setSize(Vector2f(Xsize, Ysize ));
+				og += 1;
 
-
-
-				GribPole(verticalGrib, horizontalGrib, poleRigth, Ysize);
+				double koef = 1;
+				sf::Vector2u windowSize = win.getSize();
+				if (Xsize != windowSize.x && Ysize == windowSize.y) {
+					koef = windowSize.x * 1.0 / Xsize * 1.0;
+				}
+				else if (Xsize == windowSize.x && Ysize != windowSize.y) {
+					koef = windowSize.y * 1.0 / Ysize * 1.0;
+				}
+				else {
+					koef = windowSize.y * 1.0 / Ysize * 1.0;
+				}
+				poleRigth.setSize(Vector2f(Xsize, Ysize));
 				win.setSize(Vector2u(Xsize * koef, Ysize * koef));
-				
-
-
 			}
-			
 		}
-		
-
 		win.clear(Color(197, 208, 230));
 		
 		win.draw(verticalGrib);
 		win.draw(horizontalGrib);
 
+		win.draw(lineY);
+		win.draw(lineX);
 		win.draw(poleRigth);
 
 		text.setString(stringValue);
@@ -169,12 +169,8 @@ int main() {
 		
 		win.draw(buttonMinus);
 		win.draw(buttonPlus);
-		
 		win.display();
 	}
-
-
-	
 }
 #endif // Task3
 #ifdef Task4
@@ -319,7 +315,7 @@ int main() {
 				pointGraficT4.clear();
 				pointGraficT5.clear();
 
-				VertexArray lineOne(Lines, 2000);
+				VertexArray myLines1(Lines, 2000);
 				VertexArray pointGrafic1(Points, 2000);
 				VertexArray pointGrafic2(Points, 2000);
 				VertexArray pointGrafic3(Points, 2000);
@@ -331,7 +327,7 @@ int main() {
 				std::cout << obj;
 				text.toGive(obj.getOut());
 				//std::cout << text;
-				if (text.GetSize() == 0 || obj.getOut() == "Error") {
+				if (text.GetSize() == 0 or obj.getOut() == "Error") {
 					error = "Error";
 					pointGrafic1.clear();
 					pointGrafic2.clear();
@@ -358,14 +354,14 @@ int main() {
 
 					std::cout << "I: " << i << " X: " << text.arrX[i] << " Y: " << text.arrY[i] << " ";
 					std::cout << int(text.arrY[i]) / 100 << std::endl;
-					lineTwo[i - 1].position = Vector2f(text.arrX[i], text.arrY[i]);
+					myLines2[i - 1].position = Vector2f(text.arrX[i], text.arrY[i]);
 					if (abs(text.arrY[i] - text.arrY[i + 1]) > hz ||
 						abs(text.arrY[i - 1] - text.arrY[i]) > hz) {
-						lineTwo[i - 1].color = Color(255, 192, 203);
+						myLines2[i - 1].color = Color(255, 192, 203);
 						std::cout << "**********\n";
 					}
 					else
-						lineTwo[i - 1].color = Color::Red;
+						myLines2[i - 1].color = Color::Red;
 				}*/
 				error = "";
 				

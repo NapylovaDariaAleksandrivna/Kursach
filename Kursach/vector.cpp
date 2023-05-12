@@ -59,29 +59,3 @@ MyVector<T, max_size>& MyVector<T, max_size>::operator+=(int a)
 	}
 	return *this;
 }
-
-//template<typename T, int max_size>
-//MyVector<T, max_size>& MyVector<T, max_size>::operator-=(int a)
-//{
-//	for (int i = 0; i < cur; ++i)
-//	{
-//		arr[i] -= a;
-//	}
-//	return *this;
-//}
-//
-//template<typename T, int max_size>
-//MyVector<T, max_size>& MyVector<T, max_size>::operator+(int a)
-//{
-//	MyVector temp(*this);
-//	*this+=a;
-//	return temp;
-//}
-//
-//template<typename T, int max_size>
-//MyVector<T, max_size>& MyVector<T, max_size>::operator-(int a)
-//{
-//	MyVector temp(*this);
-//	*this += (a*( - 1));
-//	return temp;
-//}
