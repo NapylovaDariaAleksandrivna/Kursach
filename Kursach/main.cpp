@@ -110,12 +110,14 @@ int main() {
 					if (buttonMinus.getGlobalBounds().contains(mousePos.x, mousePos.y) && X > -10) { 
 						X -= 2.0;
 						std::cout << "Min X:"<< X<<"\n";
-						isPressed(lineOne, lineTwo, lineThree, lineFour, lineFive, lineSix, stringValue, error, Ysize, X);
+						if (stringValue!="") 
+							isPressed(lineOne, lineTwo, lineThree, lineFour, lineFive, lineSix, stringValue, error, Ysize, X);
 					}
 					else if (buttonPlus.getGlobalBounds().contains(mousePos.x, mousePos.y) && X < -4) {
 						X += 2.0;
 						std::cout << "Plus X:" << X << "\n";
-						isPressed(lineOne, lineTwo, lineThree, lineFour, lineFive, lineSix, stringValue, error, Ysize, X);
+						if (stringValue != "")
+							isPressed(lineOne, lineTwo, lineThree, lineFour, lineFive, lineSix, stringValue, error, Ysize, X);
 					}
 				}
 			}
