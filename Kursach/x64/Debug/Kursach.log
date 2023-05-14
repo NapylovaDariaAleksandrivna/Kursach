@@ -1,2 +1,152 @@
-﻿  LINK : не найден или не выполнена сборка D:\PROGRAMMIROVANIE\Kursach\x64\Debug\Kursach.exe при последней инкрементной компоновке; выполняется полная компоновка
+﻿  main.cpp
+D:\PROGRAMMIROVANIE\Kursach\Kursach\GraphicsNeed.h(26,45): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+D:\PROGRAMMIROVANIE\Kursach\Kursach\GraphicsNeed.h(27,57): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+D:\PROGRAMMIROVANIE\Kursach\Kursach\GraphicsNeed.h(27,49): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+D:\PROGRAMMIROVANIE\Kursach\Kursach\GraphicsNeed.h(29,44): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+D:\PROGRAMMIROVANIE\Kursach\Kursach\GraphicsNeed.h(30,53): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+D:\PROGRAMMIROVANIE\Kursach\Kursach\GraphicsNeed.h(30,48): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+D:\PROGRAMMIROVANIE\Kursach\Kursach\GraphicsNeed.h(38,25): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(25,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(31,36): warning C4244: аргумент: преобразование "double" в "unsigned int", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(31,29): warning C4244: аргумент: преобразование "double" в "unsigned int", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(35,35): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(36,37): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(37,45): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(37,41): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(38,73): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(38,66): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(124,27): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(129,26): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(138,31): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(162,33): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(166,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(178,54): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(178,43): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(186,52): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(186,47): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(198,51): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(198,46): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(230,38): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(234,30): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(246,59): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(246,48): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(253,57): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(253,52): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(265,56): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(265,51): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(276,38): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(280,30): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(292,59): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(292,48): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(299,57): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(299,52): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(311,56): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(311,51): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(331,34): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=unsigned int
+          ]
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(331,27): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=unsigned int
+          ]
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(343,39): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(343,32): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(344,46): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=unsigned int
+          ]
+D:\PROGRAMMIROVANIE\Kursach\Kursach\main.cpp(344,32): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=unsigned int
+          ]
+D:\PROGRAMMIROVANIE\Kursach\Kursach\GraphicsNeed.h(9,50): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+          with
+          [
+              T=double
+          ]
+          and
+          [
+              T=float
+          ]
+D:\PROGRAMMIROVANIE\Kursach\Kursach\GraphicsNeed.h(72,51): message : выполняется компиляция ссылки на экземпляр шаблон функции "void draw<double,2000>(sf::VertexArray &,sf::VertexArray &,int,MyVector<double,2000> &,MyVector<double,2000> &)"
+D:\PROGRAMMIROVANIE\Kursach\Kursach\GraphicsNeed.h(9,41): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+          with
+          [
+              T=double
+          ]
+          and
+          [
+              T=float
+          ]
+D:\PROGRAMMIROVANIE\Kursach\Kursach\GraphicsNeed.h(15,54): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+          with
+          [
+              T=double
+          ]
+          and
+          [
+              T=float
+          ]
+D:\PROGRAMMIROVANIE\Kursach\Kursach\GraphicsNeed.h(15,45): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+          with
+          [
+              T=double
+          ]
+          and
+          [
+              T=float
+          ]
   Kursach.vcxproj -> D:\PROGRAMMIROVANIE\Kursach\x64\Debug\Kursach.exe

@@ -12,13 +12,13 @@ class calculator
 {
 public:
 	double eval(std::string pref, double x);
-	void toGive(std::string pref, double x1 = -10);
+	void toGive(std::string pref, int n = 0);
 	double operation(char op, double a, double b);
 	double DegToRad(double D);
 	int GetSize()const { return arrX.GetSize(); }
-	calculator(parser obj, double M)
+	calculator(parser obj, int n)
 	{
-		toGive(obj.getOut(), M);
+		toGive(obj.getOut(), n);
 	};
 	calculator() {};
 	parser* ukp;//????????

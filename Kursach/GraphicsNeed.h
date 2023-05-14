@@ -1,6 +1,7 @@
 #pragma once
 #include<SFML/Graphics.hpp>
 #include "vector.h"
+#include <stdlib.h>
 using namespace sf;
 template<typename T, int max_size>
 inline void draw(VertexArray &myLines1, VertexArray &myLines2, int hz, MyVector<T, max_size>& arrX, MyVector<T, max_size>& arrY) {
@@ -37,7 +38,7 @@ void GribPole(VertexArray &verticalGrib, VertexArray &horizontalGrib, RectangleS
 	pole.setPosition(Xsize / 2, 0);
 	pole.setFillColor(Color::Black);
 }
-void isPressed(VertexArray& lineOne, VertexArray& lineTwo, VertexArray& lineThree, VertexArray& lineFour, VertexArray& lineFive, VertexArray& lineSix, std::string stringValue, std::string error, double Ysize, double X) {
+void isPressed(VertexArray& lineOne, VertexArray& lineTwo, VertexArray& lineThree, VertexArray& lineFour, VertexArray& lineFive, VertexArray& lineSix, std::string stringValue, std::string& error, double Ysize, int n) {
 	VertexArray myLines1(Lines, 1000);
 	VertexArray myLines2(Lines, 1000);
 
@@ -50,7 +51,7 @@ void isPressed(VertexArray& lineOne, VertexArray& lineTwo, VertexArray& lineThre
 	//*****************************
 
 	parser obj(stringValue);
-	calculator objC(stringValue, X);
+	calculator objC(stringValue, n);
 	std::cout << obj;
 	if (objC.GetSize() == 0 or obj.getOut() == "Error") {
 		error = "Error";
@@ -85,4 +86,63 @@ void isPressed(VertexArray& lineOne, VertexArray& lineTwo, VertexArray& lineThre
 	lineFive = myLines5;
 	lineSix = myLines6;
 	//*****************************
+}
+
+double roundDouble(double val) {
+	
+	std::string s = std::to_string(val);
+
+	if (s[s.size() - 1] == '0')
+		for (size_t i = s.size() - 1; s[i] == '0'; i--)
+			s.erase(i, 1);
+
+	if (s[s.size() - 1] == '.')
+		s.erase(s.size() - 1, 1);
+	return atof(s.c_str());
+}
+
+template<typename T, int max_size>
+void drawOci(double Ysize, double Xsize, MyVector <T, max_size>& verticalNom, MyVector <T, max_size>& horizontalNom, Font arial, int n) {
+	int namb = 0, Xshag = 0, Yshag = Ysize;
+	for (double i = roundDouble(-10 / pow(2, n) * 100) / 100.0; i <= roundDouble(10 / pow(2, n) * 100) / 100.0;
+		i += roundDouble(1 / pow(2, n) * 100) / 100.0) {
+		std::string s = std::to_string(i);
+		int count = s.length();
+		while ((s[count - 1] == '0' || s[count - 1] == '.') && i != 0) {
+			s.pop_back();
+			count -= 1;
+		}
+		Text copy;
+		std::cout << i << "  " << s << '\n';
+		if (i == 0) {
+
+			s = "0";
+			copy.setString(s);
+			copy.setFont(arial);
+			copy.setCharacterSize(20);
+			copy.setFillColor(Color::Black);
+			copy.setPosition(Xsize / 4 + 5, Yshag);
+			horizontalNom.AddElemToMyVector(copy);
+
+			Yshag -= 50;
+			Xshag += 50;
+			namb++;
+			continue;
+		}
+		copy.setString(s);
+
+		copy.setFont(arial);
+		copy.setCharacterSize(20);
+		copy.setFillColor(Color::Black);
+		copy.setPosition(Xshag - 5, Ysize / 2);
+		verticalNom.AddElemToMyVector(copy);
+		Xshag += 50;
+
+
+		copy.setPosition(Xsize / 4 + 5, Yshag);
+		horizontalNom.AddElemToMyVector(copy);
+		Yshag -= 50;
+
+		namb++;
+	}
 }

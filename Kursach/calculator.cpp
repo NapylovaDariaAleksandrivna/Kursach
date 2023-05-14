@@ -78,21 +78,18 @@ double calculator::eval(std::string pref, double x)
     return stack1.pop();
 }
 
-void calculator::toGive(std::string pref, double x1)
+void calculator::toGive(std::string pref, int n)
 {   
     if (pref == "Error") {
         return;
     }
-    double x2 = -1 * x1;
-    double y1 = x1;
-    double y2 = x2;
-    for (double x = x1; x <= x2; x += 0.02) {
+    for (double x = -10  + 1; x <= 10  + 1; x += 0.02) {
         double per = eval(pref, x);
 
-        this->arrY.AddElemToMyVector(sizeDisplay - per * step);
-        this->arrX.AddElemToMyVector(sizeDisplay + x * step);
+        this->arrY.AddElemToMyVector(sizeDisplay - per * step * pow(2, n));
+        this->arrX.AddElemToMyVector(sizeDisplay + x * step * pow(2, n));
     }
-}//////////////////////
+}
 
 double calculator::DegToRad(double D)
 {
