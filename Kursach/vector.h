@@ -1,42 +1,4 @@
-//#pragma once
-//
-//#include <iostream>
-//
-//class MyVector {
-//	static int counter;
-//public:
-//	static double GetCounter();
-//	MyVector();
-//	MyVector(int max_size);
-//	MyVector(double* arr, int size);
-//	MyVector(const MyVector& right);
-//	~MyVector();
-//	double GetElemByIndex(int index)const;
-//	double& GetElemByIndex(int index);
-//	void PrintMyVector()const;
-//	void AddElemToMyVector(double val);
-//	void RemoveElemFromMyVector(double val);
-//	void RemoveElemFromBack();
-//	int GetSize()const { return cur; }
-//	void Clean();
-//	MyVector& operator= (const MyVector& right);
-//	double& operator[](int index);
-//	double operator[](int index)const;
-//	MyVector operator+ (const MyVector& right)const;
-//	MyVector& operator += (double a);
-//	MyVector& operator++();
-//	MyVector operator++(int);
-//protected:
-//	int GetCapacity()const { return max_size; }
-//private:
-//	double* arr;
-//	int max_size;
-//	int cur;
-//};
-//
-//int operator+(int left, const MyVector& right);
-//std::ostream& operator<<(std::ostream& out, const MyVector& obj);
-//std::istream& operator>> (std::istream& in, MyVector& obj);
+
 #pragma once
 
 #include <iostream>

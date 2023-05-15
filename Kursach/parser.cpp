@@ -23,7 +23,7 @@ std::ostream& operator<<(std::ostream& out, const parser& obj)
 	return out;
 }
 
-std::string parser::toPstfx(std::string inf) {
+std::string parser::toPstfx(std::string inf)const {
     if (inf == " " or inf=="") {
         return"Error";
     }

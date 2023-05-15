@@ -102,45 +102,43 @@ double roundDouble(double val) {
 }
 
 template<typename T, int max_size>
-void drawOci(double Ysize, double Xsize, MyVector <T, max_size>& verticalNom, MyVector <T, max_size>& horizontalNom, Font arial, int n) {
+void drawOci(double Ysize, double Xsize, Text  verticalNom[22], Text horizontalNom[22], Font arial, int n) {
 	int namb = 0, Xshag = 0, Yshag = Ysize;
 	for (double i = roundDouble(-10 / pow(2, n) * 100) / 100.0; i <= roundDouble(10 / pow(2, n) * 100) / 100.0;
 		i += roundDouble(1 / pow(2, n) * 100) / 100.0) {
 		std::string s = std::to_string(i);
-		int count = s.length();
-		while ((s[count - 1] == '0' || s[count - 1] == '.') && i != 0) {
+		int count = s.length() - 1;//s[count] == '.'
+		while ((i != 0) && ((s[count] == '.') || (s[count] == '0' && s[count - 1] == '0') || (s[count] == '0' && s[count - 1] == '.') || (s[count] == '0' && s[abs(count - 2)] == '.') || (s[count] == '0' && s[abs(count - 3)] == '.'))) {
 			s.pop_back();
 			count -= 1;
 		}
-		Text copy;
+
 		std::cout << i << "  " << s << '\n';
-		if (i == 0) {
-
-			s = "0";
-			copy.setString(s);
-			copy.setFont(arial);
-			copy.setCharacterSize(20);
-			copy.setFillColor(Color::Black);
-			copy.setPosition(Xsize / 4 + 5, Yshag);
-			horizontalNom.AddElemToMyVector(copy);
-
+		if (i != 0) {
+			verticalNomber[namb].setFont(arial);
+			verticalNomber[namb].setCharacterSize(20);
+			verticalNomber[namb].setFillColor(Color::Black);
+			verticalNomber[namb].setString(s);
+			verticalNomber[namb].setPosition(Xshag - 5, Ysize / 2);
+		}
+		else {
+			horizontNomber[namb].setFont(arial);
+			horizontNomber[namb].setCharacterSize(20);
+			horizontNomber[namb].setFillColor(Color::Black);
+			horizontNomber[namb].setString("0");
+			horizontNomber[namb].setPosition(Xsize / 4 + 5, Yshag);
 			Yshag -= 50;
 			Xshag += 50;
 			namb++;
 			continue;
 		}
-		copy.setString(s);
-
-		copy.setFont(arial);
-		copy.setCharacterSize(20);
-		copy.setFillColor(Color::Black);
-		copy.setPosition(Xshag - 5, Ysize / 2);
-		verticalNom.AddElemToMyVector(copy);
 		Xshag += 50;
 
-
-		copy.setPosition(Xsize / 4 + 5, Yshag);
-		horizontalNom.AddElemToMyVector(copy);
+		horizontNomber[namb].setFont(arial);
+		horizontNomber[namb].setCharacterSize(20);
+		horizontNomber[namb].setFillColor(Color::Black);
+		horizontNomber[namb].setString(s);
+		horizontNomber[namb].setPosition(Xsize / 4 + 5, Yshag);
 		Yshag -= 50;
 
 		namb++;

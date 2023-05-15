@@ -158,13 +158,13 @@ int main() {
 	//Osi
 	Text verticalNomber[22];
 	Text horizontNomber[22];
-	//drawOci(Ysize, Xsize, verticalNom, horizontalNom, arial, n);
+	//drawOci(Ysize, Xsize, verticalNomber, horizontNomber, arial, n);
 	int namb = 0, Xshag = 0, Yshag = Ysize;
 	for (double i = roundDouble(-10 / pow(2, n) * 100) / 100.0; i <= roundDouble(10 / pow(2, n) * 100) / 100.0;
 		i += roundDouble(1 / pow(2, n) * 100) / 100.0) {
 		std::string s = std::to_string(i);
-		int count = s.length();
-		while ((s[count - 1] == '0' || s[count - 1] == '.') && i != 0) {
+		int count = s.length() - 1;//s[count] == '.'
+		while ((i != 0) && ((s[count] == '.') || (s[count] == '0' && s[count - 1] == '0') || (s[count] == '0' && s[count - 1] == '.') || (s[count] == '0' && s[abs(count - 2)] == '.') || (s[count] == '0' && s[abs(count - 3)] == '.'))) {
 			s.pop_back();
 			count -= 1;
 		}
@@ -181,8 +181,7 @@ int main() {
 			horizontNomber[namb].setFont(arial);
 			horizontNomber[namb].setCharacterSize(20);
 			horizontNomber[namb].setFillColor(Color::Black);
-			s = "0";
-			horizontNomber[namb].setString(s);
+			horizontNomber[namb].setString("0");
 			horizontNomber[namb].setPosition(Xsize / 4 + 5, Yshag);
 			Yshag -= 50;
 			Xshag += 50;
@@ -224,15 +223,14 @@ int main() {
 			if (ev.type == Event::MouseButtonPressed) {
 				if (ev.key.code == Mouse::Left) {
 					Vector2f mousePos = win.mapPixelToCoords(Mouse::getPosition(win));
-					if (buttonMinus.getGlobalBounds().contains(mousePos.x, mousePos.y) && n > 0) { 
+					if (buttonMinus.getGlobalBounds().contains(mousePos.x, mousePos.y) && n > 0) {
 						n -= 1;
-						std::cout << "Min n:"<< n<<"\n";
 						int namb = 0, Xshag = 0, Yshag = Ysize;
 						for (double i = roundDouble(-10 / pow(2, n) * 100) / 100.0; i <= roundDouble(10 / pow(2, n) * 100) / 100.0;
 							i += roundDouble(1 / pow(2, n) * 100) / 100.0) {
 							std::string s = std::to_string(i);
-							int count = s.length();
-							while ((s[count - 1] == '0' || s[count - 1] == '.') && i != 0) {
+							int count = s.length() - 1;//s[count] == '.'
+							while ((i != 0) && ((s[count] == '.') || (s[count] == '0' && s[count - 1] == '0') || (s[count] == '0' && s[count - 1] == '.') || (s[count] == '0' && s[abs(count - 2)] == '.') || (s[count] == '0' && s[abs(count - 3)] == '.'))) {
 								s.pop_back();
 								count -= 1;
 							}
@@ -267,23 +265,23 @@ int main() {
 
 							namb++;
 						}
-						if (stringValue!="") 
+						if (stringValue != "")
 							isPressed(lineOne, lineTwo, lineThree, lineFour, lineFive, lineSix, stringValue, error, Ysize, n);
+
 					}
 					else if (buttonPlus.getGlobalBounds().contains(mousePos.x, mousePos.y) && n < 2) {
 						n += 1;
-						std::cout << "Plus n:" << n << "\n";
 						int namb = 0, Xshag = 0, Yshag = Ysize;
 						for (double i = roundDouble(-10 / pow(2, n) * 100) / 100.0; i <= roundDouble(10 / pow(2, n) * 100) / 100.0;
-							                                       i+= roundDouble(1 / pow(2, n)*100)/100.0) {
+							i += roundDouble(1 / pow(2, n) * 100) / 100.0) {
 							std::string s = std::to_string(i);
-							int count = s.length();
-							while ((s[count - 1] == '0' || s[count - 1] == '.')&& i!=0) {
+							int count = s.length() - 1;//s[count] == '.'
+							while ((i != 0) && ((s[count] == '.') || (s[count] == '0' && s[count - 1] == '0') || (s[count] == '0' && s[count - 1] == '.') || (s[count] == '0' && s[abs(count - 2)] == '.') || (s[count] == '0' && s[abs(count - 3)] == '.'))) {
 								s.pop_back();
 								count -= 1;
 							}
 
-							std::cout << i<< "  "<< s << '\n';
+							std::cout << i << "  " << s << '\n';
 							if (i != 0) {
 								verticalNomber[namb].setFont(arial);
 								verticalNomber[namb].setCharacterSize(20);
@@ -313,13 +311,39 @@ int main() {
 
 							namb++;
 						}
-						if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, lineFive, lineSix, stringValue, error, Ysize, n);
 					}
-					else {
-						continue;
+					else if (buttonOne.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+						stringValue = "x^2";
 					}
-
+					else if (buttonTwo.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+						stringValue = "1/x";
+					}
+					else if (buttonThree.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+						stringValue = "2^x";
+					}
+					else if (buttonFour.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+						stringValue = "lgx";
+					}
+					else if (buttonFive.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+						stringValue = "log2x";
+					}
+					else if (buttonSix.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+						stringValue = "sinx";
+					}
+					else if (buttonSeven.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+						stringValue = "cosx";
+					}
+					else if (buttonEight.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+						stringValue = "tgx";
+					}
+					else if (buttonNine.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+						stringValue = "ctgx";
+					}
+					else if (buttonTen.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+						stringValue = "lnx";
+					}
+					if (stringValue != "")
+						isPressed(lineOne, lineTwo, lineThree, lineFour, lineFive, lineSix, stringValue, error, Ysize, n);
 				}
 			}
 			if (ev.type == Event::Resized)

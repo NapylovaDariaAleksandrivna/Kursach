@@ -6,7 +6,7 @@ int sizeDisplay = max_size/2;
 int step = 50;
 
 //***********************************************
-double calculator::eval(std::string pref, double x)
+double calculator::eval(std::string pref, double x)const 
 {
     std::string znaki = "+-*/^|()";
     std::string tsifri = "0123456789xep.,";
@@ -91,12 +91,12 @@ void calculator::toGive(std::string pref, int n)
     }
 }
 
-double calculator::DegToRad(double D)
+double calculator::DegToRad(double D)const
 {
     double M = 3.14 / 180;
     return D * M;
 };
-double calculator::operation(char op, double b, double a)
+double calculator::operation(char op, double b, double a)const
 {
     switch (op) {
     case plus:

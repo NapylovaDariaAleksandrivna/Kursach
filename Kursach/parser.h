@@ -11,7 +11,7 @@ private:
 	
 public:
 	
-	std::string toPstfx(std::string inf);
+	std::string toPstfx(std::string inf)const;
 	void setIn(std::string& input);
 	void setOut(std::string& output) { this->output = output; }
 	std::string getIn()const { return input; }

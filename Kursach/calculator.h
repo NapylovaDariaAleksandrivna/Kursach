@@ -11,11 +11,12 @@
 class calculator
 {
 public:
-	double eval(std::string pref, double x);
+	double eval(std::string pref, double x)const;
 	void toGive(std::string pref, int n = 0);
-	double operation(char op, double a, double b);
-	double DegToRad(double D);
-	int GetSize()const { return arrX.GetSize(); }
+	double operation(char op, double a, double b)const;
+	double DegToRad(double D)const;
+
+	int GetSize()const { return this->arrX.GetSize(); }
 	calculator(parser obj, int n)
 	{
 		toGive(obj.getOut(), n);
