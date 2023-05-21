@@ -140,13 +140,15 @@ int main() {
 
 	//Create lines graphic
 
-	VertexArray lineOne(Lines, 2000);
-	VertexArray lineTwo(Lines, 2000);
+	VertexArray lineOne(Lines, 1000);
+	VertexArray lineTwo(Lines, 1000);
 	
 	//*****************************
 	//this made for thick line
-	VertexArray lineThree(Lines, 2000);
-	VertexArray lineFour(Lines, 2000);
+	VertexArray lineThree(Lines, 1000);
+	VertexArray lineFour(Lines, 1000);
+	VertexArray lineFive(Lines, 1000);
+	VertexArray lineSix(Lines, 1000);
 	//*****************************
 
 	int n = 0;
@@ -215,7 +217,7 @@ int main() {
 			}
 			if (Keyboard::isKeyPressed(Keyboard::Return) ) {
 				
-				isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, Ysize, n);
+				isPressed(lineOne, lineTwo, lineThree, lineFour, lineFive, lineSix, stringValue, error, Ysize, n);
 				
 			}
 			if (ev.type == Event::MouseButtonPressed) {
@@ -264,7 +266,8 @@ int main() {
 							namb++;
 						}
 						if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, Ysize, n);
+							isPressed(lineOne, lineTwo, lineThree, lineFour, lineFive, lineSix, stringValue, error, Ysize, n);
+
 					}
 					else if (buttonPlus.getGlobalBounds().contains(mousePos.x, mousePos.y) && n < 2) {
 						n += 1;
@@ -310,46 +313,37 @@ int main() {
 						}
 					}
 					else if (buttonOne.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-						stringValue = "x^2"; if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, Ysize, n);
+						stringValue = "x^2";
 					}
 					else if (buttonTwo.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-						stringValue = "1/x"; if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, Ysize, n);
+						stringValue = "1/x";
 					}
 					else if (buttonThree.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-						stringValue = "2^x"; if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, Ysize, n);
+						stringValue = "2^x";
 					}
 					else if (buttonFour.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-						stringValue = "lgx"; if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, Ysize, n);
+						stringValue = "lgx";
 					}
 					else if (buttonFive.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-						stringValue = "log2x"; if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, Ysize, n);
+						stringValue = "log2x";
 					}
 					else if (buttonSix.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-						stringValue = "sinx"; if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, Ysize, n);
+						stringValue = "sinx";
 					}
 					else if (buttonSeven.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-						stringValue = "cosx"; if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, Ysize, n);
+						stringValue = "cosx";
 					}
 					else if (buttonEight.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-						stringValue = "tgx"; if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, Ysize, n);
+						stringValue = "tgx";
 					}
 					else if (buttonNine.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-						stringValue = "ctgx"; if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, Ysize, n);
+						stringValue = "ctgx";
 					}
 					else if (buttonTen.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-						stringValue = "lnx"; if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, Ysize, n);
+						stringValue = "lnx";
 					}
-					
+					if (stringValue != "")
+						isPressed(lineOne, lineTwo, lineThree, lineFour, lineFive, lineSix, stringValue, error, Ysize, n);
 				}
 			}
 			if (ev.type == Event::Resized)
@@ -389,6 +383,8 @@ int main() {
 
 		win.draw(lineThree);
 		win.draw(lineFour);
+		win.draw(lineFive);
+		win.draw(lineSix);
 		
 		win.draw(poleRigth);
 

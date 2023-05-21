@@ -4,7 +4,7 @@
 #include <stdlib.h>
 using namespace sf;
 template<typename T, int max_size>
-inline void draw(VertexArray &myLines1, VertexArray &myLines2, int hz, MyVector<T, 2000>& arrX, MyVector<T, 2000>& arrY) {
+inline void draw(VertexArray &myLines1, VertexArray &myLines2, int hz, MyVector<T, max_size>& arrX, MyVector<T, max_size>& arrY) {
 	for (int i = 0; i < arrX.GetSize() - 1; i++) {
 		myLines1[i].position = Vector2f(arrX[i], arrY[i]);
 		if (abs(arrY[i] - arrY[i + 1]) > hz) {
@@ -38,7 +38,7 @@ void GribPole(VertexArray &verticalGrib, VertexArray &horizontalGrib, RectangleS
 	pole.setPosition(Xsize / 2, 0);
 	pole.setFillColor(Color::Black);
 }
-void isPressed(VertexArray& lineOne, VertexArray& lineTwo, VertexArray& lineThree, VertexArray& lineFour,  std::string stringValue, std::string& error, double Ysize, int n) {
+void isPressed(VertexArray& lineOne, VertexArray& lineTwo, VertexArray& lineThree, VertexArray& lineFour, VertexArray& lineFive, VertexArray& lineSix, std::string stringValue, std::string& error, double Ysize, int n) {
 	VertexArray myLines1(Lines, 1000);
 	VertexArray myLines2(Lines, 1000);
 
@@ -46,10 +46,13 @@ void isPressed(VertexArray& lineOne, VertexArray& lineTwo, VertexArray& lineThre
 
 	VertexArray myLines3(Lines, 1000);
 	VertexArray myLines4(Lines, 1000);
+	VertexArray myLines5(Lines, 1000);
+	VertexArray myLines6(Lines, 1000);
 	//*****************************
 
 	parser obj(stringValue);
 	calculator objC(stringValue, n);
+	std::cout << obj;
 	if (objC.GetSize() == 0 or obj.getOut() == "Error") {
 		error = "Error";
 		lineOne.clear();
@@ -58,6 +61,8 @@ void isPressed(VertexArray& lineOne, VertexArray& lineTwo, VertexArray& lineThre
 		//*****************************
 		lineThree.clear();
 		lineFour.clear();
+		lineFive.clear();
+		lineSix.clear();
 		//*****************************
 
 		return;
@@ -68,6 +73,7 @@ void isPressed(VertexArray& lineOne, VertexArray& lineTwo, VertexArray& lineThre
 
 	//*****************************
 	draw(myLines3, myLines4, hz, objC.arrX, objC.arrY);
+	draw(myLines5, myLines6, hz, objC.arrX, objC.arrY);
 	//*****************************
 
 	error = "";
@@ -77,6 +83,8 @@ void isPressed(VertexArray& lineOne, VertexArray& lineTwo, VertexArray& lineThre
 	//*****************************
 	lineThree = myLines3;
 	lineFour = myLines4;
+	lineFive = myLines5;
+	lineSix = myLines6;
 	//*****************************
 }
 
@@ -93,8 +101,8 @@ double roundDouble(double val) {
 	return atof(s.c_str());
 }
 
-//template<typename T, int max_size>
-void drawOci(double Ysize, double Xsize, Text  verticalNomber[ ], Text horizontNomber[ ], Font arial, int n) {
+template<typename T, int max_size>
+void drawOci(double Ysize, double Xsize, Text  verticalNom[22], Text horizontalNom[22], Font arial, int n) {
 	int namb = 0, Xshag = 0, Yshag = Ysize;
 	for (double i = roundDouble(-10 / pow(2, n) * 100) / 100.0; i <= roundDouble(10 / pow(2, n) * 100) / 100.0;
 		i += roundDouble(1 / pow(2, n) * 100) / 100.0) {

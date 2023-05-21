@@ -21,9 +21,7 @@ public:
 	{
 		toGive(obj.getOut(), n);
 	};
-	calculator() {
-	
-	};
+	calculator() {};
 	parser* ukp;//????????
 
 	void getArr()const { 
