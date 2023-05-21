@@ -19,7 +19,7 @@ double calculator::eval(std::string pref, double x)const
             continue;
         }
 
-        if (isOperation(pref[i], minus) && (tsifri.find(pref[i+1]) != std::string::npos || i==0)) {
+        if (isOperation(pref[i], minus_) && (tsifri.find(pref[i+1]) != std::string::npos || i==0)) {
             chislo += pref[i];
             continue;
         } else if (tsifri.find(pref[i]) != std::string::npos) {
@@ -80,6 +80,7 @@ double calculator::eval(std::string pref, double x)const
 
 void calculator::toGive(std::string pref, int n)
 {   
+    
     if (pref == "Error") {
         return;
     }
@@ -99,9 +100,9 @@ double calculator::DegToRad(double D)const
 double calculator::operation(char op, double b, double a)const
 {
     switch (op) {
-    case plus:
+    case plus_:
         return a + b;
-    case minus:
+    case minus_:
         return a - b;
     case multiply:
         return a * b;
@@ -124,19 +125,19 @@ double calculator::operation(char op, double b, double a)const
 
     case ln_:
         if (b <= 0) {
-            return -10;
+            return -10000;
         }
         else
             return log(b);
     case log_2:
         if (b <= 0) {
-            return -10;
+            return -10000;
         }
         else
             return log2(b);
     case lg_:
         if (b <= 0) {
-            return -10;
+            return -10000;
         }
         else
             return log10(b);

@@ -6,7 +6,7 @@ enum Operations : int
     other = -1,
     braceOpen = static_cast < int>('('), braceClose = static_cast < int>(')'),
     modul =static_cast < int>('|'),
-    minus = static_cast < int>('-'), plus = static_cast < int>('+'),
+    minus_ = static_cast < int>('-'), plus_ = static_cast < int>('+'),
     multiply = static_cast < int>('*'), share = static_cast < int>('/'),
     degree = static_cast < int>('^'),
 
@@ -32,9 +32,9 @@ inline int getPrior(const char  operetor) {
         return 1;
     case modul:
         return 2;
-    case plus:
+    case plus_:
         return 3;
-    case minus:
+    case minus_:
         return 3;
     case multiply:
         return 4;

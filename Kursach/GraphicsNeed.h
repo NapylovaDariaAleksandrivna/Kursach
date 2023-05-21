@@ -40,13 +40,13 @@ void GribPole(VertexArray &verticalGrib, VertexArray &horizontalGrib, RectangleS
 	pole.setFillColor(Color::Black);
 }
 void isPressed(VertexArray& lineOne, VertexArray& lineTwo, VertexArray& lineThree, VertexArray& lineFour, std::string stringValue, std::string& error, double sizeY, int n) {
-	VertexArray myLines1(Lines, 1000);
-	VertexArray myLines2(Lines, 1000);
+	VertexArray myLines1(Lines, 2000);
+	VertexArray myLines2(Lines, 2000);
 
 	//*****************************
 
-	VertexArray myLines3(Lines, 1000);
-	VertexArray myLines4(Lines, 1000);
+	VertexArray myLines3(Lines, 2000);
+	VertexArray myLines4(Lines, 2000);
 	//*****************************
 
 	calculator obj(stringValue, n);
@@ -95,7 +95,7 @@ double roundDouble(double val) {
 }
 
 //template<typename T, int max_size>
-void drawOci(double sizeY, double sizeX, Text  verticalNom[], Text horizontalNom[], Font arial, int n) {
+void drawOci(double sizeY, double sizeX, Text  verticalNomber[], Text horizontNomber[], Font arial, int n) {
 	int namb = 0, Xshag = 0, Yshag = sizeY;
 	for (double i = roundDouble(-10 / pow(2, n) * 100) / 100.0; i <= roundDouble(10 / pow(2, n) * 100) / 100.0;
 		i += roundDouble(1 / pow(2, n) * 100) / 100.0) {
@@ -108,18 +108,18 @@ void drawOci(double sizeY, double sizeX, Text  verticalNom[], Text horizontalNom
 
 		std::cout << i << "  " << s << '\n';
 		if (i != 0) {
-			verticalNom[namb].setFont(arial);
-			verticalNom[namb].setCharacterSize(20);
-			verticalNom[namb].setFillColor(Color::Black);
-			verticalNom[namb].setString(s);
-			verticalNom[namb].setPosition(Xshag - 5, sizeY / 2);
+			verticalNomber[namb].setFont(arial);
+			verticalNomber[namb].setCharacterSize(20);
+			verticalNomber[namb].setFillColor(Color::Black);
+			verticalNomber[namb].setString(s);
+			verticalNomber[namb].setPosition(Xshag - 5, sizeY / 2);
 		}
 		else {
-			horizontalNom[namb].setFont(arial);
-			horizontalNom[namb].setCharacterSize(20);
-			horizontalNom[namb].setFillColor(Color::Black);
-			horizontalNom[namb].setString("0");
-			horizontalNom[namb].setPosition(sizeX / 4 + 5, Yshag);
+			horizontNomber[namb].setFont(arial);
+			horizontNomber[namb].setCharacterSize(20);
+			horizontNomber[namb].setFillColor(Color::Black);
+			horizontNomber[namb].setString("0");
+			horizontNomber[namb].setPosition(sizeX / 4 + 5, Yshag);
 			Yshag -= 50;
 			Xshag += 50;
 			namb++;
@@ -127,11 +127,11 @@ void drawOci(double sizeY, double sizeX, Text  verticalNom[], Text horizontalNom
 		}
 		Xshag += 50;
 
-		horizontalNom[namb].setFont(arial);
-		horizontalNom[namb].setCharacterSize(20);
-		horizontalNom[namb].setFillColor(Color::Black);
-		horizontalNom[namb].setString(s);
-		horizontalNom[namb].setPosition(sizeX / 4 + 5, Yshag);
+		horizontNomber[namb].setFont(arial);
+		horizontNomber[namb].setCharacterSize(20);
+		horizontNomber[namb].setFillColor(Color::Black);
+		horizontNomber[namb].setString(s);
+		horizontNomber[namb].setPosition(sizeX / 4 + 5, Yshag);
 		Yshag -= 50;
 
 		namb++;

@@ -1,5 +1,6 @@
 #define Task3
 
+
 #ifdef Task3 
 #include"calculator.h"
 #include <iostream> 
@@ -136,10 +137,49 @@ int main() {
 	float want_fps = 50;
 	Clock loop_timer;
 	//Osi
-	Text *verticalNomber = new Text[22];
-	Text *horizontNomber = new Text[22];
-	drawOci(sizeY, sizeX, verticalNomber, horizontNomber, arial, n);
-	
+	Text verticalNomber[22];
+	Text horizontNomber[22];
+	//drawOci(sizeY, sizeX, verticalNomber, horizontNomber, arial, n);
+	int namb = 0, Xshag = 0, Yshag = sizeY;
+	for (double i = roundDouble(-10 / pow(2, n) * 100) / 100.0; i <= roundDouble(10 / pow(2, n) * 100) / 100.0;
+		i += roundDouble(1 / pow(2, n) * 100) / 100.0) {
+		std::string s = std::to_string(i);
+		int count = s.length() - 1;//s[count] == '.'
+		while ((i != 0) && ((s[count] == '.') || (s[count] == '0' && s[count - 1] == '0') || (s[count] == '0' && s[count - 1] == '.') || (s[count] == '0' && s[abs(count - 2)] == '.') || (s[count] == '0' && s[abs(count - 3)] == '.'))) {
+			s.pop_back();
+			count -= 1;
+		}
+
+		
+		if (i != 0) {
+			verticalNomber[namb].setFont(arial);
+			verticalNomber[namb].setCharacterSize(20);
+			verticalNomber[namb].setFillColor(Color::Black);
+			verticalNomber[namb].setString(s);
+			verticalNomber[namb].setPosition(Xshag - 5, sizeY / 2);
+		}
+		else {
+			horizontNomber[namb].setFont(arial);
+			horizontNomber[namb].setCharacterSize(20);
+			horizontNomber[namb].setFillColor(Color::Black);
+			horizontNomber[namb].setString("0");
+			horizontNomber[namb].setPosition(sizeX / 4 + 5, Yshag);
+			Yshag -= 50;
+			Xshag += 50;
+			namb++;
+			continue;
+		}
+		Xshag += 50;
+
+		horizontNomber[namb].setFont(arial);
+		horizontNomber[namb].setCharacterSize(20);
+		horizontNomber[namb].setFillColor(Color::Black);
+		horizontNomber[namb].setString(s);
+		horizontNomber[namb].setPosition(sizeX / 4 + 5, Yshag);
+		Yshag -= 50;
+
+		namb++;
+	}
 	
 
 	while (win.isOpen()) {
@@ -166,7 +206,46 @@ int main() {
 					Vector2f mousePos = win.mapPixelToCoords(Mouse::getPosition(win));
 					if (buttonMinus.getGlobalBounds().contains(mousePos.x, mousePos.y) && n > 0) {
 						n -= 1;
-						drawOci(sizeY, sizeX, verticalNomber, horizontNomber, arial, n);
+						int namb = 0, Xshag = 0, Yshag = sizeY;
+						for (double i = roundDouble(-10 / pow(2, n) * 100) / 100.0; i <= roundDouble(10 / pow(2, n) * 100) / 100.0;
+							i += roundDouble(1 / pow(2, n) * 100) / 100.0) {
+							std::string s = std::to_string(i);
+							int count = s.length() - 1;//s[count] == '.'
+							while ((i != 0) && ((s[count] == '.') || (s[count] == '0' && s[count - 1] == '0') || (s[count] == '0' && s[count - 1] == '.') || (s[count] == '0' && s[abs(count - 2)] == '.') || (s[count] == '0' && s[abs(count - 3)] == '.'))) {
+								s.pop_back();
+								count -= 1;
+							}
+
+							
+							if (i != 0) {
+								verticalNomber[namb].setFont(arial);
+								verticalNomber[namb].setCharacterSize(20);
+								verticalNomber[namb].setFillColor(Color::Black);
+								verticalNomber[namb].setString(s);
+								verticalNomber[namb].setPosition(Xshag - 5, sizeY / 2);
+							}
+							else {
+								horizontNomber[namb].setFont(arial);
+								horizontNomber[namb].setCharacterSize(20);
+								horizontNomber[namb].setFillColor(Color::Black);
+								horizontNomber[namb].setString("0");
+								horizontNomber[namb].setPosition(sizeX / 4 + 5, Yshag);
+								Yshag -= 50;
+								Xshag += 50;
+								namb++;
+								continue;
+							}
+							Xshag += 50;
+
+							horizontNomber[namb].setFont(arial);
+							horizontNomber[namb].setCharacterSize(20);
+							horizontNomber[namb].setFillColor(Color::Black);
+							horizontNomber[namb].setString(s);
+							horizontNomber[namb].setPosition(sizeX / 4 + 5, Yshag);
+							Yshag -= 50;
+
+							namb++;
+						}
 						if (stringValue != "")
 							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, sizeY, n);
 
@@ -174,7 +253,46 @@ int main() {
 					else if (buttonPlus.getGlobalBounds().contains(mousePos.x, mousePos.y) && n < 2) {
 						
 						n += 1;
-						drawOci(sizeY, sizeX, verticalNomber, horizontNomber, arial, n);
+						int namb = 0, Xshag = 0, Yshag = sizeY;
+						for (double i = roundDouble(-10 / pow(2, n) * 100) / 100.0; i <= roundDouble(10 / pow(2, n) * 100) / 100.0;
+							i += roundDouble(1 / pow(2, n) * 100) / 100.0) {
+							std::string s = std::to_string(i);
+							int count = s.length() - 1;//s[count] == '.'
+							while ((i != 0) && ((s[count] == '.') || (s[count] == '0' && s[count - 1] == '0') || (s[count] == '0' && s[count - 1] == '.') || (s[count] == '0' && s[abs(count - 2)] == '.') || (s[count] == '0' && s[abs(count - 3)] == '.'))) {
+								s.pop_back();
+								count -= 1;
+							}
+
+							
+							if (i != 0) {
+								verticalNomber[namb].setFont(arial);
+								verticalNomber[namb].setCharacterSize(20);
+								verticalNomber[namb].setFillColor(Color::Black);
+								verticalNomber[namb].setString(s);
+								verticalNomber[namb].setPosition(Xshag - 5, sizeY / 2);
+							}
+							else {
+								horizontNomber[namb].setFont(arial);
+								horizontNomber[namb].setCharacterSize(20);
+								horizontNomber[namb].setFillColor(Color::Black);
+								horizontNomber[namb].setString("0");
+								horizontNomber[namb].setPosition(sizeX / 4 + 5, Yshag);
+								Yshag -= 50;
+								Xshag += 50;
+								namb++;
+								continue;
+							}
+							Xshag += 50;
+
+							horizontNomber[namb].setFont(arial);
+							horizontNomber[namb].setCharacterSize(20);
+							horizontNomber[namb].setFillColor(Color::Black);
+							horizontNomber[namb].setString(s);
+							horizontNomber[namb].setPosition(sizeX / 4 + 5, Yshag);
+							Yshag -= 50;
+
+							namb++;
+						}
 						if (stringValue != "")
 							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, sizeY, n);
 					}
@@ -254,6 +372,7 @@ int main() {
 				
 			}
 		}
+		
 		win.clear(Color(197, 208, 230));
 		
 		win.draw(verticalGrib);
@@ -294,14 +413,10 @@ int main() {
 		win.draw(buttonNine);
 		win.draw(buttonTen);
 
-		/*for (int i = 0; i < 22; i++) {
-			Text copyVert=verticalNomber[i];
-			Text copyHor = horizontNomber[i];
-			win.draw(copyVert);
-			win.draw(copyHor);
-		}*/
-		/*win.draw(verticalNomber[0]);*/
-		//win.draw(verticalNomber[1]);
+		for (int i = 0; i < 22; i++) {
+			win.draw(verticalNomber[i]);
+			win.draw(horizontNomber[i]);
+		}
 		
 		Int32 frame_duration = loop_timer.getElapsedTime().asMilliseconds();
 		Int32 time_to_sleep = int(1000.f / want_fps) - frame_duration;
@@ -311,7 +426,20 @@ int main() {
 		loop_timer.restart();
 		win.display();
 	}
-	delete []verticalNomber;
-	delete []verticalNomber;
 }
 #endif // Task3
+
+#ifdef Task1
+#include"calculator.h"
+#include <iostream>
+using namespace std;
+int main() {
+	parser obj;
+	cin >> obj;
+	cout << obj;
+	calculator text;
+	
+	text.toGive(obj.getOut());
+	cout << text;
+}
+#endif // Task1

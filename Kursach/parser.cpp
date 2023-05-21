@@ -46,7 +46,7 @@ std::string parser::toPstfx(std::string inf)const {
 
         if (znaki.find((inf[i])) != std::string::npos) {
             
-            if (isOperation(inf[i], minus)) {
+            if (isOperation(inf[i], minus_)) {
 
                 if (i == 0) {
                     output += inf[i];
