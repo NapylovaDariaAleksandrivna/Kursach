@@ -1,6 +1,21 @@
 #define Task3
 
-#ifdef Task3 
+#ifdef Task2
+#include"calculator.h"
+#include <iostream>
+using namespace std;
+int main() {
+	parser obj;
+	cin >> obj;
+	cout << obj;
+	calculator text;
+	
+	text.toGive(obj.getOut());
+	cout << text;
+}
+#endif // Task2
+
+#ifdef Task3 //sfml
 #include"calculator.h"
 #include <iostream> 
 #include<string>
@@ -8,19 +23,19 @@
 
 int main() {
 	srand(time(NULL));
-	double sizeX = 2000;
-	double sizeY = 1000;
+	double Xsize = 2000;
+	double Ysize = 1000;
 	double copyX, copyY;
 	double koef = 1;
 	//************************
-	RenderWindow win(VideoMode(sizeX, sizeY), "Graphics");
+	RenderWindow win(VideoMode(Xsize, Ysize), "Graphics");
 	//Gribs&rigth pole
 	VertexArray verticalGrib(Lines, 50);
 	VertexArray horizontalGrib(Lines, 50);
-	RectangleShape lineY(Vector2f(4, sizeY));
-	RectangleShape lineX(Vector2f(sizeX/2, 4));
-	RectangleShape poleRigth(Vector2f(sizeX/2, sizeY));
-	GribPole(verticalGrib, horizontalGrib, lineY, lineX, poleRigth, sizeX, sizeY);
+	RectangleShape lineY(Vector2f(4, Ysize));
+	RectangleShape lineX(Vector2f(Xsize/2, 4));
+	RectangleShape poleRigth(Vector2f(Xsize/2, Ysize));
+	GribPole(verticalGrib, horizontalGrib, lineY, lineX, poleRigth, Xsize, Ysize);
 	//Zoom Buttons 
 	Texture plusBotton;
 	plusBotton.loadFromFile("materials/plus.png");
@@ -94,6 +109,8 @@ int main() {
 	Sprite buttonTen;
 	buttonTen.setTexture(button10);
 	buttonTen.setPosition(1720, 520);
+
+	
 	
 	//Text
 	Font arial;
@@ -104,12 +121,12 @@ int main() {
 	textY.setFont(arial);
 	std::string s = "y= ";
 	textY.setString(s);//
-	textY.setPosition(sizeX/2+165, 75);
+	textY.setPosition(Xsize/2+165, 75);
 	textY.setCharacterSize(sizeText);
 	Text text;
 	text.setFillColor(Color::White);
 	text.setFont(arial);
-	text.setPosition(sizeX/2+240, 75);
+	text.setPosition(Xsize/2+240, 75);
 	std::string stringValue = "";
 	text.setString(stringValue);
 	text.setCharacterSize(sizeText);
@@ -118,7 +135,7 @@ int main() {
 	tError.setFont(arial);
 	std::string error = "";
 	tError.setString(error);//
-	tError.setPosition(sizeX / 2 + 165, 150);
+	tError.setPosition(Xsize / 2 + 165, 150);
 	tError.setCharacterSize(sizeText);
 
 	//Create lines graphic
@@ -130,6 +147,8 @@ int main() {
 	//this made for thick line
 	VertexArray lineThree(Lines, 1000);
 	VertexArray lineFour(Lines, 1000);
+	VertexArray lineFive(Lines, 1000);
+	VertexArray lineSix(Lines, 1000);
 	//*****************************
 
 	int n = 0;
@@ -137,10 +156,49 @@ int main() {
 	Clock loop_timer;
 
 	//Osi
-	Text *verticalNomber = new Text[22];
-	Text *horizontNomber = new Text[22];
-	drawOci(sizeY, sizeX, verticalNomber, horizontNomber, arial, n);
-	
+	Text verticalNomber[22];
+	Text horizontNomber[22];
+	//drawOci(Ysize, Xsize, verticalNomber, horizontNomber, arial, n);
+	int namb = 0, Xshag = 0, Yshag = Ysize;
+	for (double i = roundDouble(-10 / pow(2, n) * 100) / 100.0; i <= roundDouble(10 / pow(2, n) * 100) / 100.0;
+		i += roundDouble(1 / pow(2, n) * 100) / 100.0) {
+		std::string s = std::to_string(i);
+		int count = s.length() - 1;//s[count] == '.'
+		while ((i != 0) && ((s[count] == '.') || (s[count] == '0' && s[count - 1] == '0') || (s[count] == '0' && s[count - 1] == '.') || (s[count] == '0' && s[abs(count - 2)] == '.') || (s[count] == '0' && s[abs(count - 3)] == '.'))) {
+			s.pop_back();
+			count -= 1;
+		}
+
+		std::cout << i << "  " << s << '\n';
+		if (i != 0) {
+			verticalNomber[namb].setFont(arial);
+			verticalNomber[namb].setCharacterSize(20);
+			verticalNomber[namb].setFillColor(Color::Black);
+			verticalNomber[namb].setString(s);
+			verticalNomber[namb].setPosition(Xshag - 5, Ysize / 2);
+		}
+		else {
+			horizontNomber[namb].setFont(arial);
+			horizontNomber[namb].setCharacterSize(20);
+			horizontNomber[namb].setFillColor(Color::Black);
+			horizontNomber[namb].setString("0");
+			horizontNomber[namb].setPosition(Xsize / 4 + 5, Yshag);
+			Yshag -= 50;
+			Xshag += 50;
+			namb++;
+			continue;
+		}
+		Xshag += 50;
+
+		horizontNomber[namb].setFont(arial);
+		horizontNomber[namb].setCharacterSize(20);
+		horizontNomber[namb].setFillColor(Color::Black);
+		horizontNomber[namb].setString(s);
+		horizontNomber[namb].setPosition(Xsize / 4 + 5, Yshag);
+		Yshag -= 50;
+
+		namb++;
+	}
 	
 
 	while (win.isOpen()) {
@@ -159,7 +217,7 @@ int main() {
 			}
 			if (Keyboard::isKeyPressed(Keyboard::Return) ) {
 				
-				isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, sizeY, n);
+				isPressed(lineOne, lineTwo, lineThree, lineFour, lineFive, lineSix, stringValue, error, Ysize, n);
 				
 			}
 			if (ev.type == Event::MouseButtonPressed) {
@@ -167,91 +225,147 @@ int main() {
 					Vector2f mousePos = win.mapPixelToCoords(Mouse::getPosition(win));
 					if (buttonMinus.getGlobalBounds().contains(mousePos.x, mousePos.y) && n > 0) {
 						n -= 1;
-						drawOci(sizeY, sizeX, verticalNomber, horizontNomber, arial, n);
+						int namb = 0, Xshag = 0, Yshag = Ysize;
+						for (double i = roundDouble(-10 / pow(2, n) * 100) / 100.0; i <= roundDouble(10 / pow(2, n) * 100) / 100.0;
+							i += roundDouble(1 / pow(2, n) * 100) / 100.0) {
+							std::string s = std::to_string(i);
+							int count = s.length() - 1;//s[count] == '.'
+							while ((i != 0) && ((s[count] == '.') || (s[count] == '0' && s[count - 1] == '0') || (s[count] == '0' && s[count - 1] == '.') || (s[count] == '0' && s[abs(count - 2)] == '.') || (s[count] == '0' && s[abs(count - 3)] == '.'))) {
+								s.pop_back();
+								count -= 1;
+							}
+
+							std::cout << i << "  " << s << '\n';
+							if (i != 0) {
+								verticalNomber[namb].setFont(arial);
+								verticalNomber[namb].setCharacterSize(20);
+								verticalNomber[namb].setFillColor(Color::Black);
+								verticalNomber[namb].setString(s);
+								verticalNomber[namb].setPosition(Xshag - 5, Ysize / 2);
+							}
+							else {
+								horizontNomber[namb].setFont(arial);
+								horizontNomber[namb].setCharacterSize(20);
+								horizontNomber[namb].setFillColor(Color::Black);
+								horizontNomber[namb].setString("0");
+								horizontNomber[namb].setPosition(Xsize / 4 + 5, Yshag);
+								Yshag -= 50;
+								Xshag += 50;
+								namb++;
+								continue;
+							}
+							Xshag += 50;
+
+							horizontNomber[namb].setFont(arial);
+							horizontNomber[namb].setCharacterSize(20);
+							horizontNomber[namb].setFillColor(Color::Black);
+							horizontNomber[namb].setString(s);
+							horizontNomber[namb].setPosition(Xsize / 4 + 5, Yshag);
+							Yshag -= 50;
+
+							namb++;
+						}
 						if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, sizeY, n);
+							isPressed(lineOne, lineTwo, lineThree, lineFour, lineFive, lineSix, stringValue, error, Ysize, n);
 
 					}
 					else if (buttonPlus.getGlobalBounds().contains(mousePos.x, mousePos.y) && n < 2) {
-						
 						n += 1;
-						drawOci(sizeY, sizeX, verticalNomber, horizontNomber, arial, n);
-						if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, sizeY, n);
+						int namb = 0, Xshag = 0, Yshag = Ysize;
+						for (double i = roundDouble(-10 / pow(2, n) * 100) / 100.0; i <= roundDouble(10 / pow(2, n) * 100) / 100.0;
+							i += roundDouble(1 / pow(2, n) * 100) / 100.0) {
+							std::string s = std::to_string(i);
+							int count = s.length() - 1;//s[count] == '.'
+							while ((i != 0) && ((s[count] == '.') || (s[count] == '0' && s[count - 1] == '0') || (s[count] == '0' && s[count - 1] == '.') || (s[count] == '0' && s[abs(count - 2)] == '.') || (s[count] == '0' && s[abs(count - 3)] == '.'))) {
+								s.pop_back();
+								count -= 1;
+							}
+
+							std::cout << i << "  " << s << '\n';
+							if (i != 0) {
+								verticalNomber[namb].setFont(arial);
+								verticalNomber[namb].setCharacterSize(20);
+								verticalNomber[namb].setFillColor(Color::Black);
+								verticalNomber[namb].setString(s);
+								verticalNomber[namb].setPosition(Xshag - 5, Ysize / 2);
+							}
+							else {
+								horizontNomber[namb].setFont(arial);
+								horizontNomber[namb].setCharacterSize(20);
+								horizontNomber[namb].setFillColor(Color::Black);
+								horizontNomber[namb].setString("0");
+								horizontNomber[namb].setPosition(Xsize / 4 + 5, Yshag);
+								Yshag -= 50;
+								Xshag += 50;
+								namb++;
+								continue;
+							}
+							Xshag += 50;
+
+							horizontNomber[namb].setFont(arial);
+							horizontNomber[namb].setCharacterSize(20);
+							horizontNomber[namb].setFillColor(Color::Black);
+							horizontNomber[namb].setString(s);
+							horizontNomber[namb].setPosition(Xsize / 4 + 5, Yshag);
+							Yshag -= 50;
+
+							namb++;
+						}
 					}
 					else if (buttonOne.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
 						stringValue = "x^2";
-						if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, sizeY, n);
 					}
 					else if (buttonTwo.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
 						stringValue = "1/x";
-						if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, sizeY, n);
 					}
 					else if (buttonThree.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
 						stringValue = "2^x";
-						if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, sizeY, n);
 					}
 					else if (buttonFour.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
 						stringValue = "lgx";
-						if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, sizeY, n);
 					}
 					else if (buttonFive.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
 						stringValue = "log2x";
-						if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, sizeY, n);
 					}
 					else if (buttonSix.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
 						stringValue = "sinx";
-						if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, sizeY, n);
 					}
 					else if (buttonSeven.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
 						stringValue = "cosx";
-						if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, sizeY, n);
 					}
 					else if (buttonEight.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
 						stringValue = "tgx";
-						if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, sizeY, n);
 					}
 					else if (buttonNine.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
 						stringValue = "ctgx";
-						if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, sizeY, n);
 					}
 					else if (buttonTen.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
 						stringValue = "lnx";
-						if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, sizeY, n);
 					}
-					
+					if (stringValue != "")
+						isPressed(lineOne, lineTwo, lineThree, lineFour, lineFive, lineSix, stringValue, error, Ysize, n);
 				}
 			}
 			if (ev.type == Event::Resized)
 			{
-				copyX = sizeX * koef;
-				copyY = sizeY * koef;
+				copyX = Xsize * koef;
+				copyY = Ysize * koef;
 				Vector2u windowSize = win.getSize();
 				if (windowSize.x < 600 or windowSize.y < 300) {
 					win.setSize(Vector2u(copyX, copyY));
 					continue;
 				}
 				else if (copyX != windowSize.x && copyY == windowSize.y) {
-					koef = windowSize.x * 1.0 / sizeX * 1.0;
+					koef = windowSize.x * 1.0 / Xsize * 1.0;
 				}
 				else if (copyX == windowSize.x && copyY != windowSize.y) {
-					koef = windowSize.y * 1.0 / sizeY * 1.0;
+					koef = windowSize.y * 1.0 / Ysize * 1.0;
 				}
 				else {
-					koef = windowSize.y * 1.0 / sizeY * 1.0;
+					koef = windowSize.y * 1.0 / Ysize * 1.0;
 				}
-				poleRigth.setSize(Vector2f(sizeX, sizeY));
-				win.setSize(Vector2u(sizeX * koef, sizeY * koef));
+				poleRigth.setSize(Vector2f(Xsize, Ysize));
+				win.setSize(Vector2u(Xsize * koef, Ysize * koef));
 				
 			}
 		}
@@ -269,7 +383,8 @@ int main() {
 
 		win.draw(lineThree);
 		win.draw(lineFour);
-		
+		win.draw(lineFive);
+		win.draw(lineSix);
 		
 		win.draw(poleRigth);
 
@@ -295,24 +410,247 @@ int main() {
 		win.draw(buttonNine);
 		win.draw(buttonTen);
 
-		/*for (int i = 0; i < 22; i++) {
-			Text copyVert=verticalNomber[i];
-			Text copyHor = horizontNomber[i];
-			win.draw(copyVert);
-			win.draw(copyHor);
-		}*/
-		/*win.draw(verticalNomber[0]);*/
-		//win.draw(verticalNomber[1]);
-		
+		for (int i = 0; i < 22; i++) {
+			
+			win.draw(verticalNomber[i]);
+			win.draw(horizontNomber[i]);
+		}
+
+		win.display();
 		Int32 frame_duration = loop_timer.getElapsedTime().asMilliseconds();
 		Int32 time_to_sleep = int(1000.f / want_fps) - frame_duration;
 		if (time_to_sleep > 0) {
 			sleep(milliseconds(time_to_sleep));
 		}
 		loop_timer.restart();
+	}
+}
+#endif // Task3
+#ifdef Task4
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <string>
+
+int main() {
+	RenderWindow window(VideoMode(800, 600), "Window",
+		Style::Titlebar | Style::Close);
+	Font arial;
+	arial.loadFromFile("Century Gothic Regular.ttf");
+	Text textY;
+	textY.setFillColor(Color::White);
+	textY.setFont(arial);
+	std::string s = "Math task: ";
+	textY.setString(s);
+	Text g;
+	g.setFillColor(Color::White);
+	g.setFont(arial);
+	g.setPosition(200, 0);
+	std::string stringValue = "";
+	g.setString(stringValue);
+
+	while (window.isOpen()) {
+		Event event;
+
+		while (window.pollEvent(event)) {
+			if (event.type == Event::Closed) {
+				window.close();
+			}
+			if (event.type == Event::TextEntered) {
+				if (event.text.unicode == 13) {
+					std::cout << stringValue;
+				}
+				else if (event.text.unicode == 8) {
+					stringValue.pop_back();
+				}
+				else if (event.text.unicode < 128) {
+					stringValue += static_cast<char>(event.text.unicode);
+				}
+				else {
+
+				}
+			}
+		}
+
+		g.setString(stringValue);
+		window.clear(Color::Black);
+		window.draw(g);
+		window.draw(textY);
+		window.display();
+	}
+}
+#endif // Task4
+#ifdef Task5 //sfml
+#include"calculator.h"
+#include <iostream> 
+#include<SFML/Graphics.hpp>
+#include<string>
+#include<math.h>
+
+using namespace sf;
+
+int main() {
+	srand(time(NULL));
+	int Xsize = 2000;
+	int Ysize = 1000;
+	RenderWindow win(VideoMode(Xsize, Ysize), "SFML Window");
+
+	VertexArray verticalGrib(Lines, 50);
+	VertexArray horizontalGrib(Lines, 50);
+
+	for (int i = 0, y = 0, x = 0; i < 50; i += 2, y += 50, x += 50)
+	{
+		verticalGrib[i].position = Vector2f(0, 50 + y);
+		verticalGrib[i + 1].position = Vector2f(Xsize / 2, 50 + y);
+
+		horizontalGrib[i].position = Vector2f(50 + x, 0);
+		horizontalGrib[i + 1].position = Vector2f(50 + x, Ysize);
+	}
+
+	RectangleShape lineY(Vector2f(4, Ysize));
+	lineY.setPosition(498, 0);
+	lineY.setFillColor(Color::Black);
+
+	RectangleShape lineX(Vector2f(Xsize / 2, 4));
+	lineX.setPosition(0, 498);
+	lineX.setFillColor(Color::Black);
+
+	RectangleShape pole(Vector2f(Xsize / 2, Ysize));
+	pole.setPosition(Xsize / 2, 0);
+	pole.setFillColor(Color::Black);
+
+	Font arial;
+	arial.loadFromFile("Century Gothic Regular.ttf");
+	Text textY;
+	textY.setFillColor(Color::White);
+	textY.setFont(arial);
+	std::string s = "Math task: ";
+	textY.setString(s);//
+	textY.setPosition(Xsize / 2 + 25, 75);
+	Text text;
+	text.setFillColor(Color::White);
+	text.setFont(arial);
+	text.setPosition(Xsize / 2 + 200, 75);
+	std::string stringValue = "";
+	text.setString(stringValue);
+	Text tError;
+	tError.setFillColor(Color::White);
+	tError.setFont(arial);
+	std::string error = "";
+	tError.setString(error);//
+	tError.setPosition(Xsize / 2 + 25, 125);
+
+	VertexArray lineOne(Lines, 2000);
+
+	VertexArray pointGraficT1(Points, 2000);
+	VertexArray pointGraficT2(Points, 2000);
+	VertexArray pointGraficT3(Points, 2000);
+	VertexArray pointGraficT4(Points, 2000);
+	VertexArray pointGraficT5(Points, 2000);
+	while (win.isOpen()) {//работает когда окно открыто 
+		Event ev;//обработка событий
+		while (win.pollEvent(ev)) {
+			if (ev.type == Event::Closed) {
+				win.close();
+			}
+			if (ev.type == Event::TextEntered) {
+				if (ev.text.unicode == 8 && stringValue != "") {
+					stringValue.pop_back();
+				}
+				else if (ev.text.unicode < 128 && ev.text.unicode != 8 && ev.text.unicode != '\n' && ev.text.unicode != '\r') {
+					stringValue += static_cast<char>(ev.text.unicode);
+				}
+			}
+			if (Keyboard::isKeyPressed(Keyboard::Return)) {
+				
+				pointGraficT1.clear();
+				pointGraficT2.clear();
+				pointGraficT3.clear();
+				pointGraficT4.clear();
+				pointGraficT5.clear();
+
+				VertexArray myLines1(Lines, 2000);
+				VertexArray pointGrafic1(Points, 2000);
+				VertexArray pointGrafic2(Points, 2000);
+				VertexArray pointGrafic3(Points, 2000);
+				VertexArray pointGrafic4(Points, 2000);
+				VertexArray pointGrafic5(Points, 2000);
+				parser obj;
+				calculator text;
+				obj.setIn(stringValue);
+				std::cout << obj;
+				text.toGive(obj.getOut());
+				//std::cout << text;
+				if (text.GetSize() == 0 or obj.getOut() == "Error") {
+					error = "Error";
+					pointGrafic1.clear();
+					pointGrafic2.clear();
+					pointGrafic3.clear();
+					pointGrafic4.clear();
+					pointGrafic5.clear();
+					break;
+				}
+				int b = 0;
+				for (int i = 0; i < text.GetSize() - 1; i++) {
+					std::cout << "X: " << text.arrX[i] << " Y: " << text.arrY[i] << "*" << std::endl;
+					pointGrafic1[i].position = Vector2f(text.arrX[i], text.arrY[i]);
+					pointGrafic1[i].color = Color::Red;
+					pointGrafic2[i].position = Vector2f(text.arrX[i]+1, text.arrY[i]);
+					pointGrafic2[i].color = Color::Red;
+					pointGrafic3[i].position = Vector2f(text.arrX[i]-1, text.arrY[i]);
+					pointGrafic3[i].color = Color::Red;
+					pointGrafic4[i].position = Vector2f(text.arrX[i],text.arrY[i] +1);
+					pointGrafic4[i].color = Color::Red;
+					pointGrafic5[i].position = Vector2f(text.arrX[i] , text.arrY[i]-1) ;
+					pointGrafic5[i].color = Color::Red;
+				}
+				/*for (int i = 1; i < text.arrX.GetSize() - 2; i++) {
+
+					std::cout << "I: " << i << " X: " << text.arrX[i] << " Y: " << text.arrY[i] << " ";
+					std::cout << int(text.arrY[i]) / 100 << std::endl;
+					myLines2[i - 1].position = Vector2f(text.arrX[i], text.arrY[i]);
+					if (abs(text.arrY[i] - text.arrY[i + 1]) > hz ||
+						abs(text.arrY[i - 1] - text.arrY[i]) > hz) {
+						myLines2[i - 1].color = Color(255, 192, 203);
+						std::cout << "**********\n";
+					}
+					else
+						myLines2[i - 1].color = Color::Red;
+				}*/
+				error = "";
+				
+				pointGraficT1 = pointGrafic1;
+				pointGraficT2 = pointGrafic2;
+				pointGraficT3 = pointGrafic3;
+				pointGraficT4 = pointGrafic4;
+				pointGraficT5 = pointGrafic5;
+				
+			}
+		}
+		win.clear(Color(255, 192, 203));
+
+		win.draw(verticalGrib);
+		win.draw(horizontalGrib);
+
+		
+		win.draw(lineY);
+		win.draw(lineX);
+
+		win.draw(pole);
+		text.setString(stringValue);
+		win.draw(text);
+
+		win.draw(textY);
+
+		tError.setString(error);
+		win.draw(tError);
+
+		win.draw(pointGraficT1);
+		win.draw(pointGraficT2);
+		win.draw(pointGraficT3);
+		win.draw(pointGraficT4);
+		win.draw(pointGraficT5);
+
 		win.display();
 	}
-	delete []verticalNomber;
-	delete []verticalNomber;
 }
 #endif // Task3
