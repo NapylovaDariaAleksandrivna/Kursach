@@ -135,7 +135,6 @@ int main() {
 	int n = 0;
 	float want_fps = 50;
 	Clock loop_timer;
-
 	//Osi
 	Text *verticalNomber = new Text[22];
 	Text *horizontNomber = new Text[22];
