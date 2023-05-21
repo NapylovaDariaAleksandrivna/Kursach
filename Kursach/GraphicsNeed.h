@@ -5,8 +5,9 @@
 using namespace sf;
 template<typename T, int max_size>
 inline void draw(VertexArray &myLines1, VertexArray &myLines2, int hz, MyVector<T, max_size>& arrX, MyVector<T, max_size>& arrY) {
-	for (int i = 0; i < arrX.GetSize() - 1; i++) {
+	for (int i = 0; i < arrX.GetSize() - 1; i+=1) {
 		myLines1[i].position = Vector2f(arrX[i], arrY[i]);
+
 		if (abs(arrY[i] - arrY[i + 1]) > hz) {
 			myLines1[i].color = Color(255, 192, 203, 0);
 		}
@@ -20,14 +21,14 @@ inline void draw(VertexArray &myLines1, VertexArray &myLines2, int hz, MyVector<
 	}
 }
 
-void GribPole(VertexArray &verticalGrib, VertexArray &horizontalGrib, RectangleShape &lineY, RectangleShape &lineX, RectangleShape &pole, int Xsize, int Ysize) {
+void GribPole(VertexArray &verticalGrib, VertexArray &horizontalGrib, RectangleShape &lineY, RectangleShape &lineX, RectangleShape &pole, int sizeX, int sizeY) {
 	for (int i = 0, y = 0, x = 0; i < 50; i += 2, y += 50, x += 50)
 	{
 		verticalGrib[i].position = Vector2f(0, 50 + y);
-		verticalGrib[i + 1].position = Vector2f(Xsize / 2, 50 + y);
+		verticalGrib[i + 1].position = Vector2f(sizeX / 2, 50 + y);
 
 		horizontalGrib[i].position = Vector2f(50 + x, 0);
-		horizontalGrib[i + 1].position = Vector2f(50 + x, Ysize);
+		horizontalGrib[i + 1].position = Vector2f(50 + x, sizeY);
 	}
 	lineX.setPosition(0, 498);
 	lineX.setFillColor(Color::Black);
@@ -35,10 +36,10 @@ void GribPole(VertexArray &verticalGrib, VertexArray &horizontalGrib, RectangleS
 	lineY.setPosition(498, 0);
 	lineY.setFillColor(Color::Black);
 
-	pole.setPosition(Xsize / 2, 0);
+	pole.setPosition(sizeX / 2, 0);
 	pole.setFillColor(Color::Black);
 }
-void isPressed(VertexArray& lineOne, VertexArray& lineTwo, VertexArray& lineThree, VertexArray& lineFour, VertexArray& lineFive, VertexArray& lineSix, std::string stringValue, std::string& error, double Ysize, int n) {
+void isPressed(VertexArray& lineOne, VertexArray& lineTwo, VertexArray& lineThree, VertexArray& lineFour, std::string stringValue, std::string& error, double sizeY, int n) {
 	VertexArray myLines1(Lines, 1000);
 	VertexArray myLines2(Lines, 1000);
 
@@ -46,14 +47,10 @@ void isPressed(VertexArray& lineOne, VertexArray& lineTwo, VertexArray& lineThre
 
 	VertexArray myLines3(Lines, 1000);
 	VertexArray myLines4(Lines, 1000);
-	VertexArray myLines5(Lines, 1000);
-	VertexArray myLines6(Lines, 1000);
 	//*****************************
 
-	parser obj(stringValue);
-	calculator objC(stringValue, n);
-	std::cout << obj;
-	if (objC.GetSize() == 0 or obj.getOut() == "Error") {
+	calculator obj(stringValue, n);
+	if (obj.GetSize() == 0 or obj.getOut(stringValue) == "Error") {
 		error = "Error";
 		lineOne.clear();
 		lineTwo.clear();
@@ -61,19 +58,17 @@ void isPressed(VertexArray& lineOne, VertexArray& lineTwo, VertexArray& lineThre
 		//*****************************
 		lineThree.clear();
 		lineFour.clear();
-		lineFive.clear();
-		lineSix.clear();
 		//*****************************
 
 		return;
 	}
 
 	int const hz = 50;
-	draw(myLines1, myLines1, hz, objC.arrX, objC.arrY);
+	draw(myLines1, myLines1, hz, obj.arrX, obj.arrY);
 
 	//*****************************
-	draw(myLines3, myLines4, hz, objC.arrX, objC.arrY);
-	draw(myLines5, myLines6, hz, objC.arrX, objC.arrY);
+	draw(myLines3, myLines4, hz, obj.arrX, obj.arrY);
+	
 	//*****************************
 
 	error = "";
@@ -83,8 +78,6 @@ void isPressed(VertexArray& lineOne, VertexArray& lineTwo, VertexArray& lineThre
 	//*****************************
 	lineThree = myLines3;
 	lineFour = myLines4;
-	lineFive = myLines5;
-	lineSix = myLines6;
 	//*****************************
 }
 
@@ -101,9 +94,9 @@ double roundDouble(double val) {
 	return atof(s.c_str());
 }
 
-template<typename T, int max_size>
-void drawOci(double Ysize, double Xsize, Text  verticalNom[22], Text horizontalNom[22], Font arial, int n) {
-	int namb = 0, Xshag = 0, Yshag = Ysize;
+//template<typename T, int max_size>
+void drawOci(double sizeY, double sizeX, Text  verticalNom[], Text horizontalNom[], Font arial, int n) {
+	int namb = 0, Xshag = 0, Yshag = sizeY;
 	for (double i = roundDouble(-10 / pow(2, n) * 100) / 100.0; i <= roundDouble(10 / pow(2, n) * 100) / 100.0;
 		i += roundDouble(1 / pow(2, n) * 100) / 100.0) {
 		std::string s = std::to_string(i);
@@ -115,18 +108,18 @@ void drawOci(double Ysize, double Xsize, Text  verticalNom[22], Text horizontalN
 
 		std::cout << i << "  " << s << '\n';
 		if (i != 0) {
-			verticalNomber[namb].setFont(arial);
-			verticalNomber[namb].setCharacterSize(20);
-			verticalNomber[namb].setFillColor(Color::Black);
-			verticalNomber[namb].setString(s);
-			verticalNomber[namb].setPosition(Xshag - 5, Ysize / 2);
+			verticalNom[namb].setFont(arial);
+			verticalNom[namb].setCharacterSize(20);
+			verticalNom[namb].setFillColor(Color::Black);
+			verticalNom[namb].setString(s);
+			verticalNom[namb].setPosition(Xshag - 5, sizeY / 2);
 		}
 		else {
-			horizontNomber[namb].setFont(arial);
-			horizontNomber[namb].setCharacterSize(20);
-			horizontNomber[namb].setFillColor(Color::Black);
-			horizontNomber[namb].setString("0");
-			horizontNomber[namb].setPosition(Xsize / 4 + 5, Yshag);
+			horizontalNom[namb].setFont(arial);
+			horizontalNom[namb].setCharacterSize(20);
+			horizontalNom[namb].setFillColor(Color::Black);
+			horizontalNom[namb].setString("0");
+			horizontalNom[namb].setPosition(sizeX / 4 + 5, Yshag);
 			Yshag -= 50;
 			Xshag += 50;
 			namb++;
@@ -134,11 +127,11 @@ void drawOci(double Ysize, double Xsize, Text  verticalNom[22], Text horizontalN
 		}
 		Xshag += 50;
 
-		horizontNomber[namb].setFont(arial);
-		horizontNomber[namb].setCharacterSize(20);
-		horizontNomber[namb].setFillColor(Color::Black);
-		horizontNomber[namb].setString(s);
-		horizontNomber[namb].setPosition(Xsize / 4 + 5, Yshag);
+		horizontalNom[namb].setFont(arial);
+		horizontalNom[namb].setCharacterSize(20);
+		horizontalNom[namb].setFillColor(Color::Black);
+		horizontalNom[namb].setString(s);
+		horizontalNom[namb].setPosition(sizeX / 4 + 5, Yshag);
 		Yshag -= 50;
 
 		namb++;

@@ -17,12 +17,15 @@ public:
 	double DegToRad(double D)const;
 
 	int GetSize()const { return this->arrX.GetSize(); }
-	calculator(parser obj, int n)
+	calculator(std::string str, int n)
 	{
-		toGive(obj.getOut(), n);
+		toGive(ukp->toPstfx(str), n);
 	};
+	std::string getOut(std::string str) {
+		return ukp->toPstfx(str);
+	}
 	calculator() {};
-	parser* ukp;//????????
+	parser* ukp;
 
 	void getArr()const { 
 		std::cout << "x: ";
