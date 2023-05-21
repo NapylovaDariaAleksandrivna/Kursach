@@ -83,7 +83,7 @@ void calculator::toGive(std::string pref, int n)
     if (pref == "Error") {
         return;
     }
-    for (double x = -10  + 1; x <= 10  + 1; x += 0.02) {
+    for (double x = -11  + 1; x <= 10  + 1; x += 0.02) {
         double per = eval(pref, x);
 
         this->arrY.AddElemToMyVector(sizeDisplay - per * step * pow(2, n));
