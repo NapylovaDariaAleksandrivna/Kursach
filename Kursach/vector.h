@@ -15,7 +15,7 @@ public:
 	void PrintMyVector()const;
 	T& operator[](int index);
 	T operator[](int index)const;
-	MyVector& operator += (int);
+	MyVector& operator += (double);
 private:
 	T* arr;
 	int cur;

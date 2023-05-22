@@ -131,6 +131,12 @@ int main() {
 	//this made for thick line
 	VertexArray lineThree(Lines, 1000);
 	VertexArray lineFour(Lines, 1000);
+	VertexArray lineFive(Lines, 1000);
+	VertexArray lineSix(Lines, 1000);
+	VertexArray lineSeven(Lines, 1000);
+	VertexArray lineEight(Lines, 1000);
+	VertexArray lineNine(Lines, 1000);
+	VertexArray lineTen(Lines, 1000);
 	//*****************************
 
 	int n = 0;
@@ -198,8 +204,11 @@ int main() {
 			}
 			if (Keyboard::isKeyPressed(Keyboard::Return) ) {
 				
-				isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, sizeY, n);
-				
+				isPressed(lineOne, lineTwo, stringValue, error, sizeY, n, 0,0);
+				isPressed(lineThree, lineFour, stringValue, error, sizeY, n, 1, 0);
+				isPressed(lineFive, lineSix, stringValue, error, sizeY, n, -1, 0);
+				isPressed(lineSeven, lineEight, stringValue, error, sizeY, n, 0, 1);
+				isPressed(lineNine, lineTen, stringValue, error, sizeY, n, 0,-1);
 			}
 			if (ev.type == Event::MouseButtonPressed) {
 				if (ev.key.code == Mouse::Left) {
@@ -246,8 +255,15 @@ int main() {
 
 							namb++;
 						}
-						if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, sizeY, n);
+						if (stringValue != "") {
+
+							isPressed(lineOne, lineTwo, stringValue, error, sizeY, n, 0, 0);
+							isPressed(lineThree, lineFour, stringValue, error, sizeY, n, 1, 0);
+							isPressed(lineFive, lineSix, stringValue, error, sizeY, n, -1, 0);
+							isPressed(lineSeven, lineEight, stringValue, error, sizeY, n, 0, 1);
+							isPressed(lineNine, lineTen, stringValue, error, sizeY, n, 0,-1);
+						}
+
 
 					}
 					else if (buttonPlus.getGlobalBounds().contains(mousePos.x, mousePos.y) && n < 2) {
@@ -293,58 +309,124 @@ int main() {
 
 							namb++;
 						}
-						if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, sizeY, n);
+						if (stringValue != "") {
+
+							isPressed(lineOne, lineTwo, stringValue, error, sizeY, n, 0, 0);
+							isPressed(lineThree, lineFour, stringValue, error, sizeY, n, 1, 0);
+							isPressed(lineFive, lineSix, stringValue, error, sizeY, n, -1, 0);
+							isPressed(lineSeven, lineEight, stringValue, error, sizeY, n, 0, 1);
+							isPressed(lineNine, lineTen, stringValue, error, sizeY, n, 0,-1);
+						}
 					}
 					else if (buttonOne.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
 						stringValue = "x^2";
-						if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, sizeY, n);
+						if (stringValue != "") {
+
+							isPressed(lineOne, lineTwo, stringValue, error, sizeY, n, 0, 0);
+							isPressed(lineThree, lineFour, stringValue, error, sizeY, n, 1, 0);
+							isPressed(lineFive, lineSix, stringValue, error, sizeY, n, -1, 0);
+							isPressed(lineSeven, lineEight, stringValue, error, sizeY, n, 0, 1);
+							isPressed(lineNine, lineTen, stringValue, error, sizeY, n, 0,-1);
+						}
 					}
 					else if (buttonTwo.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
 						stringValue = "1/x";
-						if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, sizeY, n);
+						if (stringValue != "") {
+
+							isPressed(lineOne, lineTwo, stringValue, error, sizeY, n, 0, 0);
+							isPressed(lineThree, lineFour, stringValue, error, sizeY, n, 1, 0);
+							isPressed(lineFive, lineSix, stringValue, error, sizeY, n, -1, 0);
+							isPressed(lineSeven, lineEight, stringValue, error, sizeY, n, 0, 1);
+							isPressed(lineNine, lineTen, stringValue, error, sizeY, n, 0,-1);
+						}
 					}
 					else if (buttonThree.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
 						stringValue = "2^x";
-						if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, sizeY, n);
+						if (stringValue != "") {
+
+							isPressed(lineOne, lineTwo, stringValue, error, sizeY, n, 0, 0);
+							isPressed(lineThree, lineFour, stringValue, error, sizeY, n, 1, 0);
+							isPressed(lineFive, lineSix, stringValue, error, sizeY, n, -1, 0);
+							isPressed(lineSeven, lineEight, stringValue, error, sizeY, n, 0, 1);
+							isPressed(lineNine, lineTen, stringValue, error, sizeY, n, 0,-1);
+						}
 					}
 					else if (buttonFour.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
 						stringValue = "lgx";
-						if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, sizeY, n);
+						if (stringValue != "") {
+
+							isPressed(lineOne, lineTwo, stringValue, error, sizeY, n, 0, 0);
+							isPressed(lineThree, lineFour, stringValue, error, sizeY, n, 1, 0);
+							isPressed(lineFive, lineSix, stringValue, error, sizeY, n, -1, 0);
+							isPressed(lineSeven, lineEight, stringValue, error, sizeY, n, 0, 1);
+							isPressed(lineNine, lineTen, stringValue, error, sizeY, n, 0,-1);
+						}
 					}
 					else if (buttonFive.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
 						stringValue = "log2x";
-						if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, sizeY, n);
+						if (stringValue != "") {
+
+							isPressed(lineOne, lineTwo, stringValue, error, sizeY, n, 0, 0);
+							isPressed(lineThree, lineFour, stringValue, error, sizeY, n, 1, 0);
+							isPressed(lineFive, lineSix, stringValue, error, sizeY, n, -1, 0);
+							isPressed(lineSeven, lineEight, stringValue, error, sizeY, n, 0, 1);
+							isPressed(lineNine, lineTen, stringValue, error, sizeY, n, 0,-1);
+						}
 					}
 					else if (buttonSix.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
 						stringValue = "sinx";
-						if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, sizeY, n);
+						if (stringValue != "") {
+
+							isPressed(lineOne, lineTwo, stringValue, error, sizeY, n, 0, 0);
+							isPressed(lineThree, lineFour, stringValue, error, sizeY, n, 1, 0);
+							isPressed(lineFive, lineSix, stringValue, error, sizeY, n, -1, 0);
+							isPressed(lineSeven, lineEight, stringValue, error, sizeY, n, 0, 1);
+							isPressed(lineNine, lineTen, stringValue, error, sizeY, n, 0,-1);
+						}
 					}
 					else if (buttonSeven.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
 						stringValue = "cosx";
-						if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, sizeY, n);
+						if (stringValue != "") {
+
+							isPressed(lineOne, lineTwo, stringValue, error, sizeY, n, 0, 0);
+							isPressed(lineThree, lineFour, stringValue, error, sizeY, n, 1, 0);
+							isPressed(lineFive, lineSix, stringValue, error, sizeY, n, -1, 0);
+							isPressed(lineSeven, lineEight, stringValue, error, sizeY, n, 0, 1);
+							isPressed(lineNine, lineTen, stringValue, error, sizeY, n, 0,-1);
+						}
 					}
 					else if (buttonEight.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
 						stringValue = "tgx";
-						if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, sizeY, n);
+						if (stringValue != "") {
+
+							isPressed(lineOne, lineTwo, stringValue, error, sizeY, n, 0, 0);
+							isPressed(lineThree, lineFour, stringValue, error, sizeY, n, 1, 0);
+							isPressed(lineFive, lineSix, stringValue, error, sizeY, n, -1, 0);
+							isPressed(lineSeven, lineEight, stringValue, error, sizeY, n, 0, 1);
+							isPressed(lineNine, lineTen, stringValue, error, sizeY, n, 0,-1);
+						}
 					}
 					else if (buttonNine.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
 						stringValue = "ctgx";
-						if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, sizeY, n);
+						if (stringValue != "") {
+
+							isPressed(lineOne, lineTwo, stringValue, error, sizeY, n, 0, 0);
+							isPressed(lineThree, lineFour, stringValue, error, sizeY, n, 1, 0);
+							isPressed(lineFive, lineSix, stringValue, error, sizeY, n, -1, 0);
+							isPressed(lineSeven, lineEight, stringValue, error, sizeY, n, 0, 1);
+							isPressed(lineNine, lineTen, stringValue, error, sizeY, n, 0,-1);
+						}
 					}
 					else if (buttonTen.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
 						stringValue = "lnx";
-						if (stringValue != "")
-							isPressed(lineOne, lineTwo, lineThree, lineFour, stringValue, error, sizeY, n);
+						if (stringValue != "") {
+
+							isPressed(lineOne, lineTwo, stringValue, error, sizeY, n, 0, 0);
+							isPressed(lineThree, lineFour, stringValue, error, sizeY, n, 1, 0);
+							isPressed(lineFive, lineSix, stringValue, error, sizeY, n, -1, 0);
+							isPressed(lineSeven, lineEight, stringValue, error, sizeY, n, 0, 1);
+							isPressed(lineNine, lineTen, stringValue, error, sizeY, n, 0,-1);
+						}
 					}
 					
 				}
@@ -387,7 +469,12 @@ int main() {
 
 		win.draw(lineThree);
 		win.draw(lineFour);
-		
+		win.draw(lineEight);
+		win.draw(lineFive); 
+		win.draw(lineSix);
+		win.draw(lineSeven);
+		win.draw(lineNine);
+		win.draw(lineTen);
 		
 		win.draw(poleRigth);
 

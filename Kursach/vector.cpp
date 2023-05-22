@@ -51,7 +51,7 @@ void MyVector<T, max_size>::PrintMyVector() const
 }
 
 template<typename T, int max_size>
-MyVector<T, max_size>& MyVector<T, max_size>::operator+=(int a)
+MyVector<T, max_size>& MyVector<T, max_size>::operator+=(double a)
 {
 	for (int i = 0; i < cur; ++i)
 	{

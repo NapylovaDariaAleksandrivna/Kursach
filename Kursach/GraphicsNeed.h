@@ -1,7 +1,7 @@
 #pragma once
 #include<SFML/Graphics.hpp>
+
 #include "vector.h"
-#include <stdlib.h>
 using namespace sf;
 template<typename T, int max_size>
 inline void draw(VertexArray &myLines1, VertexArray &myLines2, int hz, MyVector<T, max_size>& arrX, MyVector<T, max_size>& arrY) {
@@ -39,14 +39,10 @@ void GribPole(VertexArray &verticalGrib, VertexArray &horizontalGrib, RectangleS
 	pole.setPosition(sizeX / 2, 0);
 	pole.setFillColor(Color::Black);
 }
-void isPressed(VertexArray& lineOne, VertexArray& lineTwo, VertexArray& lineThree, VertexArray& lineFour, std::string stringValue, std::string& error, double sizeY, int n) {
+void isPressed(VertexArray& lineOne, VertexArray& lineTwo, std::string stringValue, std::string& error, double sizeY, int n, int nomX, int nomY) {
 	VertexArray myLines1(Lines, 2000);
 	VertexArray myLines2(Lines, 2000);
 
-	//*****************************
-
-	VertexArray myLines3(Lines, 2000);
-	VertexArray myLines4(Lines, 2000);
 	//*****************************
 
 	calculator obj(stringValue, n);
@@ -56,28 +52,18 @@ void isPressed(VertexArray& lineOne, VertexArray& lineTwo, VertexArray& lineThre
 		lineTwo.clear();
 
 		//*****************************
-		lineThree.clear();
-		lineFour.clear();
-		//*****************************
 
 		return;
 	}
 
 	int const hz = 50;
-	draw(myLines1, myLines1, hz, obj.arrX, obj.arrY);
+	draw(myLines1, myLines2, hz, obj.arrX += nomX , obj.arrY+=nomY);
 
-	//*****************************
-	draw(myLines3, myLines4, hz, obj.arrX, obj.arrY);
-	
 	//*****************************
 
 	error = "";
 	lineOne = myLines1;
 	lineTwo = myLines2;
-
-	//*****************************
-	lineThree = myLines3;
-	lineFour = myLines4;
 	//*****************************
 }
 
