@@ -40,6 +40,8 @@ void GribPole(VertexArray &verticalGrib, VertexArray &horizontalGrib, RectangleS
 	pole.setFillColor(Color::Black);
 }
 void isPressed(VertexArray& lineOne, VertexArray& lineTwo, std::string stringValue, std::string& error, double sizeY, int n, int nomX, int nomY) {
+
+	
 	VertexArray myLines1(Lines, 2000);
 	VertexArray myLines2(Lines, 2000);
 

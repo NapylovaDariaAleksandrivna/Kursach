@@ -189,6 +189,8 @@ int main() {
 	
 
 	while (win.isOpen()) {
+		clock_t times;
+		times = clock();
 		Event ev;
 		while (win.pollEvent(ev)) {
 			if (ev.type == Event::Closed) {
@@ -511,22 +513,11 @@ int main() {
 			sleep(milliseconds(time_to_sleep));
 		}
 		loop_timer.restart();
+		if ((double)((double)(clock() - times) / CLOCKS_PER_SEC) > 0.022) {
+			std::cout << (double)((double)(clock() - times) / CLOCKS_PER_SEC) << '\n';
+		}
 		win.display();
+		
 	}
 }
 #endif // Task3
-
-#ifdef Task1
-#include"calculator.h"
-#include <iostream>
-using namespace std;
-int main() {
-	parser obj;
-	cin >> obj;
-	cout << obj;
-	calculator text;
-	
-	text.toGive(obj.getOut());
-	cout << text;
-}
-#endif // Task1
