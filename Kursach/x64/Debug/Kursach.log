@@ -157,4 +157,5 @@ D:\PROGRAMMIROVANIE\Kursach\Kursach\GraphicsNeed.h(16,45): warning C4244: арг
           [
               T=float
           ]
+  LINK : не найден или не выполнена сборка D:\PROGRAMMIROVANIE\Kursach\x64\Debug\Kursach.exe при последней инкрементной компоновке; выполняется полная компоновка
   Kursach.vcxproj -> D:\PROGRAMMIROVANIE\Kursach\x64\Debug\Kursach.exe
